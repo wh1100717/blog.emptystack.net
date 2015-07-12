@@ -53,6 +53,8 @@ db.drop('bar') # true / false
 db.drop()      # true / false
 ```
 
+<!-- more -->
+
 > Collection
 
 ```coffee

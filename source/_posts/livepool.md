@@ -15,6 +15,8 @@ tags:
 
 这使得前端的开发工作完全依赖并等待后端开发的进度。
 
+<!-- more -->
+
 通过使用livepool和tianma，可以截获请求构造假数据的方式来解决以上提到的问题，类似的替代方案可以通过fiddler来实现，但是fiddler只支持windows平台，而livepool是跨平台方案。
 
 #### livepool

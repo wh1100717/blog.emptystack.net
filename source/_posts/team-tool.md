@@ -18,8 +18,6 @@ Markdown 是一种方便记忆、书写的纯文本标记语言，用户可以�
 
 $$f(x_1,x_x,\ldots,x_n) = x_1^2 + x_2^2 + \cdots + x_n^2 $$
 
-$$\sum^{j-1}_{k=0}{\widehat{\gamma}_{kj} z_k}$$
-
 *   高亮一段 **代码**
 
 ```python
@@ -32,7 +30,9 @@ if __name__ == '__main__':
     print 'hello world'
 ```
 
-*   高效绘制 **流程图**
+<!-- more -->
+
+*   高效绘制 **流程图** (在[Cmd Markdown](https://www.zybuluo.com)下有效)
 
 ```flow
 st=>start: Start
@@ -45,7 +45,7 @@ cond(yes)->e
 cond(no)->op
 ```
 
-*   高效绘制 **序列图**
+*   高效绘制 **序列图** (在[Cmd Markdown](https://www.zybuluo.com)下有效)
 
 ```seq
 Alice->Bob: Hello Bob, how are you?

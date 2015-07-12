@@ -14,6 +14,8 @@ tags:
 
 通过查看天马的API，获取代码如下：
 
+<!-- more -->
+
 ```
 tianma
     .createHost({ port: 80 })

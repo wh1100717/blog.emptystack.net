@@ -26,6 +26,8 @@ Firebase的注册非常简单，可以直接用Github账号进行授权注册。
 
 创建完应用后直接通过`https://<your-firebase>.firebaseio.com/`进入后台管理界面
 
+<!-- more -->
+
 #### 引用Firebase
 
 如果Nodejs服务器使用Firebase的话，可以使用npm来安装firebase的依赖库。如果是前端js中使用的话，可以使用bower来安装firebase的依赖库(webpack/browserify也可以使用npm)。

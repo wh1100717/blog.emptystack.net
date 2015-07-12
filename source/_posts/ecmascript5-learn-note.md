@@ -21,6 +21,8 @@ tags:
 
 > es5-shim提供了ES5的部分实现，其中有一部分需要依赖底层engine，为了保证在地浏览器中js不报错，对其中该部分的API做了封装，但是并不保证一定能正确执行，需要额外引用es5-sham。简单来说，如果需要考虑浏览器兼容性的问题，则不要使用Object在ES5上进行的扩展。具体请参考如下文档 https://github.com/es-shims/es5-shim 。
 
+<!-- more -->
+
 ## Array
 
 ### Array.isArray(arg)

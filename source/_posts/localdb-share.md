@@ -34,6 +34,8 @@ HTML5提供了三种存储方式：Web Storage, indexedDB 和 applicationCache�
 
 *   webStorage提供简单的键值对存储，使数据可以在同一域的页面中共享，其中localStorage提供的存储即使浏览器关闭了也仍然会存储，真正意义上实现了浏览器数据存储的持久化。
 
+<!-- more -->
+
 我们再试想一下未来的前端业务场景可能会如何？
 
 *   基于前端用户行为自动化定制个性化网页

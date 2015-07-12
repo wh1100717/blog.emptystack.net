@@ -30,6 +30,8 @@ tags:
 *   执行速度还可以
 *   众多基于Nodejs构建的前端开发、调试、部署工具
 
+<!-- more -->
+
 ## How to use Nodejs
 
 ### 如何安装

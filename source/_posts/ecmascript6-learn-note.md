@@ -39,6 +39,8 @@ ES6 包含以下新特性：
 *   reflect api
 *   tail calls
 
+<!-- more -->
+
 ## 尝试ECMAScript 6
 
 目前现代浏览器部分支持ES6特性，如果想进行测试，可以使用以下方式：

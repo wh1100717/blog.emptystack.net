@@ -31,6 +31,8 @@ API Reference: http://localdb.emptystack.net/
 
 ## 整体架构
 
+<!-- more -->
+
 LocalDB采用模块化开发的方式，通过requirejs对模块进行加载和控制，目前分为如下模块：
 
 *   localdb: 项目的入口模块，负责对LocalDB提供初始化支持，并提供了常用的类方法。主要依赖core/collection，并对core/engine和core/server模块进行初始化。
