@@ -69,6 +69,6 @@ theme: yilia
 ## Docs: http://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://github.com/wh1100717/blog.emptystack.net
+  repo: http://github.com/wh1100717/blog.emptystack.net
   branch: gh-pages
 
