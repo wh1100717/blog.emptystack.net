@@ -105,7 +105,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/localdb/" style="font-size: 10px;">localdb</a>
+						<a href="/tags/BAAS/" style="font-size: 10px;">BAAS</a> <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/ECMAScript/" style="font-size: 13.33px;">ECMAScript</a> <a href="/tags/Firebase/" style="font-size: 10px;">Firebase</a> <a href="/tags/LeanCloud/" style="font-size: 10px;">LeanCloud</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/less/" style="font-size: 10px;">less</a> <a href="/tags/livepool/" style="font-size: 10px;">livepool</a> <a href="/tags/localdb/" style="font-size: 16.67px;">localdb</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/stylus/" style="font-size: 10px;">stylus</a> <a href="/tags/tianma/" style="font-size: 10px;">tianma</a> <a href="/tags/团队/" style="font-size: 10px;">团队</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/笔记/" style="font-size: 20px;">笔记</a>
 					</div>
 				</section>
 				
@@ -168,6 +168,712 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-lighten-difference-between-stylus-and-less" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/07/05/lighten-difference-between-stylus-and-less/" class="article-date">
+  	<time datetime="2015-07-05T00:00:00.000Z" itemprop="datePublished">2015-07-05</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/07/05/lighten-difference-between-stylus-and-less/">Stylus和Less中颜色计算公式的差异</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在写Stylus的时候会发现其 <code>lighten/darken</code> 函数和Less中得到的结果是不同的，深入了解后发现其实这是一个很有趣的问题。实际上Less/Sass对于lighten/darken的只提供了数值型的函数实现，然而输入参数却要求百分比的形式(非常奇怪的设定)。而Stylus提供了数值型、百分比类型的lighten/darken函数标准。<br>具体颜色计算算法如下：</p>
+<h3 id="Stylus:">Stylus:</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">hsl</span><span class="params">(<span class="number">0deg</span>, <span class="number">0%</span>, <span class="number">17%</span>)</span></span>          <span class="comment">// #2b2b2b</span></span><br><span class="line"><span class="function"><span class="title">lighten</span><span class="params">(<span class="hexcolor">#2b2b2b</span>, <span class="number">10</span>)</span></span>        <span class="comment">// #454545</span></span><br><span class="line"><span class="function"><span class="title">hsl</span><span class="params">(<span class="number">0deg</span>, <span class="number">0%</span>, <span class="number">27%</span>)</span></span>          <span class="comment">// #454545</span></span><br><span class="line"><span class="function"><span class="title">lighten</span><span class="params">(<span class="hexcolor">#2b2b2b</span>, <span class="number">10%</span>)</span></span>       <span class="comment">// #404040</span></span><br><span class="line"><span class="function"><span class="title">hsl</span><span class="params">(<span class="number">0deg</span>, <span class="number">0%</span>, <span class="number">25%</span>)</span></span>          <span class="comment">// #404040</span></span><br></pre></td></tr></table></figure>
+<p>Stylus将颜色转换为hsl进行计算。如果为数值类型计算公式为<code>lightness += amount</code>，如果为百分比类型则<code>lightness += (1 - lightness) * percent</code></p>
+<p>根据上例所示，执行<code>lighten(#2b2b2b, 10)</code>实际上是在其hsl模式下增加了lightness属性增加了10个百分点，变为27%。而执行<code>lighten(#2b2b2b, 10%)</code> 则执行了 <code>0.17 + (1 - 0.17) * 10% = 0.253</code>，四舍五入后为25%。</p>
+<h3 id="Less">Less</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hsl(0deg, 0%, 17%)          // #2b2b2b</span><br><span class="line">lighten(#2b2b2b, 10%)       // #454545</span><br><span class="line">hsl(0deg, 0%, 27%)          // $454545</span><br></pre></td></tr></table></figure>
+<p>从上面代码可以看出，Less在计算lightness时，计算公式为<code>lightness += percent * 100</code> 即与Stylus中amount类型相同。</p>
+<h3 id="结论">结论</h3><p>Less实际上只提供了数值类型输入的函数(虽然输入形式上于Stylus中百分比类型相同，但实际效果与Stylus中数值类型相同)，而Stylus提供了两种类型的输入，因此如果要将Less项目重构为Stylus类型，则Less中<code>lighten(#2b2b2b, 10%)</code> 与stylus中<code>lighten(#2b2b2b, 10)</code>等同。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/less/">less</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stylus/">stylus</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-baas-develop" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/05/12/baas-develop/" class="article-date">
+  	<time datetime="2015-05-12T00:00:00.000Z" itemprop="datePublished">2015-05-12</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/05/12/baas-develop/">基于BAAS的跨平台实时无后端开发实践</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>设想一下，如果在某些场景下，后端请求可以抽象成固定模型(比如符合RESTful API接口规范)，那么数据的查询、存储、更新、删除操作便完全可以流程化和自动化，我们也不需要额外的投入人力去进行后端的开发，更不需要额外的搭建服务器来响应请求。这种把后端资源作为Service的模式称之为BAAS(Backend As A Service)。</p>
+<p>实际上，随着Web技术和移动端技术的发展，开发模式已经发生了很大变化，逻辑层内容完全可以在前端/移动端完成，而后端更多的是提供数据层的支持，但这不意味着后端只是提供简单的数据存储查询接口服务，更多的内容需要后端来支持，比如说提供实时数据广播支持，消息推送支持、自动化邮箱验证支持、自动化授权支持、数据和接口调用分析支持、跨平台多终端支持。很遗憾，就目前来说，大部分的后端项目对于以上新特性支持力度都不大，一方面需要比较多的开发精力，一方面业务需求不同，也并不一定需要。但总的来说，任何新技术需求都需要额外投入开发成本，推动起来难度都很大。</p>
+<p>提供BAAS产品服务的公司有很多家，比如国内的<a href="https://leancloud.cn/" target="_blank" rel="external">LeanCloud</a>, 国外的<a href="https://www.firebase.com/" target="_blank" rel="external">Firebase</a>。</p>
+<p>以Firebase为例，体验一下BAAS爽快的开发模式。</p>
+<h2 id="Startup">Startup</h2><h4 id="注册">注册</h4><p>Firebase的注册非常简单，可以直接用Github账号进行授权注册。</p>
+<p>创建完账号以后，需要创建一个App应用。</p>
+<p>创建完应用后直接通过<code>https://&lt;your-firebase&gt;.firebaseio.com/</code>进入后台管理界面</p>
+<h4 id="引用Firebase">引用Firebase</h4><p>如果Nodejs服务器使用Firebase的话，可以使用npm来安装firebase的依赖库。如果是前端js中使用的话，可以使用bower来安装firebase的依赖库(webpack/browserify也可以使用npm)。</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="operator"><span class="keyword">install</span> firebase <span class="comment">--save</span></span><br><span class="line"><span class="keyword">or</span></span><br><span class="line">bower <span class="keyword">install</span> firebase <span class="comment">--save</span></span></span><br></pre></td></tr></table></figure>
+<p>当在页面中引用了firebase后，需要初始化一个Firebase的引用</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Firebase = <span class="built_in">require</span>(<span class="string">"firebase"</span>)</span><br><span class="line"><span class="keyword">var</span> fbRef = <span class="keyword">new</span> Firebase(<span class="string">"https://&lt;your-firebase&gt;.firebaseio.com/"</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="数据存储和修改操作">数据存储和修改操作</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//存数据</span></span><br><span class="line"><span class="keyword">var</span> usersRef = fbRef.child(<span class="string">"users"</span>);</span><br><span class="line">usersRef.set(&#123;</span><br><span class="line">    eric: &#123;</span><br><span class="line">        full_name: <span class="string">"Alan Turing"</span>,</span><br><span class="line">        hobbies: [<span class="string">"电影"</span>],</span><br><span class="line">        plans: [&#123;</span><br><span class="line">            name: <span class="string">"旅游"</span>,</span><br><span class="line">            time: <span class="string">"2016-06-01"</span></span><br><span class="line">        &#125;],</span><br><span class="line">        likeCount: <span class="number">100</span>,</span><br><span class="line">        unused: <span class="string">"will be deleted"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    wendy: &#123;</span><br><span class="line">        full_name: <span class="string">"Wendy Liu"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;, <span class="function"><span class="keyword">function</span>(<span class="params">error</span>)</span>&#123;</span><br><span class="line">    <span class="comment">//其他的操作也都可以通过回调函数的方式来获取到操作结果</span></span><br><span class="line">    <span class="keyword">if</span>(error == <span class="literal">undefined</span>)&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"save success"</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//更新数据</span></span><br><span class="line">usersRef.child(<span class="string">"eric"</span>).update(&#123;</span><br><span class="line">    full_name: <span class="string">"Eric Wang"</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">//如果数据格式为List，如下操作可以插入一条数据</span></span><br><span class="line">usersRef.child(<span class="string">"eric/hobbies"</span>).push(<span class="string">"游泳"</span>)</span><br><span class="line"><span class="comment">//也可以插入一个对象</span></span><br><span class="line">usersRef.child(<span class="string">"eric/plans"</span>).push(&#123;</span><br><span class="line">    name: <span class="string">"健身"</span></span><br><span class="line">    time: <span class="string">"2016-07-01"</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">//删除一条数据</span></span><br><span class="line">usersRef.child(<span class="string">"eric/unused"</span>).set(<span class="literal">null</span>)</span><br><span class="line"><span class="comment">//避免多个客户端同时修改文件可以使用如下方法</span></span><br><span class="line">usersRef.child(<span class="string">"eric/likeCount"</span>).transaction(<span class="function"><span class="keyword">function</span>(<span class="params">currentLikeCount</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> currentLikeCount + <span class="number">1</span>;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="数据实时读取操作">数据实时读取操作</h4><p>数据读取方面，Firebase不同于普通服务器，Firebase不仅提供了普通的查询接口，还使用了事件监听类型的读取接口，开发者可以直接通过事件监听的方式来获取到数据库中最新的数据变更，并及时进行数据同步，具体的读取接口类型如下：</p>
+<ul>
+<li>value:  <code>value</code>被用来读取指定内容的静态快照，如果数据发生变更，则对应的回调函数会被执行。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">usersRef.on(<span class="string">"value"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">snapshot</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(snapshot.val());</span><br><span class="line">&#125;, <span class="function"><span class="keyword">function</span>(<span class="params">errorObject</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"The read failed: "</span> + errorObject.code);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>child_dded: 与<code>value</code>每次返回所有内容不同，<code>child_added</code>只有在指定内容中增加child时才会被触发，回调函数中包含新增的元素。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">usersRef.on(<span class="string">"child_added"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">snapshot</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> newUser = snapshot.val();</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Name: "</span> + newUser.name);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>child_changed: 只有在指定数据的child被更新时才会被触发，回调函数中包含被修改的元素。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">usersRef.on(<span class="string">"child_changed"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">snapshot</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> changedUser = snapshot.val();</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"Name has been changed to "</span>, changedUser.name);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>child_removed: 只有在指定数据的child被删除的时候才会被触发，回调函数中包含被删除的元素。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">usersRef.on(<span class="string">"child_removed"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">snapshot</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> deletedUser = snapshot.val();</span><br><span class="line">    <span class="built_in">console</span>.log(deleteUser.name + <span class="string">" has been deleted"</span>);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>child_moved: 当有序数据数据发生更改时会被触发</li>
+</ul>
+<p>如果想要关闭数据监听，可以使用如下方式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//需要传入发起监听对应的监听函数作为originalCallback传入</span></span><br><span class="line">usersRef.off(<span class="string">"value"</span>, originalCallback)</span><br><span class="line"><span class="comment">//取消所有该类型的监听</span></span><br><span class="line">usersRef.off(<span class="string">"value"</span>)</span><br><span class="line"><span class="comment">//取消所有的监听</span></span><br><span class="line">usersRef.off()</span><br></pre></td></tr></table></figure>
+<p>如果只是想读取一次信息，则可以使用如下方式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">usersRef.once(<span class="string">"value"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(data);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>Firebase也提供了数据筛选、排序等功能，具体内容可以参考<a href="https://www.firebase.com/docs/web/guide/retrieving-data.html#section-queries" target="_blank" rel="external">文档</a></p>
+<h4 id="Authentication">Authentication</h4><p>Firebase提供了如下的授权和认证类型：</p>
+<ul>
+<li>集成Facebook, Github, Google, Twitter账号授权</li>
+<li>Email &amp; Password 登陆机制和账号管理</li>
+<li>Single-session 匿名登陆</li>
+<li>自定义登陆token(可以集成自己的认证服务器或SSO)</li>
+</ul>
+<p>以Email &amp; Password方式为例。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//获取用户</span></span><br><span class="line"><span class="keyword">var</span> authRef = <span class="keyword">new</span> Firebase(<span class="string">"https://dingo-coder.firebaseio.com/"</span>)</span><br><span class="line"><span class="comment">//获取登陆信息，如果未登录则为null</span></span><br><span class="line"><span class="built_in">console</span>.log(authRef.getAuth())</span><br><span class="line"><span class="comment">//用户注册</span></span><br><span class="line">authRef.createUser(&#123;</span><br><span class="line">    email: <span class="string">"test@test.com"</span></span><br><span class="line">    password: <span class="string">"test"</span></span><br><span class="line">&#125;, <span class="function"><span class="keyword">function</span>(<span class="params">error, userData</span>)</span>&#123;</span><br><span class="line">    ....</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">//用户登陆</span></span><br><span class="line">authRef.authWithPassword(&#123;</span><br><span class="line">    email: <span class="string">"test@test.com"</span></span><br><span class="line">    password: <span class="string">"test"</span></span><br><span class="line">&#125;, <span class="function"><span class="keyword">function</span>(<span class="params">error, authData</span>)</span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">//注销</span></span><br><span class="line">authRef.unauth()</span><br><span class="line"><span class="comment">//修改邮箱</span></span><br><span class="line">authRef.changeEmail(&#123;</span><br><span class="line">    oldEmail: <span class="string">"test@test.com"</span></span><br><span class="line">    newEmail: <span class="string">"new_test@test.com"</span></span><br><span class="line">    password: <span class="string">"test"</span></span><br><span class="line">&#125;, <span class="function"><span class="keyword">function</span>(<span class="params">error</span>)</span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">//修改密码</span></span><br><span class="line">authRef.changePassword(&#123;</span><br><span class="line">    email: <span class="string">"test@test.com"</span></span><br><span class="line">    oldPassword: <span class="string">"test"</span></span><br><span class="line">    newPassword: <span class="string">"newtest"</span></span><br><span class="line">&#125;, <span class="function"><span class="keyword">function</span>(<span class="params">error</span>)</span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">//重置密码，此时Firebase会给注册邮箱发送密码重置邮件</span></span><br><span class="line">authRef.resetPassword(&#123;</span><br><span class="line">    email: <span class="string">"test@test.com"</span></span><br><span class="line">&#125;, <span class="function"><span class="keyword">function</span>(<span class="params">error</span>)</span>&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h4 id="Security_&amp;_Rules">Security &amp; Rules</h4><p>Firebase的安全和规则设置非常灵活，可以细粒度到数据中每一项的内容。并且具有比较强大的匹配方式。详细内容可以查看<a href="https://www.firebase.com/docs/security/" target="_blank" rel="external">文档</a>，这里以<strong>只有登陆用户才有权限获取对应Users表中自己信息</strong>的需求来看一下规则是如何设置的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">"rules"</span>: &#123;</span><br><span class="line">    <span class="string">"public"</span>: &#123;</span><br><span class="line">      <span class="string">".read"</span>: <span class="literal">true</span>,</span><br><span class="line">      <span class="string">".write"</span>: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"admin"</span>: &#123;</span><br><span class="line">      <span class="string">".read"</span>: <span class="string">"auth.uid === 'admin'"</span>,</span><br><span class="line">      <span class="string">".write"</span>: <span class="string">"auth.uid === 'admin'"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="string">"users"</span>: &#123;</span><br><span class="line">      <span class="string">"$user_id"</span>: &#123;</span><br><span class="line">        <span class="string">".read"</span>: <span class="string">"$user_id === auth.uid"</span>,</span><br><span class="line">        <span class="string">".write"</span>: <span class="string">"$user_id === auth.uid"</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如上的配置规则可以看到，其中分为两项：<code>public</code>、<code>admin</code>和<code>users</code>。其中<code>public</code>表示任何人对其有读写权限，<code>admin</code>表示只有uid为<code>admin</code>的用户才有权限,，<code>users</code>表示只有对应的<code>user_id</code>和<code>auth.uid</code>相同的用户才可以访问，及用户只能访问符合该规则的数据。</p>
+<p>Rules非常强大，除了做权限控制还有很多别的用处，比如数据Validation、设置index、数据排序方式设置等。</p>
+<h4 id="What’s_more?">What’s more?</h4><p>Firebase还有很多功能，感兴趣的可以详细了解~~</p>
+<ul>
+<li>Dashboard进行调用监控、分析</li>
+<li>Android、IOS的SDK</li>
+<li>REST API 接口</li>
+<li>Offline数据缓存机制</li>
+<li>多终端同步机制</li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BAAS/">BAAS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Firebase/">Firebase</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/LeanCloud/">LeanCloud</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-ecmascript6-learn-note" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/04/13/ecmascript6-learn-note/" class="article-date">
+  	<time datetime="2015-04-13T00:00:00.000Z" itemprop="datePublished">2015-04-13</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/04/13/ecmascript6-learn-note/">ECMAScript 6 学习笔记</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="介绍">介绍</h2><p>ECMAScript 6 是 ECMAScript 标准即将到来的版本。该标准计划于2015年7月批准并实施。相比于在2009年更新的ES5标准，ES6对Javascript语言进行了一系列非常重要的更新。主要的js引擎对标准中的新特性的实现已经在进行中了。</p>
+<p>想要查看ES6全部的新特性描述点击 <a href="https://people.mozilla.org/~jorendorff/es6-draft.html" target="_blank" rel="external">这里</a></p>
+<p>大部分内容来自于 <a href="https://github.com/lukehoban/es6features" target="_blank" rel="external">es6features</a></p>
+<p>ES6 包含以下新特性：</p>
+<ul>
+<li>arrows</li>
+<li>classes</li>
+<li>enhanced object literals</li>
+<li>template strings</li>
+<li>destructuring</li>
+<li>default + rest + spread</li>
+<li>let + const</li>
+<li>iterators + for..of</li>
+<li>generators</li>
+<li>unicode</li>
+<li>modules</li>
+<li>module loaders</li>
+<li>map + set + weakmap + weakset</li>
+<li>proxies</li>
+<li>symbols</li>
+<li>subclassable built-ins</li>
+<li>promises</li>
+<li>math + number + string + object APIs</li>
+<li>binary and octal literals</li>
+<li>reflect api</li>
+<li>tail calls</li>
+</ul>
+<h2 id="尝试ECMAScript_6">尝试ECMAScript 6</h2><p>目前现代浏览器部分支持ES6特性，如果想进行测试，可以使用以下方式：</p>
+<ul>
+<li>Google Traceur, 使用Chrome插件 <a href="https://chrome.google.com/webstore/detail/es6-repl/alploljligeomonipppgaahpkenfnfkn" target="_blank" rel="external">ES6 Tepl</a>, 安装后可以进行ES6测试。</li>
+<li>安装 <code>0.11.x</code> 版本的nodejs，并执行 <code>node --harmony</code> 进行调试。</li>
+</ul>
+<h2 id="ECMAScript_6_特性">ECMAScript 6 特性</h2><h3 id="Arrows_箭头函数">Arrows 箭头函数</h3><p>Arrows 实际上使用 <code>=&gt;</code> 对函数书写进行了简化。语法上与C#, Java 8 和 CoffeeScript 类似。 </p>
+<p>需要注意的是：</p>
+<ul>
+<li>函数体内的this对象，绑定定义时所在的对象，而不是使用时所在的对象。</li>
+<li>不可以当作构造函数，也就是说，不可以使用new命令，否则会抛出一个错误。</li>
+<li>不可以使用arguments对象，该对象在函数体内不存在。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>,<span class="number">10</span>,<span class="number">11</span>]</span><br><span class="line"></span><br><span class="line">arr1 = arr.map(n =&gt; n + <span class="number">1</span>)</span><br><span class="line"><span class="built_in">console</span>.log(arr1); <span class="comment">// [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, ]</span></span><br><span class="line"></span><br><span class="line">five = [];</span><br><span class="line"></span><br><span class="line">arr.forEach(v =&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span>(v % <span class="number">5</span> === <span class="number">0</span>)&#123;</span><br><span class="line">        five.push(v);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(five); <span class="comment">//[5, 10,15]</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//Lexical this</span></span><br><span class="line"><span class="keyword">var</span> bob = &#123;</span><br><span class="line">    _name: <span class="string">"Bob"</span>,</span><br><span class="line">    _friends: [],</span><br><span class="line">    printFriends() &#123;</span><br><span class="line">        <span class="keyword">this</span>._friends.forEach(f =&gt; <span class="built_in">console</span>.log(<span class="keyword">this</span>._name + <span class="string">" knows "</span> + f));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">bob._friends.push(<span class="string">"Eric"</span>);</span><br><span class="line">bob.printFriends()  <span class="comment">//Bob knows Eric</span></span><br></pre></td></tr></table></figure>
+<h3 id="Classes_类">Classes 类</h3><p>ES6 的 classes 是基于原型的OO(面向对象)模式的简单语法糖封装。现在提供原生的Class支持后，对象的创建，继承更加直观了，并且父类方法的调用，实例化，静态方法和构造函数等概念都更加形象化。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Person类</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="comment">//构造器</span></span><br><span class="line">    constructor(name)&#123;</span><br><span class="line">        <span class="keyword">this</span>.name = name;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//实例方法</span></span><br><span class="line">    sayHi()&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"Hi, this is "</span>, <span class="keyword">this</span>.name);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> eric = <span class="keyword">new</span> Person(<span class="string">"Eric Wang"</span>);</span><br><span class="line">eric.sayHi();   <span class="comment">//Hi, this is Eric Wang</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//类的继承</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Engineer</span> <span class="keyword">extends</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    constructor(name, position) &#123;</span><br><span class="line">        <span class="keyword">super</span>(name);</span><br><span class="line">        <span class="keyword">this</span>.position = position;</span><br><span class="line">    &#125;</span><br><span class="line">    introduceWork() &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">"I'm doing the "</span>, <span class="keyword">this</span>.position, <span class="string">" engineer work."</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> xiaxing = <span class="keyword">new</span> Engineer(<span class="string">"Xia Xing"</span>, <span class="string">"Software"</span>);</span><br><span class="line">xiaxing.sayHi();            <span class="comment">// Hi, this is  Xia Xing</span></span><br><span class="line">xiaxing.introduceWork();    <span class="comment">//I'm doing the  Software  engineer work.</span></span><br></pre></td></tr></table></figure>
+<h3 id="Enhanced_object_literals_增强的对象字面量">Enhanced object literals 增强的对象字面量</h3><p>对象字面量被扩展为可以支持对象定义时进行设置原型，定义方法和调用富函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> person = &#123;</span><br><span class="line">  __proto__: &#123;</span><br><span class="line">    eat()&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">"eat something!"</span>);</span><br><span class="line">    &#125;,</span><br><span class="line">    sleep()&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">"sleep at night~"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  work()&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">"working...."</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">person.eat()    <span class="comment">//eat something!</span></span><br><span class="line">person.sleep()  <span class="comment">//sleep at night~</span></span><br><span class="line">person.work()   <span class="comment">//working...</span></span><br></pre></td></tr></table></figure>
+<h3 id="Template_String_模板字符串/字符串插值">Template String 模板字符串/字符串插值</h3><p>模板字符串提供了构造字符串的语法糖，其与Perl, Python, Coffeescript中的语法类似。通过反引号`来构造具有插值功能的字符串，其中可以包含以<code>${expression/variable}</code>构造的表达式或变量。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 基本的字符串构建</span></span><br><span class="line"><span class="string">`In JavaScript '\n' is a line-feed.`</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 多行字符串构建</span></span><br><span class="line"><span class="string">`In JavaScript this is</span><br><span class="line"> not legal.`</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建一个差值字符串</span></span><br><span class="line"><span class="keyword">var</span> name = <span class="string">"Bob"</span>, time = <span class="string">"today"</span>;</span><br><span class="line"><span class="string">`Hello <span class="subst">$&#123;name&#125;</span>, how are you <span class="subst">$&#123;time&#125;</span>?`</span></span><br></pre></td></tr></table></figure>
+<h3 id="Destructuring_解构">Destructuring 解构</h3><p>支持对数组和对象的绑定进行模式匹配，并自动解析其中的值。解构具有类似于对象查询(<code>foo[&quot;bar&quot;]</code>，如果值不存在则返回<code>undefined</code>)的容错模式。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//数组匹配</span></span><br><span class="line"><span class="keyword">var</span> [a,,b] = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>];</span><br><span class="line"><span class="built_in">console</span>.log(a, b);  <span class="comment">//1 3</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 对象匹配</span></span><br><span class="line"><span class="keyword">var</span> &#123;b:b, c:c, d:d&#125; = &#123;</span><br><span class="line">  b: &#123;name: <span class="string">"Eric"</span>&#125;,</span><br><span class="line">  c: [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],</span><br><span class="line">  d: <span class="function"><span class="keyword">function</span>(<span class="params">x</span>)</span>&#123;<span class="keyword">return</span> x+<span class="number">1</span>;&#125; </span><br><span class="line">&#125;</span><br><span class="line"><span class="built_in">console</span>.log(&#123;&#125;.toString.call(b), b.name);</span><br><span class="line"><span class="built_in">console</span>.log(&#123;&#125;.toString.call(c), c[<span class="number">1</span>]);</span><br><span class="line"><span class="built_in">console</span>.log(&#123;&#125;.toString.call(d), d(<span class="number">10</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 也可以用于函数传参中</span></span><br><span class="line"><span class="keyword">var</span> g = (&#123;name: x&#125;) =&gt; <span class="built_in">console</span>.log(x);</span><br><span class="line">g(&#123;name: <span class="string">"Eric"</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Fail-soft destructuring 容错解构</span></span><br><span class="line"><span class="keyword">var</span> [a] = [];</span><br><span class="line"><span class="built_in">console</span>.log(a === <span class="literal">undefined</span>);   <span class="comment">//true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Fail-soft with default  带默认值的容错解构</span></span><br><span class="line"><span class="keyword">var</span> [a = <span class="number">1</span>] = [];</span><br><span class="line"><span class="built_in">console</span>.log(a === <span class="number">1</span>);   <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+<h3 id="Default_+_Rest_+_Spread_默认参数，不定参数，扩展参数">Default + Rest + Spread 默认参数，不定参数，扩展参数</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//默认参数值</span></span><br><span class="line"><span class="keyword">var</span> f1 = (x, y=<span class="number">12</span>) =&gt; x + y</span><br><span class="line"><span class="built_in">console</span>.log(f1(<span class="number">3</span>))      <span class="comment">// 15</span></span><br><span class="line"><span class="built_in">console</span>.log(f1(<span class="number">3</span>, <span class="number">4</span>))   <span class="comment">// 7</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//不定参数</span></span><br><span class="line"><span class="keyword">var</span> f2 = (x, ...y) =&gt; x * y.length</span><br><span class="line"><span class="built_in">console</span>.log(f2(<span class="number">3</span>), f2(<span class="number">3</span>,<span class="number">1</span>), f2(<span class="number">3</span>,<span class="number">1</span>,<span class="string">"1"</span>,<span class="literal">true</span>))       <span class="comment">//0 3 9</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//扩展参数</span></span><br><span class="line"><span class="keyword">var</span> f3 = (x, y, z) =&gt; x + y + z</span><br><span class="line"><span class="built_in">console</span>.log(f3(...[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]))         <span class="comment">//6</span></span><br></pre></td></tr></table></figure>
+<h3 id="let_+_Const_关键字">let + Const 关键字</h3><p>const为常量，一旦定义不可修改其值，也不可重复定义。</p>
+<p>let可以看做块域内的var，区别在其作用域为代码块，并且不能重复定义。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> i = <span class="number">1111</span></span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;<span class="number">2</span>;i++)<span class="built_in">console</span>.log(i);<span class="comment">//输出: 0,1</span></span><br><span class="line"><span class="built_in">console</span>.log(i); <span class="comment">//输出：1111</span></span><br><span class="line"><span class="keyword">let</span> i = <span class="number">2222</span>;   <span class="comment">//Error: Duplicate declaration, i</span></span><br></pre></td></tr></table></figure>
+<p>如果变量没有在外层定义，则会去寻找代码区块中是否已经定义对应变量。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> (<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;<span class="number">2</span>;i++)<span class="built_in">console</span>.log(i);<span class="comment">//输出: 0,1</span></span><br><span class="line"><span class="built_in">console</span>.log(i);<span class="comment">//输出：2</span></span><br></pre></td></tr></table></figure>
+<h3 id="For-Of">For..Of</h3><p>我们通过<code>for in</code>和<code>for of</code>的实践来快速了解其功能。</p>
+<p>除此之外，<code>for of</code> 还可以用在迭代器中。</p>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var <span class="keyword">items</span> = [<span class="number">10</span>,<span class="number">11</span>,<span class="number">12</span>,<span class="number">13</span>]</span><br><span class="line"><span class="keyword">for</span> (index <span class="operator">in</span> <span class="keyword">items</span>) &#123;</span><br><span class="line">  console.<span class="built_in">log</span>(index)   <span class="comment"> //输出0,1,2,3</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">for</span> (<span class="built_in">value</span> <span class="operator">of</span> <span class="keyword">items</span>) &#123;</span><br><span class="line">  console.<span class="built_in">log</span>(<span class="built_in">value</span>)   <span class="comment"> //输出10,11,12,13</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Iterator,_Generator">Iterator, Generator</h3><ul>
+<li><code>iterator</code>是一个包含返回<code>{done, value}</code>元组的叫做<code>next()</code>方法的对象。</li>
+<li><code>iterable</code>是一个包含内部方法的对象，该内部方法形式为<code>obj[@@iterator]()</code>，并返回一个迭代器。</li>
+<li><code>generator</code>是一个特定类型的迭代器(iterator)，其<code>next()</code>的结果取决于曲艺对应的<code>generator function</code>的行为。<code>generator</code>拥有一个<code>throw</code>方法，其<code>next()</code>方法接收一个参数。</li>
+<li><code>generator function</code>是一个特殊类型的函数，其充当generator构造器的角色。generator函数体内可以使用上下文关键字<code>yield</code>。可以在<code>yield</code>关键字出现的地方通过<code>next</code>和<code>throw</code>向函数体内传递变量和异常。generator函数使用<code>function*</code>的语法进行定义。</li>
+<li><code>yield</code>关键字可以暂停函数的执行，随后可以再进入函数继续执行。</li>
+<li><code>generator comprehension</code> 是创建generator的简短表达式，例如：<code>(for (x of a) for (y of b) x * y)</code></li>
+</ul>
+<p>Generator深入学习可以参考以下文档：</p>
+<ul>
+<li><a href="http://www.atatech.org/article/detail/23353/0?rnd=1176158712" target="_blank" rel="external">ES6之Generator基础篇</a></li>
+<li><a href="https://blog.domenic.me/es6-iterators-generators-and-iterables/" target="_blank" rel="external">ES6 Iterators, Generators, and Iterables</a></li>
+<li><a href="http://davidwalsh.name/es6-generators" target="_blank" rel="external">The Basics Of ES6 Generators</a></li>
+</ul>
+<h3 id="Unicode">Unicode</h3><p>ES6 完整支持Unicode编码。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// same as ES5.1</span></span><br><span class="line"><span class="string">"𠮷"</span>.length == <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// new RegExp behaviour, opt-in ‘u’</span></span><br><span class="line"><span class="string">"𠮷"</span>.match(<span class="regexp">/./u</span>)[<span class="number">0</span>].length == <span class="number">2</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// new form</span></span><br><span class="line"><span class="string">"\u&#123;20BB7&#125;"</span>==<span class="string">"𠮷"</span>==<span class="string">"\uD842\uDFB7"</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// new String ops</span></span><br><span class="line"><span class="string">"𠮷"</span>.codePointAt(<span class="number">0</span>) == <span class="number">0x20BB7</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// for-of iterates code points</span></span><br><span class="line"><span class="keyword">for</span>(<span class="keyword">var</span> c <span class="keyword">of</span> <span class="string">"𠮷"</span>) &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(c);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Modules_模块">Modules 模块</h3><ul>
+<li>ES6中原生支持模块的组件定义。</li>
+<li>从流行的js模块加载器(AMD, CommonJS)中规范组件的编码和定义方式。</li>
+<li>通过预定义的默认加载器来定义运行时行为。</li>
+<li>隐式异步模型(知道需要的模块可以用才执行具体代码)</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// lib/math.js</span></span><br><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">sum</span>(<span class="params">x, y</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> x + y;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">var</span> pi = <span class="number">3.141593</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// app.js</span></span><br><span class="line"><span class="keyword">import</span> * <span class="keyword">as</span> math <span class="keyword">from</span> <span class="string">"lib/math"</span>;</span><br><span class="line">alert(<span class="string">"2π = "</span> + math.sum(math.pi, math.pi));</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// otherApp.js</span></span><br><span class="line"><span class="keyword">import</span> &#123;sum, pi&#125; <span class="keyword">from</span> <span class="string">"lib/math"</span>;</span><br><span class="line">alert(<span class="string">"2π = "</span> + sum(pi, pi));</span><br></pre></td></tr></table></figure>
+<p><code>export default</code> 和 <code>export *</code> 的使用方式</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// lib/mathplusplus.js</span></span><br><span class="line"><span class="keyword">export</span> * from <span class="string">"lib/math"</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">var</span> e = <span class="number">2.71828182846</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span>(<span class="params">x</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">Math</span>.exp(x);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// app.js</span></span><br><span class="line"><span class="keyword">import</span> exp, &#123;pi, e&#125; <span class="keyword">from</span> <span class="string">"lib/mathplusplus"</span>;</span><br><span class="line">alert(<span class="string">"2π = "</span> + exp(pi, e));</span><br></pre></td></tr></table></figure>
+<h3 id="Module_Loaders_模块加载器">Module Loaders 模块加载器</h3><ul>
+<li>动态加载(Dynamic Loading)</li>
+<li>状态隔离(State Isolation)</li>
+<li>全局域空间隔离(Global Namespace Isolation)</li>
+<li>自定义钩子(Compilation Hooks)</li>
+<li>嵌套虚拟化(Nested Virtualization)</li>
+</ul>
+<p>默认的模块加载器可以被配置，也可以构建新的加载器来加载隔离的代码或者受限制的上下文。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Dynamic loading – ‘System’ is default loader</span></span><br><span class="line">System.import(<span class="string">'lib/math'</span>).then(<span class="function"><span class="keyword">function</span>(<span class="params">m</span>) </span>&#123;</span><br><span class="line">  alert(<span class="string">"2π = "</span> + m.sum(m.pi, m.pi));</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Create execution sandboxes – new Loaders</span></span><br><span class="line"><span class="keyword">var</span> loader = <span class="keyword">new</span> Loader(&#123;</span><br><span class="line">  global: fixup(<span class="built_in">window</span>) <span class="comment">// replace ‘console.log’</span></span><br><span class="line">&#125;);</span><br><span class="line">loader.eval(<span class="string">"console.log('hello world!');"</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Directly manipulate module cache</span></span><br><span class="line">System.get(<span class="string">'jquery'</span>);</span><br><span class="line">System.set(<span class="string">'jquery'</span>, Module(&#123;$: $&#125;)); <span class="comment">// WARNING: not yet finalized</span></span><br></pre></td></tr></table></figure>
+<h3 id="Map_+_Set_+_WeakMap_+_WeakSet">Map + Set + WeakMap + WeakSet</h3><p>对于常用算法来说高效的数据结构，而WeakMaps提供了纺织内存泄露的键值对数据结构，相比来说更安全。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Sets</span></span><br><span class="line"><span class="keyword">var</span> s = <span class="keyword">new</span> <span class="built_in">Set</span>();</span><br><span class="line">s.add(<span class="string">"hello"</span>).add(<span class="string">"goodbye"</span>).add(<span class="string">"hello"</span>);</span><br><span class="line">s.size === <span class="number">2</span>;</span><br><span class="line">s.has(<span class="string">"hello"</span>) === <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Maps</span></span><br><span class="line"><span class="keyword">var</span> m = <span class="keyword">new</span> <span class="built_in">Map</span>();</span><br><span class="line">m.set(<span class="string">"hello"</span>, <span class="number">42</span>);</span><br><span class="line">m.set(s, <span class="number">34</span>);</span><br><span class="line">m.get(s) == <span class="number">34</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Weak Maps</span></span><br><span class="line"><span class="keyword">var</span> wm = <span class="keyword">new</span> <span class="built_in">WeakMap</span>();</span><br><span class="line">wm.set(s, &#123; extra: <span class="number">42</span> &#125;);</span><br><span class="line">wm.size === <span class="literal">undefined</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Weak Sets</span></span><br><span class="line"><span class="keyword">var</span> ws = <span class="keyword">new</span> <span class="built_in">WeakSet</span>();</span><br><span class="line">ws.add(&#123; data: <span class="number">42</span> &#125;);</span><br><span class="line"><span class="comment">// 因为添加的对象没有其他的引用，因此其并不会在这个weak set中存储。</span></span><br></pre></td></tr></table></figure>
+<h3 id="Proxies">Proxies</h3><p>Proxies 可以为对象增加监听器和处理函数</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 监听普通对象</span></span><br><span class="line"><span class="keyword">var</span> target = &#123;&#125;;</span><br><span class="line"><span class="keyword">var</span> handler = &#123;</span><br><span class="line">  get: <span class="function"><span class="keyword">function</span> (<span class="params">receiver, name</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">`Hello, <span class="subst">$&#123;name&#125;</span>!`</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> p = <span class="keyword">new</span> <span class="built_in">Proxy</span>(target, handler);</span><br><span class="line">p.world === <span class="string">'Hello, world!'</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 监听函数对象</span></span><br><span class="line"><span class="keyword">var</span> target = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; <span class="keyword">return</span> <span class="string">'I am the target'</span>; &#125;;</span><br><span class="line"><span class="keyword">var</span> handler = &#123;</span><br><span class="line">  apply: <span class="function"><span class="keyword">function</span> (<span class="params">receiver, ...args</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">'I am the proxy'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> p = <span class="keyword">new</span> <span class="built_in">Proxy</span>(target, handler);</span><br><span class="line">p() === <span class="string">'I am the proxy'</span>;</span><br></pre></td></tr></table></figure>
+<p>可以监听以下属性：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> handler =</span><br><span class="line">&#123;</span><br><span class="line">  get:...,</span><br><span class="line">  set:...,</span><br><span class="line">  has:...,</span><br><span class="line">  deleteProperty:...,</span><br><span class="line">  apply:...,</span><br><span class="line">  construct:...,</span><br><span class="line">  getOwnPropertyDescriptor:...,</span><br><span class="line">  defineProperty:...,</span><br><span class="line">  getPrototypeOf:...,</span><br><span class="line">  setPrototypeOf:...,</span><br><span class="line">  enumerate:...,</span><br><span class="line">  ownKeys:...,</span><br><span class="line">  preventExtensions:...,</span><br><span class="line">  isExtensible:...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Symbols">Symbols</h3><p>通过Symbols我们可以实现Object对象的访问控制。我们知道对象其实是键值对的集合，而键可以是字符串(ES5)或者Symbol。Symbol是新的基本类型。</p>
+<p>Symbol 通过调用Symbol()函数产生，它接收一个可选的名字参数<code>name</code>(主要用来进行调试，并不作为定义的一部分)，该函数返回的symbol是唯一的。之后就可以用这个返回值做为对象的键了。Symbol还可以用来创建私有属性，外部无法直接访问由symbol做为键的属性值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// module scoped symbol</span></span><br><span class="line">  <span class="keyword">var</span> key = <span class="built_in">Symbol</span>(<span class="string">"key"</span>);</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">MyClass</span>(<span class="params">privateData</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>[key] = privateData;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  MyClass.prototype = &#123;</span><br><span class="line">    doStuff: <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">      ... <span class="keyword">this</span>[key] ...</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line"></span><br><span class="line">&#125;)();</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> c = <span class="keyword">new</span> MyClass(<span class="string">"hello"</span>)</span><br><span class="line">c[<span class="string">"key"</span>] === <span class="literal">undefined</span></span><br></pre></td></tr></table></figure>
+<h3 id="Subclassable_Built-ins">Subclassable Built-ins</h3><p>在ES6中，内置的像 <code>Array</code> , <code>Date</code> 和 DOM 元素等可以用来作为基类。</p>
+<p>被称为 <code>Ctor</code> 函数的对象构建经过两个阶段：</p>
+<ul>
+<li>调用 <code>Ctor[@@create]</code> 来分配对象。</li>
+<li>在新实例中唤起构造函数进行初始化。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Array 伪代码</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Array</span> </span>&#123;</span><br><span class="line">    constructor(...args) &#123; <span class="comment">/* ... */</span> &#125;</span><br><span class="line">    static [<span class="built_in">Symbol</span>.create]() &#123;</span><br><span class="line">        <span class="comment">// Install special [[DefineOwnProperty]]</span></span><br><span class="line">        <span class="comment">// to magically update 'length'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Array 基类的扩展</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyArray</span> <span class="keyword">extends</span> <span class="title">Array</span> </span>&#123;</span><br><span class="line">    constructor(...args) &#123; <span class="keyword">super</span>(...args); &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用new的两个阶段：</span></span><br><span class="line"><span class="comment">// 1) 调用@@create来分配对象</span></span><br><span class="line"><span class="comment">// 2） 在新实例中唤醒构造函数</span></span><br><span class="line"><span class="keyword">var</span> arr = <span class="keyword">new</span> MyArray();</span><br><span class="line">arr[<span class="number">1</span>] = <span class="number">12</span>;</span><br><span class="line">arr.length == <span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>更多内容请参考 <a href="http://www.2ality.com/2013/03/subclassing-builtins-es6.html" target="_blank" rel="external">http://www.2ality.com/2013/03/subclassing-builtins-es6.html</a></p>
+<h3 id="Math_+_Number_+_String_+_Object_APIs">Math + Number + String + Object APIs</h3><p>在ES6中增加了许多新的API，包括核心Math库，Array conversion helpers，用于对象拷贝的<code>Object.assign</code>等。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Number</span>.EPSILON</span><br><span class="line"><span class="built_in">Number</span>.isInteger(<span class="literal">Infinity</span>) <span class="comment">// false</span></span><br><span class="line"><span class="built_in">Number</span>.isNaN(<span class="string">"NaN"</span>) <span class="comment">// false</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Math</span>.acosh(<span class="number">3</span>) <span class="comment">// 1.762747174039086</span></span><br><span class="line"><span class="built_in">Math</span>.hypot(<span class="number">3</span>, <span class="number">4</span>) <span class="comment">// 5</span></span><br><span class="line"><span class="built_in">Math</span>.imul(<span class="built_in">Math</span>.pow(<span class="number">2</span>, <span class="number">32</span>) - <span class="number">1</span>, <span class="built_in">Math</span>.pow(<span class="number">2</span>, <span class="number">32</span>) - <span class="number">2</span>) <span class="comment">// 2</span></span><br><span class="line"></span><br><span class="line"><span class="string">"abcde"</span>.contains(<span class="string">"cd"</span>) <span class="comment">// true</span></span><br><span class="line"><span class="string">"abc"</span>.repeat(<span class="number">3</span>) <span class="comment">// "abcabcabc"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Array</span>.from(<span class="built_in">document</span>.querySelectorAll(<span class="string">'*'</span>)) <span class="comment">// Returns a real Array</span></span><br><span class="line"><span class="built_in">Array</span>.of(<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>) <span class="comment">// Similar to new Array(...), but without special one-arg behavior</span></span><br><span class="line">[<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>].fill(<span class="number">7</span>, <span class="number">1</span>) <span class="comment">// [0,7,7]</span></span><br><span class="line">[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>].findIndex(x =&gt; x == <span class="number">2</span>) <span class="comment">// 1</span></span><br><span class="line">[<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>].entries() <span class="comment">// iterator [0, "a"], [1,"b"], [2,"c"]</span></span><br><span class="line">[<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>].keys() <span class="comment">// iterator 0, 1, 2</span></span><br><span class="line">[<span class="string">"a"</span>, <span class="string">"b"</span>, <span class="string">"c"</span>].values() <span class="comment">// iterator "a", "b", "c"</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">Object</span>.assign(Point, &#123; origin: <span class="keyword">new</span> Point(<span class="number">0</span>,<span class="number">0</span>) &#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="Binary_and_Octal_Literals">Binary and Octal Literals</h3><p>ES6中为二级制(b)和八进制(o)增加了两个新的数字字面量格式。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0b111110111</span> === <span class="number">503</span> <span class="comment">// true</span></span><br><span class="line"><span class="number">0o767</span> === <span class="number">503</span> <span class="comment">// true</span></span><br></pre></td></tr></table></figure>
+<h3 id="Promises">Promises</h3><p>Promises是用来处理异步编程的库，已经有很多第三方库对其进行了来实现。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建promise</span></span><br><span class="line"><span class="keyword">var</span> promise = <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="keyword">function</span>(<span class="params">resolve, reject</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 进行一些异步或耗时操作</span></span><br><span class="line">    <span class="keyword">if</span> ( <span class="comment">/*如果成功 */</span> ) &#123;</span><br><span class="line">        resolve(<span class="string">"Stuff worked!"</span>);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        reject(<span class="built_in">Error</span>(<span class="string">"It broke"</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//绑定处理程序</span></span><br><span class="line">promise.then(<span class="function"><span class="keyword">function</span>(<span class="params">result</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//promise成功的话会执行这里</span></span><br><span class="line">    <span class="built_in">console</span>.log(result); <span class="comment">// "Stuff worked!"</span></span><br><span class="line">&#125;, <span class="function"><span class="keyword">function</span>(<span class="params">err</span>) </span>&#123;</span><br><span class="line">    <span class="comment">//promise失败会执行这里</span></span><br><span class="line">    <span class="built_in">console</span>.log(err); <span class="comment">// Error: "It broke"</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>更多Promises信息请访问:</p>
+<ul>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise" target="_blank" rel="external">https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise</a></li>
+<li><a href="https://www.promisejs.org/" target="_blank" rel="external">https://www.promisejs.org/</a></li>
+<li><a href="http://es6.ruanyifeng.com/#docs/promise" target="_blank" rel="external">http://es6.ruanyifeng.com/#docs/promise</a></li>
+</ul>
+<h3 id="Tail_Calls">Tail Calls</h3><p>尾部的函数调用保证了堆栈不会无限增长，使得递归算法在面对无限制输入时变得安全可靠。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">factorial</span>(<span class="params">n, acc = 1</span>) </span>&#123;</span><br><span class="line"><span class="pi">    'use strict'</span>;</span><br><span class="line">    <span class="keyword">if</span> (n &lt;= <span class="number">1</span>) <span class="keyword">return</span> acc;</span><br><span class="line">    <span class="keyword">return</span> factorial(n - <span class="number">1</span>, n * acc);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 目前大部分的实现都会导致栈溢出</span></span><br><span class="line"><span class="comment">// 但是在ES6中对于任意输入都是安全的。</span></span><br><span class="line">factorial(<span class="number">100000</span>)</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ECMAScript/">ECMAScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/笔记/">笔记</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-ecmascript5-learn-note" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/04/02/ecmascript5-learn-note/" class="article-date">
+  	<time datetime="2015-04-02T00:00:00.000Z" itemprop="datePublished">2015-04-02</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/04/02/ecmascript5-learn-note/">ECMAScript 5 学习笔记</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>浏览器兼容性：Opera 11.60+、Internet Explorer 9+、Firefox 4+、Safari 5.1+、Chrome 13+</p>
+<blockquote>
+<p>IE9不支持严谨模式，但IE10是支持的</p>
+</blockquote>
+<p>为了保证js代码得到通用性的支持，可以在html中增加如下代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--[if lt IE 9]&gt;</span><br><span class="line">&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.0.5/es5-shim.js"&gt;&lt;/script&gt;</span><br><span class="line">&lt;![endif]--&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>es5-shim提供了ES5的部分实现，其中有一部分需要依赖底层engine，为了保证在地浏览器中js不报错，对其中该部分的API做了封装，但是并不保证一定能正确执行，需要额外引用es5-sham。简单来说，如果需要考虑浏览器兼容性的问题，则不要使用Object在ES5上进行的扩展。具体请参考如下文档 <a href="https://github.com/es-shims/es5-shim" target="_blank" rel="external">https://github.com/es-shims/es5-shim</a> 。</p>
+</blockquote>
+<h2 id="Array">Array</h2><h3 id="Array-isArray(arg)">Array.isArray(arg)</h3><p>isArray 函数需要一个参数 arg，如果参数是个对象并且 class 内部属性是 “Array”, 返回布尔值 true；否则它返回 false。采用如下步骤：</p>
+<ul>
+<li>如果 Type(arg) 不是 Object, 返回 false。</li>
+<li>如果 arg 的 [[Class]] 内部属性值是 “Array”, 则返回 true。</li>
+<li>返回 false.</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.isArray([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>])  <span class="comment">//true</span></span><br><span class="line"><span class="built_in">Array</span>.isArray(&#123;a:<span class="number">1</span>&#125;)    <span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+<h3 id="Array-prototype-every(callbackfn_[,_thisArg])">Array.prototype.every(callbackfn [, thisArg])</h3><p>检查数组的每一个元素是否符合callbackfn的要求。只有遍历数组中的每一个元素都返回true时，最终才会返回true，否则返回false。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr1 = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line"><span class="keyword">var</span> arr2 = [<span class="number">1</span>,<span class="number">2</span>,<span class="string">'3'</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line"><span class="keyword">var</span> isNumber = <span class="function"><span class="keyword">function</span>(<span class="params">item, index</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">typeof</span> item, index);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">typeof</span> item === <span class="string">'number'</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//当数组按照索引全部遍历完并且每次callbackfn都返回true，则最终every函数返回true</span></span><br><span class="line">arr1.every(isNumber)</span><br><span class="line"><span class="comment">/*</span><br><span class="line">number 0</span><br><span class="line">number 1</span><br><span class="line">number 2</span><br><span class="line">number 3</span><br><span class="line">number 4</span><br><span class="line">true</span><br><span class="line">*/</span></span><br><span class="line"><span class="comment">//当callbackfn返回false，则every函数直接返回false</span></span><br><span class="line">arr2.every(isNumber)</span><br><span class="line"><span class="comment">/*</span><br><span class="line">number 0</span><br><span class="line">number 1</span><br><span class="line">string 2</span><br><span class="line">false</span><br><span class="line">*/</span></span><br><span class="line"><span class="keyword">var</span> isNumberArg = <span class="function"><span class="keyword">function</span>(<span class="params">item, index</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.x, index);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">typeof</span> item === <span class="string">'number'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//我们可以给every函数添加指定域，可以通过this.attr来引用域中的属性。</span></span><br><span class="line">arr2.every(isNumberArg, &#123;x:<span class="number">1</span>&#125;)</span><br><span class="line"><span class="comment">/*</span><br><span class="line">1 0</span><br><span class="line">1 1</span><br><span class="line">1 2</span><br><span class="line">false</span><br><span class="line">*/</span></span><br></pre></td></tr></table></figure>
+<h3 id="Array-prototype-some(callbackfn_[,_thisArg])">Array.prototype.some(callbackfn [, thisArg])</h3><p>与Array.prototype.every相反，只要有任何一个元素返回true，则返回true，否则返回false。<br>thisArg与Array.prototype.every中使用方法相同。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line">arr.some(<span class="function"><span class="keyword">function</span>(<span class="params">item, index</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> item &gt; <span class="number">4</span>;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="Array-prototype-filter(callbackfn_[,_thisArg])">Array.prototype.filter(callbackfn [, thisArg])</h3><p>过滤器，返回满足callbackfn的item项(即callbackfn为true的项)。 thisArg与Array.prototype.every中使用方法相同。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="string">'3'</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line"><span class="keyword">var</span> isNumber = <span class="function"><span class="keyword">function</span>(<span class="params">item, index</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">typeof</span> item, index);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">typeof</span> item === <span class="string">'number'</span>;</span><br><span class="line">&#125;</span><br><span class="line">arr.filter(isNumber)</span><br><span class="line"><span class="comment">/*</span><br><span class="line">number 0</span><br><span class="line">number 1</span><br><span class="line">string 2</span><br><span class="line">number 3</span><br><span class="line">number 4</span><br><span class="line">[1, 2, 4, 5]</span><br><span class="line">*/</span></span><br></pre></td></tr></table></figure>
+<h3 id="Array-prototype-forEach(callbackfn_[,_thisArg])">Array.prototype.forEach(callbackfn [, thisArg])</h3><p>使用callbackfn来遍历数组，返回undefined, thisArg与Array.prototype.every中使用方法相同。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line">arr.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">item, index, array</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(item, index);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">/*</span><br><span class="line">1 0</span><br><span class="line">2 1</span><br><span class="line">3 2</span><br><span class="line">4 3</span><br><span class="line">5 4</span><br><span class="line">*/</span></span><br></pre></td></tr></table></figure>
+<h3 id="Array-prototype-indexOf(searchElement_[,_fromIndex])">Array.prototype.indexOf(searchElement [, fromIndex])</h3><p>按照数组升序返回数组中元素与searchElement严格相等的元素, fromIndex表示开始遍历查询的元素下标。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="string">"hello"</span>, <span class="string">"world"</span>, <span class="string">"hello"</span>, <span class="string">"man"</span>, &#123;a: <span class="number">1</span>&#125;]</span><br><span class="line">arr.indexOf(<span class="string">"hello"</span>)    <span class="comment">//0</span></span><br><span class="line">arr.indexOf(<span class="string">"hello"</span>, <span class="number">1</span>) <span class="comment">//2</span></span><br><span class="line">arr.indexOf(&#123;a:<span class="number">1</span>&#125;)      <span class="comment">//-1  因为&#123;a: 1&#125;为两个对象，并不严格相等，因此不会返回其对应的index</span></span><br></pre></td></tr></table></figure>
+<h3 id="Array-prototype-lastIndexOf(searchElement_[,_fromIndex])">Array.prototype.lastIndexOf(searchElement [, fromIndex])</h3><p>与Array.prototype.indexOf，不过期按照数组降序进行匹配。fromIndex表示开始遍历查询的元素下标。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="string">"hello"</span>, <span class="string">"world"</span>, <span class="string">"hello"</span>, <span class="string">"man"</span>, &#123;a: <span class="number">1</span>&#125;]</span><br><span class="line">arr.lastIndexOf(<span class="string">"hello"</span>)    <span class="comment">//2</span></span><br><span class="line">arr.lastIndexOf(<span class="string">"hello"</span>, <span class="number">1</span>) <span class="comment">//0</span></span><br></pre></td></tr></table></figure>
+<h3 id="Array-prototype-map(callbackfn_[,_thisArg])">Array.prototype.map(callbackfn [, thisArg])</h3><p>对数组内的元素按照callbackfn进行更改并得到新的数组。thisArg与Array.prototype.every中使用方法相同。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line">arr2 = arr.map(<span class="function"><span class="keyword">function</span>(<span class="params">item, index</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> item * item</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(arr2)   <span class="comment">//[1, 4, 9, 16, 25]</span></span><br></pre></td></tr></table></figure>
+<h3 id="Array-prototype-reduce(callbackfn_[,_initialValue])">Array.prototype.reduce(callbackfn [, initialValue])</h3><p>callbackfn接受4个参数：</p>
+<ul>
+<li>previousValue为之前值(如果不指定initialValue，则再第一次迭代previousValue为下标为0的元素值，currentValue为数组下标为1的元素，如果数组只有一个元素，则直接返回该元素)</li>
+<li>currentValue为当前值</li>
+<li>currentIndex为当前索引值</li>
+<li>array为数组本身。</li>
+</ul>
+<p>initialValue可以指定初始值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="string">"hello"</span>, <span class="string">"world"</span>, <span class="string">"aaa"</span>, <span class="string">"bbb"</span>]</span><br><span class="line"><span class="keyword">var</span> reduce_str = arr.reduce(<span class="function"><span class="keyword">function</span>(<span class="params">previousValue, currentValue, currentIndex, array</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> previousValue + <span class="string">"["</span> + currentValue + <span class="string">"]"</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(reduce_str)     <span class="comment">//hello[world][aaa][bbb]</span></span><br><span class="line"><span class="keyword">var</span> reduce_str2 = arr.reduce(<span class="function"><span class="keyword">function</span>(<span class="params">previousValue, currentValue, currentIndex, array</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> previousValue + <span class="string">"["</span> + currentValue + <span class="string">"]"</span></span><br><span class="line">&#125;, <span class="string">"[Init Value]"</span>)</span><br><span class="line"><span class="built_in">console</span>.log(reduce_str2)    <span class="comment">// [Init Value][hello][world][aaa][bbb]</span></span><br></pre></td></tr></table></figure>
+<h3 id="Array-prototype-reduceRight(callbackfn_[,_initialValue])">Array.prototype.reduceRight(callbackfn [, initialValue])</h3><p>与reduce相比，用法类似。实现上差异在于reduceRight是从数组的末尾开始实现。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="string">"hello"</span>, <span class="string">"world"</span>, <span class="string">"aaa"</span>, <span class="string">"bbb"</span>]</span><br><span class="line"><span class="keyword">var</span> reduce_str = arr.reduceRight(<span class="function"><span class="keyword">function</span>(<span class="params">previousValue, currentValue, currentIndex, array</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> previousValue + <span class="string">"["</span> + currentValue + <span class="string">"]"</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(reduce_str)     <span class="comment">// bbb[aaa][world][hello]</span></span><br><span class="line"><span class="keyword">var</span> reduce_str2 = arr.reduceRight(<span class="function"><span class="keyword">function</span>(<span class="params">previousValue, currentValue, currentIndex, array</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> previousValue + <span class="string">"["</span> + currentValue + <span class="string">"]"</span></span><br><span class="line">&#125;, <span class="string">"[Init Value]"</span>)</span><br><span class="line"><span class="built_in">console</span>.log(reduce_str2)    <span class="comment">// [Init Value][bbb][aaa][world][hello]</span></span><br></pre></td></tr></table></figure>
+<h2 id="Date">Date</h2><h3 id="Date-now()">Date.now()</h3><p>now 函数返回一个数字值，它表示调用 now 时的 UTC 日期时间的时间值。等价于(new Date()).getTime()</p>
+<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.<span class="built_in">log</span><span class="params">(<span class="string">"Current Time is: "</span>, Date.now<span class="params">()</span>)</span></span><br></pre></td></tr></table></figure>
+<h3 id="Date-prototype-toJSON(key)">Date.prototype.toJSON(key)</h3><p>此函数为 JSON.stringify 提供 Date 对象的一个字符串表示。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> now = <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">1421762769200</span>)</span><br><span class="line">now.toJSON()    <span class="comment">//"2015-01-20T14:06:09.200Z"</span></span><br></pre></td></tr></table></figure>
+<h3 id="Date-parse(string)">Date.parse(string)</h3><p>将字符串转为UTC时间值</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Date.<span class="function"><span class="title">parse</span><span class="params">(<span class="string">"2015-01-20T14:06:09.200Z"</span>)</span></span>  <span class="comment">//1421762769200</span></span><br></pre></td></tr></table></figure>
+<h3 id="Date-prototype-toISOString()">Date.prototype.toISOString()</h3><p>此函数返回一个代表 —this Date 对象表示的时间的实例 — 的字符串。字符串的格式是 15.9.1.15 定义的日期时间字符串格式。字符串中包含所有的字段。字符串表示的时区总是 UTC，用后缀 Z 标记。如果 this 对象的时间值不是有限的数字值，抛出一个 RangeError 异常。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> now = <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">1421762769200</span>)</span><br><span class="line">now.toISOString()   <span class="comment">//"2015-01-20T14:06:09.200Z"</span></span><br></pre></td></tr></table></figure>
+<h2 id="Number_&amp;&amp;_String_&amp;&amp;_Function">Number &amp;&amp; String &amp;&amp; Function</h2><h3 id="parseInt(string,_radix)">parseInt(string, radix)</h3><p>parseInt 函数根据指定的参数 radix，和 string 参数的内容解释结果来决定，产生一个整数值。<br>radix表示进制，范围在2和36之间，默认为10进制。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">parseInt</span>(<span class="string">"1234"</span>)        <span class="comment">//1234</span></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="string">"10101"</span>, <span class="number">2</span>)    <span class="comment">//21</span></span><br></pre></td></tr></table></figure>
+<h3 id="Number-prototype-toFixed(fractionDigits)">Number.prototype.toFixed(fractionDigits)</h3><p>Number四舍五入，fractionDigits表示保留的位数。fractionDigits范围为0到20</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">123.456</span>).toFixed()    <span class="comment">//123</span></span><br><span class="line">(<span class="number">123.456</span>).toFixed(<span class="number">1</span>)    <span class="comment">//123.5</span></span><br><span class="line">(<span class="number">123.456</span>).toFixed(<span class="number">2</span>)    <span class="comment">//123.46</span></span><br></pre></td></tr></table></figure>
+<h3 id="String-prototype-split(separator,_limit)">String.prototype.split(separator, limit)</h3><p>将字符串按照separator进行拆分，并返回对应的数组。其中separator可以为字符串或者正则表达式，limit限制返回数组的总长度。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"hello,world,aaa,bbb"</span>.split(<span class="string">","</span>)    <span class="comment">//["hello", "world", "aaa", "bbb"]</span></span><br><span class="line"><span class="string">"hello,world,aaa,bbb"</span>.split(<span class="string">","</span>,<span class="number">2</span>)  <span class="comment">//["hello", "world"]</span></span><br><span class="line"><span class="string">"a\nb\r\nc\rd"</span>.split(<span class="regexp">/\r?\n/</span>)       <span class="comment">//["a", "b", "cd"]</span></span><br></pre></td></tr></table></figure>
+<h3 id="String-prototype-trim()">String.prototype.trim()</h3><p>返回去除字符串头尾空格和换行符的字符串。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"  \n   t\ne\ts t   \n  \t"</span>.trim()</span><br><span class="line"><span class="comment">/*</span><br><span class="line">"t</span><br><span class="line">e   s t"</span><br><span class="line">*/</span></span><br></pre></td></tr></table></figure>
+<h3 id="String-prototype-replace(searchValue,_replaceValue)">String.prototype.replace(searchValue, replaceValue)</h3><p>将字符串按照sarchValue进行匹配，并按照repalceValue进行替换。searchValue可以为字符串或正则表达式，repalceValue可以为字符串或函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">'aaa bbb ccc'</span>;</span><br><span class="line"><span class="keyword">var</span> uw = name.replace(<span class="regexp">/\b\w+\b/g</span>, <span class="function"><span class="keyword">function</span>(<span class="params">word</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> word.substring(<span class="number">0</span>,<span class="number">1</span>).toUpperCase()+word.substring(<span class="number">1</span>);&#125;</span><br><span class="line">);</span><br><span class="line"><span class="built_in">console</span>.log(uw);    <span class="comment">// Aaa Bbb Ccc</span></span><br></pre></td></tr></table></figure>
+<h3 id="Function-prototype-bind()">Function.prototype.bind()</h3><p>bind()方法会创建一个新函数,称为绑定函数.</p>
+<p>当调用这个绑定函数时,绑定函数会以创建它时传入 bind()方法的第一个参数作为 this,传入 bind() 方法的第二个以及以后的参数加上绑定函数运行时本身的参数按照顺序作为原函数的参数来调用原函数.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> getX = <span class="function"><span class="keyword">function</span>(<span class="params">m, n</span>)</span>&#123;<span class="keyword">return</span> <span class="keyword">this</span>.x + m + n&#125;</span><br><span class="line"><span class="keyword">var</span> <span class="built_in">module</span> = &#123;</span><br><span class="line">    x: <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> boundGetX = getX.bind(<span class="built_in">module</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">boundGetX() <span class="comment">// 6</span></span><br></pre></td></tr></table></figure>
+<h2 id="Object">Object</h2><h3 id="Object-keys(obj)">Object.keys(obj)</h3><p>以数组的形式返回Obj对象的所有key</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;a:<span class="number">1</span>, b:<span class="number">2</span>, c:<span class="number">3</span>&#125;</span><br><span class="line"><span class="built_in">Object</span>.keys(obj)    <span class="comment">//["a", "b", "c"]</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注：Object.kyes()之后的的API在不支持的浏览器中会产生错误，引用es5-shim.js并不支持以下API，如果需要保证至少在低版本浏览器中不报错误，需要引用es5-sham.js，其并不能保证js会正确执行，但会禁止其对外暴露错误，请慎重使用。</p>
+</blockquote>
+<h3 id="Object-create(O[,_Properties])">Object.create(O[, Properties])</h3><p>以指定的原型创建对象，并且可以（可选）设置对象的属性。</p>
+<p>Properties包含 value 特性，以及 writable、enumerable 和 configurable 特性。如果未指定最后三个特性，则它们默认为 false。</p>
+<p>返回一个具有指定的内部原型且包含指定的属性（如果有）的新对象。# 数据大学 - ECMAScript 5 详解</p>
+<p>标签（空格分隔）： 数据大学 ES5</p>
+<hr>
+<p>浏览器兼容性：Opera 11.60+、Internet Explorer 9+、Firefox 4+、Safari 5.1+、Chrome 13+</p>
+<blockquote>
+<p>IE9不支持严谨模式，但IE10是支持的</p>
+</blockquote>
+<p>为了保证js代码得到通用性的支持，可以在html中增加如下代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--[if lt IE 9]&gt;</span><br><span class="line">&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.0.5/es5-shim.js"&gt;&lt;/script&gt;</span><br><span class="line">&lt;![endif]--&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>es5-shim提供了ES5的部分实现，其中有一部分需要依赖底层engine，为了保证在地浏览器中js不报错，对其中该部分的API做了封装，但是并不保证一定能正确执行，需要额外引用es5-sham。简单来说，如果需要考虑浏览器兼容性的问题，则不要使用Object在ES5上进行的扩展。具体请参考如下文档 <a href="https://github.com/es-shims/es5-shim" target="_blank" rel="external">https://github.com/es-shims/es5-shim</a> 。</p>
+</blockquote>
+<h2 id="Array-1">Array</h2><h3 id="Array-isArray(arg)-1">Array.isArray(arg)</h3><p>isArray 函数需要一个参数 arg，如果参数是个对象并且 class 内部属性是 “Array”, 返回布尔值 true；否则它返回 false。采用如下步骤：</p>
+<ul>
+<li>如果 Type(arg) 不是 Object, 返回 false。</li>
+<li>如果 arg 的 [[Class]] 内部属性值是 “Array”, 则返回 true。</li>
+<li>返回 false.</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Array</span>.isArray([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>])  <span class="comment">//true</span></span><br><span class="line"><span class="built_in">Array</span>.isArray(&#123;a:<span class="number">1</span>&#125;)    <span class="comment">//false</span></span><br></pre></td></tr></table></figure>
+<h3 id="Array-prototype-every(callbackfn_[,_thisArg])-1">Array.prototype.every(callbackfn [, thisArg])</h3><p>检查数组的每一个元素是否符合callbackfn的要求。只有遍历数组中的每一个元素都返回true时，最终才会返回true，否则返回false。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr1 = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line"><span class="keyword">var</span> arr2 = [<span class="number">1</span>,<span class="number">2</span>,<span class="string">'3'</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line"><span class="keyword">var</span> isNumber = <span class="function"><span class="keyword">function</span>(<span class="params">item, index</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">typeof</span> item, index);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">typeof</span> item === <span class="string">'number'</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//当数组按照索引全部遍历完并且每次callbackfn都返回true，则最终every函数返回true</span></span><br><span class="line">arr1.every(isNumber)</span><br><span class="line"><span class="comment">/*</span><br><span class="line">number 0</span><br><span class="line">number 1</span><br><span class="line">number 2</span><br><span class="line">number 3</span><br><span class="line">number 4</span><br><span class="line">true</span><br><span class="line">*/</span></span><br><span class="line"><span class="comment">//当callbackfn返回false，则every函数直接返回false</span></span><br><span class="line">arr2.every(isNumber)</span><br><span class="line"><span class="comment">/*</span><br><span class="line">number 0</span><br><span class="line">number 1</span><br><span class="line">string 2</span><br><span class="line">false</span><br><span class="line">*/</span></span><br><span class="line"><span class="keyword">var</span> isNumberArg = <span class="function"><span class="keyword">function</span>(<span class="params">item, index</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.x, index);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">typeof</span> item === <span class="string">'number'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//我们可以给every函数添加指定域，可以通过this.attr来引用域中的属性。</span></span><br><span class="line">arr2.every(isNumberArg, &#123;x:<span class="number">1</span>&#125;)</span><br><span class="line"><span class="comment">/*</span><br><span class="line">1 0</span><br><span class="line">1 1</span><br><span class="line">1 2</span><br><span class="line">false</span><br><span class="line">*/</span></span><br></pre></td></tr></table></figure>
+<h3 id="Array-prototype-some(callbackfn_[,_thisArg])-1">Array.prototype.some(callbackfn [, thisArg])</h3><p>与Array.prototype.every相反，只要有任何一个元素返回true，则返回true，否则返回false。<br>thisArg与Array.prototype.every中使用方法相同。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line">arr.some(<span class="function"><span class="keyword">function</span>(<span class="params">item, index</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> item &gt; <span class="number">4</span>;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="Array-prototype-filter(callbackfn_[,_thisArg])-1">Array.prototype.filter(callbackfn [, thisArg])</h3><p>过滤器，返回满足callbackfn的item项(即callbackfn为true的项)。 thisArg与Array.prototype.every中使用方法相同。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="string">'3'</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line"><span class="keyword">var</span> isNumber = <span class="function"><span class="keyword">function</span>(<span class="params">item, index</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">typeof</span> item, index);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">typeof</span> item === <span class="string">'number'</span>;</span><br><span class="line">&#125;</span><br><span class="line">arr.filter(isNumber)</span><br><span class="line"><span class="comment">/*</span><br><span class="line">number 0</span><br><span class="line">number 1</span><br><span class="line">string 2</span><br><span class="line">number 3</span><br><span class="line">number 4</span><br><span class="line">[1, 2, 4, 5]</span><br><span class="line">*/</span></span><br></pre></td></tr></table></figure>
+<h3 id="Array-prototype-forEach(callbackfn_[,_thisArg])-1">Array.prototype.forEach(callbackfn [, thisArg])</h3><p>使用callbackfn来遍历数组，返回undefined, thisArg与Array.prototype.every中使用方法相同。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line">arr.forEach(<span class="function"><span class="keyword">function</span>(<span class="params">item, index, array</span>)</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(item, index);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">/*</span><br><span class="line">1 0</span><br><span class="line">2 1</span><br><span class="line">3 2</span><br><span class="line">4 3</span><br><span class="line">5 4</span><br><span class="line">*/</span></span><br></pre></td></tr></table></figure>
+<h3 id="Array-prototype-indexOf(searchElement_[,_fromIndex])-1">Array.prototype.indexOf(searchElement [, fromIndex])</h3><p>按照数组升序返回数组中元素与searchElement严格相等的元素, fromIndex表示开始遍历查询的元素下标。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="string">"hello"</span>, <span class="string">"world"</span>, <span class="string">"hello"</span>, <span class="string">"man"</span>, &#123;a: <span class="number">1</span>&#125;]</span><br><span class="line">arr.indexOf(<span class="string">"hello"</span>)    <span class="comment">//0</span></span><br><span class="line">arr.indexOf(<span class="string">"hello"</span>, <span class="number">1</span>) <span class="comment">//2</span></span><br><span class="line">arr.indexOf(&#123;a:<span class="number">1</span>&#125;)      <span class="comment">//-1  因为&#123;a: 1&#125;为两个对象，并不严格相等，因此不会返回其对应的index</span></span><br></pre></td></tr></table></figure>
+<h3 id="Array-prototype-lastIndexOf(searchElement_[,_fromIndex])-1">Array.prototype.lastIndexOf(searchElement [, fromIndex])</h3><p>与Array.prototype.indexOf，不过期按照数组降序进行匹配。fromIndex表示开始遍历查询的元素下标。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="string">"hello"</span>, <span class="string">"world"</span>, <span class="string">"hello"</span>, <span class="string">"man"</span>, &#123;a: <span class="number">1</span>&#125;]</span><br><span class="line">arr.lastIndexOf(<span class="string">"hello"</span>)    <span class="comment">//2</span></span><br><span class="line">arr.lastIndexOf(<span class="string">"hello"</span>, <span class="number">1</span>) <span class="comment">//0</span></span><br></pre></td></tr></table></figure>
+<h3 id="Array-prototype-map(callbackfn_[,_thisArg])-1">Array.prototype.map(callbackfn [, thisArg])</h3><p>对数组内的元素按照callbackfn进行更改并得到新的数组。thisArg与Array.prototype.every中使用方法相同。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line">arr2 = arr.map(<span class="function"><span class="keyword">function</span>(<span class="params">item, index</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> item * item</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(arr2)   <span class="comment">//[1, 4, 9, 16, 25]</span></span><br></pre></td></tr></table></figure>
+<h3 id="Array-prototype-reduce(callbackfn_[,_initialValue])-1">Array.prototype.reduce(callbackfn [, initialValue])</h3><p>callbackfn接受4个参数：</p>
+<ul>
+<li>previousValue为之前值(如果不指定initialValue，则再第一次迭代previousValue为下标为0的元素值，currentValue为数组下标为1的元素，如果数组只有一个元素，则直接返回该元素)</li>
+<li>currentValue为当前值</li>
+<li>currentIndex为当前索引值</li>
+<li>array为数组本身。</li>
+</ul>
+<p>initialValue可以指定初始值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="string">"hello"</span>, <span class="string">"world"</span>, <span class="string">"aaa"</span>, <span class="string">"bbb"</span>]</span><br><span class="line"><span class="keyword">var</span> reduce_str = arr.reduce(<span class="function"><span class="keyword">function</span>(<span class="params">previousValue, currentValue, currentIndex, array</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> previousValue + <span class="string">"["</span> + currentValue + <span class="string">"]"</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(reduce_str)     <span class="comment">//hello[world][aaa][bbb]</span></span><br><span class="line"><span class="keyword">var</span> reduce_str2 = arr.reduce(<span class="function"><span class="keyword">function</span>(<span class="params">previousValue, currentValue, currentIndex, array</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> previousValue + <span class="string">"["</span> + currentValue + <span class="string">"]"</span></span><br><span class="line">&#125;, <span class="string">"[Init Value]"</span>)</span><br><span class="line"><span class="built_in">console</span>.log(reduce_str2)    <span class="comment">// [Init Value][hello][world][aaa][bbb]</span></span><br></pre></td></tr></table></figure>
+<h3 id="Array-prototype-reduceRight(callbackfn_[,_initialValue])-1">Array.prototype.reduceRight(callbackfn [, initialValue])</h3><p>与reduce相比，用法类似。实现上差异在于reduceRight是从数组的末尾开始实现。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> arr = [<span class="string">"hello"</span>, <span class="string">"world"</span>, <span class="string">"aaa"</span>, <span class="string">"bbb"</span>]</span><br><span class="line"><span class="keyword">var</span> reduce_str = arr.reduceRight(<span class="function"><span class="keyword">function</span>(<span class="params">previousValue, currentValue, currentIndex, array</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> previousValue + <span class="string">"["</span> + currentValue + <span class="string">"]"</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(reduce_str)     <span class="comment">// bbb[aaa][world][hello]</span></span><br><span class="line"><span class="keyword">var</span> reduce_str2 = arr.reduceRight(<span class="function"><span class="keyword">function</span>(<span class="params">previousValue, currentValue, currentIndex, array</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> previousValue + <span class="string">"["</span> + currentValue + <span class="string">"]"</span></span><br><span class="line">&#125;, <span class="string">"[Init Value]"</span>)</span><br><span class="line"><span class="built_in">console</span>.log(reduce_str2)    <span class="comment">// [Init Value][bbb][aaa][world][hello]</span></span><br></pre></td></tr></table></figure>
+<h2 id="Date-1">Date</h2><h3 id="Date-now()-1">Date.now()</h3><p>now 函数返回一个数字值，它表示调用 now 时的 UTC 日期时间的时间值。等价于(new Date()).getTime()</p>
+<figure class="highlight openscad"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">console.<span class="built_in">log</span><span class="params">(<span class="string">"Current Time is: "</span>, Date.now<span class="params">()</span>)</span></span><br></pre></td></tr></table></figure>
+<h3 id="Date-prototype-toJSON(key)-1">Date.prototype.toJSON(key)</h3><p>此函数为 JSON.stringify 提供 Date 对象的一个字符串表示。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> now = <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">1421762769200</span>)</span><br><span class="line">now.toJSON()    <span class="comment">//"2015-01-20T14:06:09.200Z"</span></span><br></pre></td></tr></table></figure>
+<h3 id="Date-parse(string)-1">Date.parse(string)</h3><p>将字符串转为UTC时间值</p>
+<figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Date.<span class="function"><span class="title">parse</span><span class="params">(<span class="string">"2015-01-20T14:06:09.200Z"</span>)</span></span>  <span class="comment">//1421762769200</span></span><br></pre></td></tr></table></figure>
+<h3 id="Date-prototype-toISOString()-1">Date.prototype.toISOString()</h3><p>此函数返回一个代表 —this Date 对象表示的时间的实例 — 的字符串。字符串的格式是 15.9.1.15 定义的日期时间字符串格式。字符串中包含所有的字段。字符串表示的时区总是 UTC，用后缀 Z 标记。如果 this 对象的时间值不是有限的数字值，抛出一个 RangeError 异常。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> now = <span class="keyword">new</span> <span class="built_in">Date</span>(<span class="number">1421762769200</span>)</span><br><span class="line">now.toISOString()   <span class="comment">//"2015-01-20T14:06:09.200Z"</span></span><br></pre></td></tr></table></figure>
+<h2 id="Number_&amp;&amp;_String_&amp;&amp;_Function-1">Number &amp;&amp; String &amp;&amp; Function</h2><h3 id="parseInt(string,_radix)-1">parseInt(string, radix)</h3><p>parseInt 函数根据指定的参数 radix，和 string 参数的内容解释结果来决定，产生一个整数值。<br>radix表示进制，范围在2和36之间，默认为10进制。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">parseInt</span>(<span class="string">"1234"</span>)        <span class="comment">//1234</span></span><br><span class="line"><span class="built_in">parseInt</span>(<span class="string">"10101"</span>, <span class="number">2</span>)    <span class="comment">//21</span></span><br></pre></td></tr></table></figure>
+<h3 id="Number-prototype-toFixed(fractionDigits)-1">Number.prototype.toFixed(fractionDigits)</h3><p>Number四舍五入，fractionDigits表示保留的位数。fractionDigits范围为0到20</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(<span class="number">123.456</span>).toFixed()    <span class="comment">//123</span></span><br><span class="line">(<span class="number">123.456</span>).toFixed(<span class="number">1</span>)    <span class="comment">//123.5</span></span><br><span class="line">(<span class="number">123.456</span>).toFixed(<span class="number">2</span>)    <span class="comment">//123.46</span></span><br></pre></td></tr></table></figure>
+<h3 id="String-prototype-split(separator,_limit)-1">String.prototype.split(separator, limit)</h3><p>将字符串按照separator进行拆分，并返回对应的数组。其中separator可以为字符串或者正则表达式，limit限制返回数组的总长度。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"hello,world,aaa,bbb"</span>.split(<span class="string">","</span>)    <span class="comment">//["hello", "world", "aaa", "bbb"]</span></span><br><span class="line"><span class="string">"hello,world,aaa,bbb"</span>.split(<span class="string">","</span>,<span class="number">2</span>)  <span class="comment">//["hello", "world"]</span></span><br><span class="line"><span class="string">"a\nb\r\nc\rd"</span>.split(<span class="regexp">/\r?\n/</span>)       <span class="comment">//["a", "b", "cd"]</span></span><br></pre></td></tr></table></figure>
+<h3 id="String-prototype-trim()-1">String.prototype.trim()</h3><p>返回去除字符串头尾空格和换行符的字符串。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"  \n   t\ne\ts t   \n  \t"</span>.trim()</span><br><span class="line"><span class="comment">/*</span><br><span class="line">"t</span><br><span class="line">e   s t"</span><br><span class="line">*/</span></span><br></pre></td></tr></table></figure>
+<h3 id="String-prototype-replace(searchValue,_replaceValue)-1">String.prototype.replace(searchValue, replaceValue)</h3><p>将字符串按照sarchValue进行匹配，并按照repalceValue进行替换。searchValue可以为字符串或正则表达式，repalceValue可以为字符串或函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> name = <span class="string">'aaa bbb ccc'</span>;</span><br><span class="line"><span class="keyword">var</span> uw = name.replace(<span class="regexp">/\b\w+\b/g</span>, <span class="function"><span class="keyword">function</span>(<span class="params">word</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> word.substring(<span class="number">0</span>,<span class="number">1</span>).toUpperCase()+word.substring(<span class="number">1</span>);&#125;</span><br><span class="line">);</span><br><span class="line"><span class="built_in">console</span>.log(uw);    <span class="comment">// Aaa Bbb Ccc</span></span><br></pre></td></tr></table></figure>
+<h3 id="Function-prototype-bind()-1">Function.prototype.bind()</h3><p>bind()方法会创建一个新函数,称为绑定函数.</p>
+<p>当调用这个绑定函数时,绑定函数会以创建它时传入 bind()方法的第一个参数作为 this,传入 bind() 方法的第二个以及以后的参数加上绑定函数运行时本身的参数按照顺序作为原函数的参数来调用原函数.</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> getX = <span class="function"><span class="keyword">function</span>(<span class="params">m, n</span>)</span>&#123;<span class="keyword">return</span> <span class="keyword">this</span>.x + m + n&#125;</span><br><span class="line"><span class="keyword">var</span> <span class="built_in">module</span> = &#123;</span><br><span class="line">    x: <span class="number">1</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> boundGetX = getX.bind(<span class="built_in">module</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">boundGetX() <span class="comment">// 6</span></span><br></pre></td></tr></table></figure>
+<h2 id="Object-1">Object</h2><h3 id="Object-keys(obj)-1">Object.keys(obj)</h3><p>以数组的形式返回Obj对象的所有key</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;a:<span class="number">1</span>, b:<span class="number">2</span>, c:<span class="number">3</span>&#125;</span><br><span class="line"><span class="built_in">Object</span>.keys(obj)    <span class="comment">//["a", "b", "c"]</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注：Object.kyes()之后的的API在不支持的浏览器中会产生错误，引用es5-shim.js并不支持以下API，如果需要保证至少在低版本浏览器中不报错误，需要引用es5-sham.js，其并不能保证js会正确执行，但会禁止其对外暴露错误，请慎重使用。</p>
+</blockquote>
+<h3 id="Object-create(O[,_Properties])-1">Object.create(O[, Properties])</h3><p>以指定的原型创建对象，并且可以（可选）设置对象的属性。</p>
+<p>Properties包含 value 特性，以及 writable、enumerable 和 configurable 特性。如果未指定最后三个特性，则它们默认为 false。</p>
+<p>返回一个具有指定的内部原型且包含指定的属性（如果有）的新对象。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = <span class="built_in">Object</span>.create(&#123;a:<span class="number">1</span>&#125;,&#123;</span><br><span class="line">    x: &#123;</span><br><span class="line">        value: <span class="number">1</span>,</span><br><span class="line">        writable: <span class="literal">true</span>,</span><br><span class="line">        enumerable: <span class="literal">true</span>,</span><br><span class="line">        configurable: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(obj)            <span class="comment">//&#123;x: 1&#125; #注：Chrome控制台会将对象的__proto__中的键值进行输出，而nodejs不会。</span></span><br><span class="line"><span class="built_in">console</span>.log(obj.__proto__)  <span class="comment">//&#123;a:1&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="Object-getPrototypeOf(obj)">Object.getPrototypeOf(obj)</h3><p>返回对象的原型</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> A = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="keyword">this</span>.x = <span class="number">1</span>&#125;</span><br><span class="line">A.prototype.y = <span class="number">2</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> A()</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getPrototypeOf(a))   <span class="comment">//&#123;y:2&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="Object-getOwnPropertyNames(obj)">Object.getOwnPropertyNames(obj)</h3><p>返回对象自己的属性的名称。一个对象的自己的属性是指直接对该对象定义的属性，而不是从该对象的原型继承的属性。 对象的属性包括字段（对象）和函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> A = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="keyword">this</span>.x = <span class="number">1</span>&#125;</span><br><span class="line">A.prototype.y = <span class="number">2</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> A()</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyNames(a))   <span class="comment">//['x']</span></span><br></pre></td></tr></table></figure>
+<h3 id="Object-seal(obj)">Object.seal(obj)</h3><p>阻止修改现有属性的特性(将每个属性的 configurable 设置为 false)，并阻止添加新属性。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;a: <span class="number">1</span>, b: <span class="number">2</span>&#125;</span><br><span class="line"><span class="built_in">Object</span>.seal(obj)</span><br><span class="line">obj.c = <span class="number">3</span></span><br><span class="line">obj.a = <span class="number">0</span></span><br><span class="line"><span class="built_in">console</span>.log(obj)    <span class="comment">//&#123;a: 0, b: 2&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(obj.c)  <span class="comment">//undefined</span></span><br></pre></td></tr></table></figure>
+<h3 id="Object-freeze(obj)">Object.freeze(obj)</h3><p>阻止修改现有属性的特性和值(将每个属性的 configurable 和 writable 设置为 false)，并阻止添加新属性。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;a: <span class="number">1</span>, b: <span class="number">2</span>&#125;</span><br><span class="line"><span class="built_in">Object</span>.freeze(obj)</span><br><span class="line">obj.c = <span class="number">3</span></span><br><span class="line">obj.a = <span class="number">0</span></span><br><span class="line"><span class="built_in">console</span>.log(obj)    <span class="comment">//&#123;a: 1, b: 2&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(obj.c)  <span class="comment">//undefined</span></span><br></pre></td></tr></table></figure>
+<h3 id="Object-preventExtensions(obj)">Object.preventExtensions(obj)</h3><p>阻止向对象添加新属性。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;a: <span class="number">1</span>, b: <span class="number">2</span>&#125;</span><br><span class="line"><span class="built_in">Object</span>.preventExtensions(obj)</span><br><span class="line">obj.c = <span class="number">3</span></span><br><span class="line">obj.a = <span class="number">0</span></span><br><span class="line"><span class="built_in">console</span>.log(obj)    <span class="comment">//&#123;a: 0, b: 2&#125;</span></span><br><span class="line"><span class="built_in">console</span>.log(obj.c)  <span class="comment">//undefined</span></span><br></pre></td></tr></table></figure>
+<h3 id="Object-isSealed(obj)">Object.isSealed(obj)</h3><p>如果无法在对象中修改现有属性的特性，且无法向对象添加新属性，则返回 true。</p>
+<h3 id="Object-isFrozen(obj)">Object.isFrozen(obj)</h3><p>如果无法在对象中修改现有属性的特性和值，且无法向对象添加新属性，则返回 true。</p>
+<h3 id="Object-isExtensible(obj)">Object.isExtensible(obj)</h3><p>返回一个值，该值指示是否可向对象添加新属性。</p>
+<h3 id="Object-getOwnPropertyDescriptor(obj,_propertyname)">Object.getOwnPropertyDescriptor(obj, propertyname)</h3><p>获取指定对象自己的属性描述符。自己的属性描述符是直接在对象上定义的描述符，而不是从对象的原型继承的描述符。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">obj = &#123;a: <span class="number">1</span>&#125;</span><br><span class="line"><span class="keyword">var</span> descriptor = <span class="built_in">Object</span>.getOwnPropertyDescriptor(obj, <span class="string">"a"</span>)</span><br><span class="line"><span class="built_in">console</span>.log(descriptor) <span class="comment">//&#123; value: 1, writable: true, enumerable: true, configurable: true &#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="Object-defineProperty(obj,_propertyname,_descriptor)">Object.defineProperty(obj, propertyname, descriptor)</h3><p>将属性添加到对象或修改现有属性的特性。</p>
+<ul>
+<li>obj为要添加属性的对象。</li>
+<li>propertyname为包含属性名称的字符串。</li>
+<li>descriptor为属性的描述符。 它可以针对数据属性或访问器属性。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;&#125;</span><br><span class="line"><span class="built_in">Object</span>.defineProperty(obj, <span class="string">"newDataProperty"</span>, &#123;</span><br><span class="line">    value: <span class="number">101</span>,</span><br><span class="line">    writable: <span class="literal">true</span>,</span><br><span class="line">    enumerable: <span class="literal">true</span>,</span><br><span class="line">    configurable: <span class="literal">true</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(obj.newDataProperty)    <span class="comment">//101</span></span><br></pre></td></tr></table></figure>
+<h3 id="Object-defineProperties(obj,_descriptors)">Object.defineProperties(obj, descriptors)</h3><p>将一个或多个属性添加到对象，并/或修改现有属性的特性。</p>
+<p>descriptors包含一个或多个描述符对象的 JavaScript 对象。每个描述符对象描述一个数据属性或访问器属性。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;&#125;</span><br><span class="line"><span class="built_in">Object</span>.defineProperties(obj, &#123;</span><br><span class="line">    newDataProperty: &#123;</span><br><span class="line">        value: <span class="number">101</span>,</span><br><span class="line">        writable: <span class="literal">true</span>,</span><br><span class="line">        enumerable: <span class="literal">true</span>,</span><br><span class="line">        configurable: <span class="literal">true</span></span><br><span class="line">    &#125;,</span><br><span class="line">    newAccessorProperty: &#123;</span><br><span class="line">        set: <span class="function"><span class="keyword">function</span> (<span class="params">x</span>) </span>&#123;</span><br><span class="line">            <span class="built_in">document</span>.write(<span class="string">"in property set accessor"</span> + newLine);</span><br><span class="line">            <span class="keyword">this</span>.newaccpropvalue = x;</span><br><span class="line">        &#125;,</span><br><span class="line">        get: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">            <span class="built_in">document</span>.write(<span class="string">"in property get accessor"</span> + newLine);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">this</span>.newaccpropvalue;</span><br><span class="line">        &#125;,</span><br><span class="line">        enumerable: <span class="literal">true</span>,</span><br><span class="line">        configurable: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(obj)    <span class="comment">//&#123; newDataProperty: 101, newAccessorProperty: [Getter/Setter] &#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = <span class="built_in">Object</span>.create(&#123;a:<span class="number">1</span>&#125;,&#123;</span><br><span class="line">    x: &#123;</span><br><span class="line">        value: <span class="number">1</span>,</span><br><span class="line">        writable: <span class="literal">true</span>,</span><br><span class="line">        enumerable: <span class="literal">true</span>,</span><br><span class="line">        configurable: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(obj)            <span class="comment">//&#123;x: 1&#125; #注：Chrome控制台会将对象的__proto__中的键值进行输出，而nodejs不会。</span></span><br><span class="line"><span class="built_in">console</span>.log(obj.__proto__)  <span class="comment">//&#123;a:1&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="Object-getPrototypeOf(obj)-1">Object.getPrototypeOf(obj)</h3><p>返回对象的原型</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> A = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="keyword">this</span>.x = <span class="number">1</span>&#125;</span><br><span class="line">A.prototype.y = <span class="number">2</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> A()</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getPrototypeOf(a))   <span class="comment">//&#123;y:2&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="Object-getOwnPropertyNames(obj)-1">Object.getOwnPropertyNames(obj)</h3><p>返回对象自己的属性的名称。一个对象的自己的属性是指直接对该对象定义的属性，而不是从该对象的原型继承的属性。 对象的属性包括字段（对象）和函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> A = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="keyword">this</span>.x = <span class="number">1</span>&#125;</span><br><span class="line">A.prototype.y = <span class="number">2</span></span><br><span class="line"><span class="keyword">var</span> a = <span class="keyword">new</span> A()</span><br><span class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.getOwnPropertyNames(a))   <span class="comment">//['x']</span></span><br></pre></td></tr></table></figure>
+<h3 id="Object-isSealed(obj)-1">Object.isSealed(obj)</h3><p>如果无法在对象中修改现有属性的特性，且无法向对象添加新属性，则返回 true。</p>
+<h3 id="Object-isFrozen(obj)-1">Object.isFrozen(obj)</h3><p>如果无法在对象中修改现有属性的特性和值，且无法向对象添加新属性，则返回 true。</p>
+<h4 id="Object-isExtensible(obj)-1">Object.isExtensible(obj)</h4><p>如果可以向对象添加新属性，则返回true</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ECMAScript/">ECMAScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/笔记/">笔记</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-localdb-share" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/03/20/localdb-share/" class="article-date">
+  	<time datetime="2015-03-20T00:00:00.000Z" itemprop="datePublished">2015-03-20</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/03/20/localdb-share/">LocalDB分享</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="为什么要做LocalDB而不是别的">为什么要做LocalDB而不是别的</h2><ul>
+<li>Canvas &amp;&amp; SVG (<a href="http://echarts.baidu.com/index.html" target="_blank" rel="external">echarts</a>)</li>
+<li>video &amp;&amp; audio &amp;&amp; preload</li>
+<li>webGL (<a href="https://github.com/pissang/qtek" target="_blank" rel="external">qtek</a>)</li>
+<li>geolocation</li>
+<li>websocket</li>
+<li>Storage &amp;&amp; indexedDB &amp;&amp; postMessage</li>
+<li>applicationCache</li>
+</ul>
+<h2 id="为什么需要LocalDB">为什么需要LocalDB</h2><p>传统意义上的浏览器是用来进行网页浏览的，但是随着HTML5及前端领域的发展，浏览器承载了更多的角色和内容。</p>
+<ul>
+<li><p>利用HTML5可以在浏览器上构建复杂的游戏，比如<a href="http://bejeweled.popcap.com/html5/0.9.12.9490/html5/Bejeweled.html" target="_blank" rel="external">Bejeweled</a>, <a href="http://chrome.angrybirds.com/" target="_blank" rel="external">Angry Birds</a>, <a href="http://www.pirateslovedaisies.com/" target="_blank" rel="external">Pirates Love Daisies</a>, 甚至还有多人联网射击游戏<a href="https://developer.cdn.mozilla.net/media/uploads/demos/a/z/azakai/3baf4ad7e600cbda06ec46efec5ec3b8/bananabread_1373485124_demo_package/index.html" target="_blank" rel="external">BananaBread</a>。现在已经出现了为数众多的<a href="http://www.zhihu.com/question/20079322" target="_blank" rel="external">游戏引擎</a>，甚至可以利用WebGL通过硬件加速来渲染<a href="http://www.chromeexperiments.com/webgl" target="_blank" rel="external">3D效果</a>。</p>
+</li>
+<li><p>利用HTML5可以在浏览器上构建功能强大的应用，比如图片处理应用<a href="http://muro.deviantart.com/" target="_blank" rel="external">deviantART muro</a>, <a href="http://aprilzero.com/" target="_blank" rel="external">个人身体健康及运动监控</a>, <a href="http://rbv.me/" target="_blank" rel="external">Nobuaki Honma的个人主页</a></p>
+</li>
+<li><p>除此之外，随着移动端设备性能的提升，越来越多基于浏览器的手机跨平台应用产生并简化了开发流程。伴随着applicationCache的广泛应用和普及，更多离线常驻浏览器应用会产生和发展。</p>
+</li>
+</ul>
+<p>HTML5提供了三种存储方式：Web Storage, indexedDB 和 applicationCache。</p>
+<ul>
+<li><p>indexedDB是基于前端的NOSQL数据库，优点是有索引，浏览器级别高性能查询支持，缺点是接口复杂，使用麻烦，兼容性目前还不理想。</p>
+</li>
+<li><p>applicationCache用于程序离线存储，主要是进行资源文件缓存。</p>
+</li>
+<li><p>webStorage提供简单的键值对存储，使数据可以在同一域的页面中共享，其中localStorage提供的存储即使浏览器关闭了也仍然会存储，真正意义上实现了浏览器数据存储的持久化。</p>
+</li>
+</ul>
+<p>我们再试想一下未来的前端业务场景可能会如何？</p>
+<ul>
+<li>基于前端用户行为自动化定制个性化网页</li>
+<li>用户行为数据在多个白名单域中共享</li>
+<li>用户数据跨终端共享</li>
+<li>用户数据实时分析及响应</li>
+<li>用户数据模块化及服务化，域和用户数据模块实现多对多存取关系。</li>
+</ul>
+<p>那么问题来了，这些离线或者富客户端应用对于数据的存储和查询的需求到底是怎样的呢？</p>
+<ul>
+<li>简单的存取接口</li>
+<li>多种数据格式支持</li>
+<li>浏览器平台兼容性保证</li>
+<li>通用性智能存储方案选择</li>
+<li>多样化数据筛选和查询</li>
+<li>跨域数据共享</li>
+<li>多域共享存取的同步问题解决</li>
+<li>数据存储安全性保障</li>
+<li>数据存储容量已满时候自动化处理方案</li>
+</ul>
+<p>那么LocalDB拥有什么呢？</p>
+<ul>
+<li>支持多种安装和加载方式，可以直接引用独立文件(无第三方依赖库)，也可以通过bower或者component安装，或者作为requirejs/seajs的模块进行模块化加载。</li>
+<li>非常非常简单的接口。</li>
+<li>根据用户的浏览器和需求自动选择最适合的存取方式，智能退化方案，保证基本存储需求的可用性。</li>
+<li>提供多种数据格式支持，甚至可以直接进行正则表达式或者函数存取操作。</li>
+<li>提供多样化数据查询、筛选、排序功能。</li>
+<li>提供域白名单功能，实现跨域数据共享。</li>
+<li>同一个域可以获得多个LocalDB数据源，实现数据源的模块化和服务化。</li>
+<li>提供数据高安全性需求，比如数据简单加密功能，通过proxy来隐藏实际存储域。</li>
+<li>提供数据存储容量已满时候自动覆盖最旧数据以及设置数据过期时间等方式来解决数据容量有限的问题。</li>
+<li>提供chrome浏览器下设置容量并请求用户确认的功能。</li>
+</ul>
+<p>正式因为LocalDB如此多的特性，使得其使用者可以完全脱离HTML5数据存储的底层，在享受HTML5带来的便利的同时，又兼顾了旧的浏览器，在不需要关注数据存储格式的选择时候，用统一的接口完成最优的数据存取操作，甚至可以将数据作为服务模块化并提供给所有白名单中的域使用，实现域与数据之间多对多的存取模式。</p>
+<h2 id="如何使用LocalDB">如何使用LocalDB</h2><p><a href="http://localdb.emptystack.net/gettingStarted/" target="_blank" rel="external">http://localdb.emptystack.net/gettingStarted/</a></p>
+<h2 id="目前的待做事项">目前的待做事项</h2><ul>
+<li>支持Promises</li>
+<li>支持域白名单功能，实现跨域共享数据</li>
+<li>存储数据简单加密功能</li>
+<li>多域同时进行localDB数据修改时，增加锁和队列的功能。</li>
+<li>支持sort排序</li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/localdb/">localdb</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-localdb-intro" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -321,6 +1027,433 @@
 
 
   
+    <article id="post-what-is-scope" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/03/12/what-is-scope/" class="article-date">
+  	<time datetime="2015-03-12T00:00:00.000Z" itemprop="datePublished">2015-03-12</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/03/12/what-is-scope/">什么是Javascript中的Scope？</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>几乎有所程序语言都具备的特性就是：使用变量来存储、遍历和修改值。但是我们通常没有思考过以下这些问题：</p>
+<ul>
+<li>变量存储在哪里？</li>
+<li>当程序需要的时候，变量是如何被寻找到的？</li>
+</ul>
+<p>实际上，在设计语言的过程中，为了解决以上的问题，需要定义很多的规则，我们将这些制定和执行这些规则的部分统一起来成为域(Scope)。</p>
+<p>一直以来，JavaScript被定义为动态、解释型语言，实际上他是一门编译型语言，只不过与传统的编译型语言相比，JS的编译并不是很完整，并且编译的结果可以运行在很多不同的环境中。即使如此，与传统编译型语言相比，JS引擎仍然使用很多复杂的方式来达到许多相同的编译过程。</p>
+<p>传统编译型语言在执行程序前主要进行以下是哪个步骤：</p>
+<ol>
+<li>词法分析(Lexing)：将代码分成小片段的过程叫做词法分析。举例来说，<code>var a = 2</code>会被分成<code>var</code>, <code>a</code>, <code>=</code>, <code>2</code>。</li>
+<li>语法分析(Parsing)：将一系列的小片段转换成复杂的能表达程序语法结构的元素树。该树被称为AST(Abstract Syntax Tree)</li>
+<li>代码生成(Code-Generation)：主要是将AST转换成可以执行的代码。该步主要依赖于何种语言以及何种平台。</li>
+</ol>
+<p>实际上，JavaScript引擎与其他编译器一样，编译过程远不止如上三步。除此之外，JavaScript引擎在代码执行前只有很短的编译时间(一般在微秒级)，为了保证非常快的性能，JS引擎使用了各种技术(比如JITs，其主要进行懒编译，甚至动态重新编译等)。</p>
+<p>在程序处理的过程中，JS引擎负责整个编译过程和代码的执行。编译器负责编译过程中的所有底层的词法和语法解析，并生成可执行代码。而Scope负责收集和维护一个定义过变量的列表，并强制使用一系列严格的规则来决定被执行的代码是否可以访问这些变量。</p>
+<p>举例来说，当我们看到程序<code>var a = 2;</code>，我们认为其是一条代码语句。而实际上JS引擎看到的是两条不同的语句，一条是在编译过程中编译器需要处理的语句，而另一条是在执行过程中引擎需要处理的。</p>
+<p>编译器处理该语句的简要流程为：</p>
+<ol>
+<li>编译器询问Scope该变量是否在特定的Scope集合中已经存在。如果存在，编译器则忽略该定义，否则编译器请求Scope在集合中定义名为<code>a</code>的变量。</li>
+<li>之后编译器为引擎生成可执行代码。该代码在运行时首先询问Scope在当前的scope集合中是否存在一个叫做<code>a</code>的变量可以访问，如果不存在，引擎会到别的域集合中继续寻找(nested Scope)</li>
+</ol>
+<p>如果引擎最终找到了该变量，则会进行赋值操作，否则引擎会在执行代码时抛出一个错误。</p>
+<p>总结来说：编译器负责判断是否请求Scope在特定集合中定义该变量，而引擎负责通过Scope来寻找特定集合中定义的该变量并执行查询或赋值操作。</p>
+<p>通过该代码，我们来看一下引擎和Scope之间是如何对话的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> a;</span><br><span class="line">alert(a);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Compiler: Hey Scope, 在当前你的集合中是否存在一个叫做a的变量？<br>Scope: 等等，我查一下，没有唉~~<br>Compiler: 这样啊~ Scope兄，麻烦你帮我定义一下这个变量呗。<br>Scope: 好嘞~~</p>
+<p>Compiler: Hey Scope, 在当前你的集合中是否存在一个叫做a的变量？(比较健忘)<br>Scope: 等等，我查一下…. 你不是刚刚定义过吗？<br>Compiler: 好吧…那当我没说… 闪了~~<br>Scope: &gt;_&lt;</p>
+</blockquote>
+<p>Compiler 苦逼的开始生产可执行代码，然后交给了Engine</p>
+<blockquote>
+<p>Engine: Hey Scope, 我这里有一个变量a，你听说过吗？<br>Scope: 我知道的，Compiler刚刚定义过一个。<br>Engine: 太棒了，非常感谢，我现在把这里的a赋值为2。</p>
+<p>Engine: Hey Scope, 我这里有一个函数叫做alert，你听说过吗？<br>Scope: 听说过啊，他就是Window这个集合里面的成员。<br>Engine: 太好了，我要使用它，谢谢啦。<br>Engine: 等等，还有变量a你听说过吗？(鱼的记忆，转眼就忘记自己问过的问题了)<br>Scope: 我知道啊，你不是刚给他赋值了吗？<br>Engine: 额…好吧。</p>
+</blockquote>
+<p>那么接下来，大家可以想象一下，这里面Scope、Compiler和Engine是怎么对话的呢？</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> b = <span class="number">10</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">a</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> b = a + <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(b);</span><br><span class="line">&#125;</span><br><span class="line">foo(b);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> value1 = <span class="number">0</span>, value2 = <span class="number">0</span>, value3 = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> ( <span class="keyword">var</span> i = <span class="number">1</span>; i &lt;= <span class="number">3</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">var</span> i2 = i;</span><br><span class="line">    (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> i3 = i;</span><br><span class="line">        setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            value1 += i;</span><br><span class="line">            value2 += i2;</span><br><span class="line">            value3 += i3;</span><br><span class="line">        &#125;, <span class="number">1</span>);</span><br><span class="line">    &#125;)();</span><br><span class="line">&#125;</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(value1, value2, value3);</span><br><span class="line">&#125;, <span class="number">100</span>);</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scope/">scope</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-localdb-api-reference" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/02/20/localdb-api-reference/" class="article-date">
+  	<time datetime="2015-02-20T00:00:00.000Z" itemprop="datePublished">2015-02-20</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/02/20/localdb-api-reference/">localDB API Reference</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight coffee"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### 查看浏览器对localDB的支持情况</span><br><span class="line">    @return(OBJECT): 返回一个对象，对象中包含浏览器对localStorage、sessionStorage、indexedDB的支持情况</span><br><span class="line">###</span></span><br><span class="line">result = LocalDB.support()  <span class="comment">#result: &#123;localStorage: true, sessionStorage, true, indexedDB: false&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### 创建/获取 名为dbName的db: new LocalDB(dbName, options)</span><br><span class="line"> *  @para dbName(STRING): db名</span><br><span class="line"> *  @para options(OBJECT): 可选配置项</span><br><span class="line">    *   engine: 选用的存储引擎，可选localStorage/sessionStorage, (indexedDB待实现)</span><br><span class="line">    *   size(INT): 数据库最大容量，单位是MB(<span class="doctag"><span class="keyword">TODO</span></span>)</span><br><span class="line">    *   allow(ARRAY): 支持域白名单(待讨论)</span><br><span class="line"> *  @return(OBJECT LocalDB): 返回LocalDB构造的对象，包含了具体db的所有操作。</span><br><span class="line"> *  Note: 如果该db已经存在，options配置内容失效，只是获取该db，具体更改db配置的方案需要讨论(<span class="doctag"><span class="keyword">TODO</span></span>)</span><br><span class="line">###</span></span><br><span class="line">db = <span class="keyword">new</span> LocalDB(<span class="string">'foo'</span>, &#123;</span><br><span class="line">    <span class="attribute">engine</span>: localStorage</span><br><span class="line">    <span class="attribute">size</span>: <span class="number">500</span></span><br><span class="line">    <span class="attribute">allow</span>: [<span class="string">'baidu.com'</span>, <span class="string">'pt.aliexpress.com'</span>,<span class="string">'www.qq.com'</span>]</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取该db的options配置信息</span></span><br><span class="line">options = db.options()</span><br><span class="line"></span><br><span class="line"><span class="comment">### 获取该db的所有collection</span><br><span class="line">    @return(ARRAY): 返回包含该db所有collection名的数组</span><br><span class="line">###</span></span><br><span class="line">collections = db.collections()  <span class="comment"># ['bar1','bar2','bar3']</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### 创建/获取 名为collectionName的collection: db.collection(collectionName, options)</span><br><span class="line"> *  @para collectionName(STRING): collection名</span><br><span class="line"> *  @para options(OBJECT): 可选配置项(预留)</span><br><span class="line"> *  @return(OBJECT Collection): 返回Collection构造的对象，包含了具体collection的所有操作。</span><br><span class="line"> *  Note: 如果该collection已经存在，options配置的内容失效，只是获取该collection，具体更改collection配置的方案需要讨论(<span class="doctag"><span class="keyword">TODO</span></span>)</span><br><span class="line">###</span></span><br><span class="line">collection = db.collection(<span class="string">'bar'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">### 删除db/collection</span><br><span class="line"> *  删除数据库： db.drop()</span><br><span class="line"> *  删除collection: db.drop('bar')</span><br><span class="line"> *  @para collectionName(STRING): 需要删除的collection名</span><br><span class="line"> *  @return(BOOL): 返回是否删除成功</span><br><span class="line">###</span></span><br><span class="line">db.drop(<span class="string">'bar'</span>) <span class="comment"># true / false</span></span><br><span class="line">db.drop()      <span class="comment"># true / false</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Collection</p>
+</blockquote>
+<figure class="highlight coffee"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### 删除collection</span><br><span class="line"> *  @return(BOOL): 返回是否删除成功</span><br><span class="line">###</span></span><br><span class="line">collection.drop()</span><br><span class="line"></span><br><span class="line"><span class="comment">### 插入对象/数组对象: collection.insert(rowData)</span><br><span class="line"> *  @para rowData(OBJECT/ARRAY): 要插入的对象，如果一次想插入多条数据，可以直接传对象数组，如果数组中有非对象item，则该item忽略。</span><br><span class="line"> *  @return(BOOL): 返回是否插入成功</span><br><span class="line">###</span></span><br><span class="line">collection.insert &#123;</span><br><span class="line">    <span class="attribute">item</span>: <span class="string">"ABC1"</span>,</span><br><span class="line">    <span class="attribute">details</span>: &#123;</span><br><span class="line">        <span class="attribute">model</span>: <span class="string">"14Q3"</span>,</span><br><span class="line">        <span class="attribute">manufacturer</span>: <span class="string">"XYZ Company"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attribute">stock</span>: [ &#123; <span class="attribute">size</span>: <span class="string">"S"</span>, <span class="attribute">qty</span>: <span class="number">25</span> &#125;, &#123; <span class="attribute">size</span>: <span class="string">"M"</span>, <span class="attribute">qty</span>: <span class="number">50</span> &#125; ],</span><br><span class="line">    <span class="attribute">category</span>: <span class="string">"clothing"</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">### 插入的数据如下：</span><br><span class="line">&#123; "_id" : ObjectId("53d98f133bb604791249ca99"), "item" : "ABC1", "details" : &#123; "model" : "14Q3", "manufacturer" : "XYZ Company" &#125;, "stock" : [ &#123; "size" : "S", "qty" : 25 &#125;, &#123; "size" : "M", "qty" : 50 &#125; ], "category" : "clothing" &#125;</span><br><span class="line">###</span></span><br><span class="line">collection.insert [</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attribute">item</span>: <span class="string">"ABC2"</span>,</span><br><span class="line">        <span class="attribute">details</span>: &#123; <span class="attribute">model</span>: <span class="string">"14Q3"</span>, <span class="attribute">manufacturer</span>: <span class="string">"M1 Corporation"</span> &#125;,</span><br><span class="line">        <span class="attribute">stock</span>: [ &#123; <span class="attribute">size</span>: <span class="string">"M"</span>, <span class="attribute">qty</span>: <span class="number">50</span> &#125; ],</span><br><span class="line">        <span class="attribute">category</span>: <span class="string">"clothing"</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attribute">item</span>: <span class="string">"MNO2"</span>,</span><br><span class="line">        <span class="attribute">details</span>: &#123; <span class="attribute">model</span>: <span class="string">"14Q3"</span>, <span class="attribute">manufacturer</span>: <span class="string">"ABC Company"</span> &#125;,</span><br><span class="line">        <span class="attribute">stock</span>: [ &#123; <span class="attribute">size</span>: <span class="string">"S"</span>, <span class="attribute">qty</span>: <span class="number">5</span> &#125;, &#123; <span class="attribute">size</span>: <span class="string">"M"</span>, <span class="attribute">qty</span>: <span class="number">5</span> &#125;, &#123; <span class="attribute">size</span>: <span class="string">"L"</span>, <span class="attribute">qty</span>: <span class="number">1</span> &#125; ],</span><br><span class="line">        <span class="attribute">category</span>: <span class="string">"clothing"</span>,</span><br><span class="line">        <span class="attribute">number</span>: <span class="number">1</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="attribute">item</span>: <span class="string">"IJK2"</span>,</span><br><span class="line">        <span class="attribute">details</span>: &#123; <span class="attribute">model</span>: <span class="string">"14Q2"</span>, <span class="attribute">manufacturer</span>: <span class="string">"M5 Corporation"</span> &#125;,</span><br><span class="line">        <span class="attribute">stock</span>: [ &#123; <span class="attribute">size</span>: <span class="string">"S"</span>, <span class="attribute">qty</span>: <span class="number">5</span> &#125;, &#123; <span class="attribute">size</span>: <span class="string">"L"</span>, <span class="attribute">qty</span>: <span class="number">1</span> &#125; ],</span><br><span class="line">        <span class="attribute">category</span>: <span class="string">"houseware"</span></span><br><span class="line">    &#125;</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment">### 更新指定数据: collection.update(actions, options)</span><br><span class="line"> *  @para actions(OBJECT): 指定需要执行的更新操作</span><br><span class="line"> *  @para options(OBJECT): 可选项</span><br><span class="line">    *   @para where(OBJECT): 更新条件</span><br><span class="line">    *   @para multi(BOOL): 默认情况下update只更新一条数据，如果需要将满足条件的数据全部更新 multi设置为true。(<span class="doctag"><span class="keyword">TODO</span></span>)</span><br><span class="line">    *   @para upsert(BOOL): 如果没有满足where条件的，则update什么都不做，upsert如果为true，则在没有满足where条件的情况下，会插入一条数据。(<span class="doctag"><span class="keyword">TODO</span></span>)</span><br><span class="line">###</span></span><br><span class="line">collection.update &#123;</span><br><span class="line">    <span class="attribute">$set</span>: &#123;</span><br><span class="line">        <span class="attribute">category</span>: <span class="string">"apparel"</span>,</span><br><span class="line">        <span class="attribute">details</span>: &#123; <span class="attribute">model</span>: <span class="string">"14Q3"</span>, <span class="attribute">manufacturer</span>: <span class="string">"XYZ Company"</span> &#125;</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="attribute">$inc</span>: &#123;</span><br><span class="line">        <span class="attribute">number</span>: <span class="number">1</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;, &#123;</span><br><span class="line">    <span class="attribute">where</span>: &#123;<span class="attribute">item</span>: <span class="string">"MNO2"</span>&#125;,</span><br><span class="line">    <span class="attribute">multi</span>: <span class="literal">true</span>,</span><br><span class="line">    <span class="attribute">upsert</span>: <span class="literal">false</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">### 删除指定数据: collection.remove(options)</span><br><span class="line"> *  @para options(OBJECT): 可选项</span><br><span class="line">    *   @para where(OBJECT): 删除条件</span><br><span class="line">    *   @para multi(BOOL):  默认为true,如果设置为false，则只删除遇到的第一条数据(<span class="doctag"><span class="keyword">TODO</span></span>)</span><br><span class="line">###</span></span><br><span class="line">collection.remove &#123;</span><br><span class="line">    <span class="attribute">where</span>: &#123;<span class="attribute">item</span>: <span class="string">"MNO2"</span>&#125;,</span><br><span class="line">    <span class="attribute">multi</span>: <span class="literal">false</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">### 查询数据: collection.find(options)</span><br><span class="line">*   @para options(OBJECT): 可选项</span><br><span class="line">    *   @para where(OBJECT): 查询条件</span><br><span class="line">    *   @para limit(NUMBER): 返回数据的数量</span><br><span class="line">    *   @para sort(OBJECT): 排序方式</span><br><span class="line">###</span></span><br><span class="line">collection.find &#123;</span><br><span class="line">    <span class="attribute">where</span>: &#123;</span><br><span class="line">        <span class="attribute">type</span>: <span class="string">'food'</span>,</span><br><span class="line">        <span class="attribute">$or</span>: [ &#123; <span class="attribute">qty</span>: &#123; <span class="attribute">$gt</span>: <span class="number">100</span> &#125; &#125;, &#123; <span class="attribute">price</span>: &#123; <span class="attribute">$lt</span>: <span class="number">9.95</span> &#125; &#125; ]</span><br><span class="line">   &#125;,</span><br><span class="line">   <span class="attribute">limit</span>: <span class="number">10</span>,</span><br><span class="line">   <span class="attribute">sort</span>: &#123;<span class="attribute">food</span>: <span class="number">1</span>, <span class="attribute">qty</span>: -<span class="number">1</span>&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/localdb/">localdb</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-nodejs-learn-note" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/01/22/nodejs-learn-note/" class="article-date">
+  	<time datetime="2015-01-22T00:00:00.000Z" itemprop="datePublished">2015-01-22</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/01/22/nodejs-learn-note/">Nodejs 学习笔记</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="The_Web_World_is_Changing">The Web World is Changing</h2><ul>
+<li>实时web应用的需求急剧增加</li>
+<li>用户体验变得越来越重要</li>
+<li>需求频繁，敏捷响应变化，更多的前后端沟通与协作</li>
+<li>富客户端应用的产生与发展</li>
+<li>越来越的工具和组件来帮助规范前端开发流程及提高前端开发效率</li>
+</ul>
+<h2 id="What_is_Nodejs">What is Nodejs</h2><ul>
+<li>Server-side Javascript</li>
+<li>异步，事件驱动，非阻塞I/O</li>
+<li>基于 Chrome V8 Javascript 引擎</li>
+</ul>
+<h2 id="Why_Nodejs">Why Nodejs</h2><ul>
+<li>前端熟悉的语言，学习成本低</li>
+<li>都是JS，可以前后端复用</li>
+<li>采用npm进行模块管理和复用</li>
+<li>事件驱动，非阻塞适合I/O密集型业务</li>
+<li>执行速度还可以</li>
+<li>众多基于Nodejs构建的前端开发、调试、部署工具</li>
+</ul>
+<h2 id="How_to_use_Nodejs">How to use Nodejs</h2><h3 id="如何安装">如何安装</h3><p>身处于天朝环境下，前端开发会受到很大的阻碍，其中包含以下方面：</p>
+<ul>
+<li>npm(node package manager)访问速度非常之慢</li>
+<li>bower(js package manager)访问速度依赖于github</li>
+<li>github访问速度非常不稳定，时快时慢</li>
+<li>部分资源来自于amazon s3，访问相当不稳定，而且很慢</li>
+<li>开发过程个可能涉及到node版本切换</li>
+</ul>
+<p>具体的解决方案请参考：<a href="https://cnodejs.org/topic/5338c5db7cbade005b023c98" target="_blank" rel="external">快速搭建 Node.js 开发环境以及加速 npm</a></p>
+<h3 id="阻塞和非阻塞">阻塞和非阻塞</h3><h4 id="传统的I/O阻塞式编程">传统的I/O阻塞式编程</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> urls = db.query(<span class="string">"select * from urls"</span>);  <span class="comment">//程序处于等待数据库查询的状态</span></span><br><span class="line">urls.each(<span class="function"><span class="keyword">function</span>(<span class="params">url</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> page = http.get(url);   <span class="comment">//程序处于等待通过url获取页面内容的状态</span></span><br><span class="line">    save(page);                 <span class="comment">//程序处于等待保存页面内容的状态</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"hello world"</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="非阻塞式编程">非阻塞式编程</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">db.query(<span class="string">"select * from urls"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">urls</span>)</span>&#123;</span><br><span class="line">    urls.each(<span class="function"><span class="keyword">function</span>(<span class="params">url</span>)</span>&#123;</span><br><span class="line">        http.get(url, <span class="function"><span class="keyword">function</span>(<span class="params">page</span>)</span>&#123;</span><br><span class="line">            save(page);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"hello world"</span>);</span><br></pre></td></tr></table></figure>
+<p>当程序需要进行较长事件的IO操作时，与之相关的操作通过回调函数的方式被挂起，程序并不等待，而是直接执行接下来的语句<code>console.log(&quot;hello world&quot;)</code>, 直到IO操作完成后通过事件驱动来执行对应的回调函数。</p>
+<h3 id="CommonJS">CommonJS</h3><p>Nodejs中模块 按照<a href="http://www.commonjs.org/specs/" target="_blank" rel="external">CommonJS</a>规范进行设计的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//加载全局模块http  </span></span><br><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>);  </span><br><span class="line">  </span><br><span class="line"><span class="comment">//加载当前目录下的duowan.js模块里面的myname  </span></span><br><span class="line"><span class="keyword">var</span> myname = <span class="built_in">require</span>(<span class="string">"./duowan"</span>).myname  </span><br><span class="line">  </span><br><span class="line"><span class="comment">//加载绝对路径/node/modules下面的common.js模块  </span></span><br><span class="line"><span class="keyword">var</span> common = <span class="built_in">require</span>(<span class="string">"/node/modules/common"</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>通过require(moduleName)我们可以加载其它的模块</li>
+<li>如果模块名不含有/或者或者./就会去加载通用模块，如果带有./或者../则按照相对路径规则从当前文件所在文件夹开始寻找模块，如果以/开头则从系统根目录开始找</li>
+<li>模块引入后可以把整个模块赋予到一个变量中，也可以直接暴露模块中的某个对象或者属性或者方法。其实这点和javascript一样。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">exports.hello = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'Hello World!'</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>exports对象是当前模块的导出对象，用于导出模块公有方法和属性。别的模块通过require函数使用当前模块时得到的就是当前模块的exports对象。以下例子中导出了一个公有方法。</p>
+<p>通过module对象可以访问到当前模块的一些相关信息，但最多的用途是替换当前模块的导出对象。上述可以代码可以改写为：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    hello: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Hello World!'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="简单的Web_Server示例">简单的Web Server示例</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//示例来自于官网</span></span><br><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line">http.createServer(<span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">  res.writeHead(<span class="number">200</span>, &#123;<span class="string">'Content-Type'</span>: <span class="string">'text/plain'</span>&#125;);</span><br><span class="line">  res.end(<span class="string">'Hello World\n'</span>);</span><br><span class="line">&#125;).listen(<span class="number">1337</span>, <span class="string">'127.0.0.1'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'Server running at http://127.0.0.1:1337/'</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="Frameworks_on_Nodejs">Frameworks on Nodejs</h2><ul>
+<li>Express</li>
+<li>Koa</li>
+<li>Socket.io</li>
+<li>MEAN</li>
+<li>Sails</li>
+</ul>
+<h2 id="Other_JS_Web_frameworks">Other JS Web frameworks</h2><ul>
+<li>Meteor</li>
+<li>Fibjs</li>
+<li>io.js</li>
+</ul>
+<h2 id="Upcoming_Features_for_Nodejs">Upcoming Features for Nodejs</h2><ul>
+<li>ES6</li>
+<li>Generator</li>
+<li>co</li>
+<li>thunkify</li>
+<li>koa</li>
+</ul>
+<h2 id="其他参考资料">其他参考资料</h2><ul>
+<li><a href="http://blog.rednode.cn/year-2014-of-node-js/" target="_blank" rel="external">Nodejs 2014大事件</a></li>
+<li><a href="http://nodejs.org/documentation/" target="_blank" rel="external">Nodejs Documentation</a></li>
+<li><a href="https://github.com/alsotang/node-lessons" target="_blank" rel="external">Nodejs包教不包会</a></li>
+<li><a href="http://www.nodebeginner.org/index-zh-cn.html" target="_blank" rel="external">Nodejs入门</a></li>
+<li><a href="http://nqdeng.github.io/7-days-nodejs/" target="_blank" rel="external">七天学会Nodejs</a></li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/笔记/">笔记</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-team-tool" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2014/11/04/team-tool/" class="article-date">
+  	<time datetime="2014-11-04T00:00:00.000Z" itemprop="datePublished">2014-11-04</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/11/04/team-tool/">一些实用的团队工具介绍</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="@文档撰写">@文档撰写</h1><hr>
+<h2 id="Markdown介绍">Markdown介绍</h2><p>Markdown 是一种方便记忆、书写的纯文本标记语言，用户可以使用这些标记符号以最小的输入代价生成极富表现力的文档：譬如您正在阅读的这份文档。它使用简单的符号标记不同的标题，分割不同的段落，<strong>粗体</strong> 或者 <em>斜体</em> 某些文字，更棒的是，它还可以</p>
+<ul>
+<li>书写一个 像 $E=mc^2$ 这样的 <strong>LaTeX公式</strong></li>
+</ul>
+<p>$$f(x_1,x_x,\ldots,x_n) = x_1^2 + x_2^2 + \cdots + x_n^2 $$</p>
+<p>$$\sum^{j-1}<em>{k=0}{\widehat{\gamma}</em>{kj} z_k}$$</p>
+<ul>
+<li>高亮一段 <strong>代码</strong></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="decorator">@requires_authorization</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SomeClass</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># A comment</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'hello world'</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>高效绘制 <strong>流程图</strong></li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">st=&#62;start: Start&#10;op=&#62;operation: Your Operation&#10;cond=&#62;condition: Yes or No?&#10;e=&#62;end&#10;&#10;st-&#62;op-&#62;cond&#10;cond(yes)-&#62;e&#10;cond(no)-&#62;op</span><br></pre></td></tr></table></figure>
+<ul>
+<li>高效绘制 <strong>序列图</strong></li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Alice-&#62;Bob: Hello Bob, how are you?&#10;Note right of Bob: Bob thinks&#10;Bob--&#62;Alice: I am good thanks!</span><br></pre></td></tr></table></figure>
+<ul>
+<li>绘制表格</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>项目</th>
+<th style="text-align:right">价格</th>
+<th style="text-align:center">数量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>计算机</td>
+<td style="text-align:right">$1600</td>
+<td style="text-align:center">5</td>
+</tr>
+<tr>
+<td>手机</td>
+<td style="text-align:right">$12</td>
+<td style="text-align:center">12</td>
+</tr>
+<tr>
+<td>管线</td>
+<td style="text-align:right">$1</td>
+<td style="text-align:center">234</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>也可以 <strong>删除</strong> 一段文本<br><del>这段文字被删除了</del></p>
+</li>
+<li><p>同样也支持html标签</p>
+</li>
+</ul>
+<table><br>    <tr><br>        <th rowspan="2">值班人员</th><br>        <th>星期一</th><br>        <th>星期二</th><br>        <th>星期三</th><br>    </tr><br>    <tr><br>        <td>李强</td><br>        <td>张明</td><br>        <td>王平</td><br>    </tr><br></table>
+
+<ul>
+<li>也可以使用内嵌 <strong>图标</strong></li>
+</ul>
+<p><i class="icon-weibo icon-2x"></i> <i class="icon-renren icon-2x"></i></p>
+<ul>
+<li>甚至可以增加注脚或者引用[^footnote]</li>
+</ul>
+<blockquote>
+<p>这是一个引用</p>
+</blockquote>
+<p>[^footnote]: 这是一个 <em>注脚</em> 的 <strong>文本</strong>。</p>
+<hr>
+<h2 id="Markdown的编辑器">Markdown的编辑器</h2><ul>
+<li>在线编辑器<ul>
+<li><a href="https://www.zybuluo.com/mdeditor" target="_blank" rel="external">cmd markdown</a></li>
+<li><a href="http://maxiang.info/" target="_blank" rel="external">马克飞象</a></li>
+<li><a href="https://stackedit.io/" target="_blank" rel="external">stackedit</a></li>
+</ul>
+</li>
+<li>离线编辑器<ul>
+<li><a href="http://www.mouapp.com/" target="_blank" rel="external">Mou</a> for mac</li>
+<li><a href="http://www.markdownpad.com/" target="_blank" rel="external">MarkdownPad</a> for windows</li>
+<li><a href="http://www.mdcharm.com/" target="_blank" rel="external">MdCharm</a> for ubuntu &amp;&amp; windows</li>
+</ul>
+</li>
+</ul>
+<h1 id="@团队协作工具">@团队协作工具</h1><hr>
+<h2 id="Trello">Trello</h2><p><a href="https://trello.com" target="_blank" rel="external">Trello</a>是一款快速、高效工作流管理工具。同时还具有手机客户端，方便工作流同步及实时查看与提醒。</p>
+<p>所谓Trello，就是一块大黑板（board），你可以往上加一条条的列表（list）贴各种纸条（card）。通过这三大元素的自由组合，你可以创建出属于自己的工作流。</p>
+<p>比如你可以设置课程计划：<br><img src="http://wh1100717.github.io/img/teambition/kechengjihua.jpg" alt="此处输入图片的描述"></p>
+<p>或者进行情人节策划：<br><img src="http://wh1100717.github.io/img/teambition/cehuaan.jpg" alt="此处输入图片的描述"></p>
+<p>小纸条除了可以在各个列表之间拖曳，还可以点开：<br><img src="http://wh1100717.github.io/img/teambition/zhankai.jpg" alt="此处输入图片的描述"></p>
+<p>同时，协作功能也带来了很大的应用拓展性。<br><img src="http://wh1100717.github.io/img/teambition/xietong.jpg" alt="此处输入图片的描述"></p>
+<p>还有很多功能有待去体验<br><img src="http://wh1100717.github.io/img/teambition/trelloshili.jpg" alt="此处输入图片的描述"></p>
+<h2 id="Teambition">Teambition</h2><p>与Trello类似，<a href="https://www.teambition.com/" target="_blank" rel="external">Teambition</a>是国内一款轻量级的项目管理软件，可以进行项目或工作规划，分配任务，跟踪工作进度，在线讨论，上手十分容易和简单，并且免费。</p>
+<p>界面非常清爽简洁。<br><img src="http://wh1100717.github.io/img/teambition/tbzhuye.png" alt="此处输入图片的描述"></p>
+<p>提供了任务板功能，根据不同分类对任务进行归类，并可以设置紧急度和截止日期，同时还可以设置任务参与相关人员。<br><img src="http://wh1100717.github.io/img/teambition/tbrenwuban.jpeg" alt="此处输入图片的描述"></p>
+<p>点开任务详情如图所示<br><img src="http://wh1100717.github.io/img/teambition/tbxiangxi.jpeg" alt="此处输入图片的描述"></p>
+<p>同时组成员可以进行分享好的资料和文件<br><img src="http://wh1100717.github.io/img/teambition/tbrenwuqiang.jpeg" alt="此处输入图片的描述"></p>
+<p>也可以查看个人目前的任务情况<br><img src="http://wh1100717.github.io/img/teambition/tbwoderenwu.jpeg" alt="此处输入图片的描述"></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/团队/">团队</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/工具/">工具</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+  
+    <nav id="page-nav">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+    </nav>
   
 </div>
       <footer id="footer">

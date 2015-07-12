@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>LocalDB分享 | wh1100717</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="为什么要做LocalDB而不是别的
+Canvas &amp;amp;&amp;amp; SVG (echarts)
+video &amp;amp;&amp;amp; audio &amp;amp;&amp;amp; preload
+webGL (qtek)
+geolocation
+websocket
+Storage &amp;amp;&amp;amp; indexedDB &amp;amp;&amp;amp; postMessage
+applicationCache
+
+为什么">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LocalDB分享">
+<meta property="og:url" content="http://blog.emptystack.net/2015/03/20/localdb-share/index.html">
+<meta property="og:site_name" content="wh1100717">
+<meta property="og:description" content="为什么要做LocalDB而不是别的
+Canvas &amp;amp;&amp;amp; SVG (echarts)
+video &amp;amp;&amp;amp; audio &amp;amp;&amp;amp; preload
+webGL (qtek)
+geolocation
+websocket
+Storage &amp;amp;&amp;amp; indexedDB &amp;amp;&amp;amp; postMessage
+applicationCache
+
+为什么">
+<meta property="og:updated_time" content="2015-07-12T16:47:34.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LocalDB分享">
+<meta name="twitter:description" content="为什么要做LocalDB而不是别的
+Canvas &amp;amp;&amp;amp; SVG (echarts)
+video &amp;amp;&amp;amp; audio &amp;amp;&amp;amp; preload
+webGL (qtek)
+geolocation
+websocket
+Storage &amp;amp;&amp;amp; indexedDB &amp;amp;&amp;amp; postMessage
+applicationCache
+
+为什么">
+  
+  
+    <link rel="icon" href="/img/avatar.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/avatar.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Eric Wang</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">I think &amp; code &amp; dream, there I am</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/wh1100717" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/yourseric" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/wh1100717" title="zhihu">zhihu</a>
+					        
+								<a class="mail" target="_blank" href="mailto:me@emptystack.net" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/BAAS/" style="font-size: 10px;">BAAS</a> <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/ECMAScript/" style="font-size: 13.33px;">ECMAScript</a> <a href="/tags/Firebase/" style="font-size: 10px;">Firebase</a> <a href="/tags/LeanCloud/" style="font-size: 10px;">LeanCloud</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/less/" style="font-size: 10px;">less</a> <a href="/tags/livepool/" style="font-size: 10px;">livepool</a> <a href="/tags/localdb/" style="font-size: 16.67px;">localdb</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/stylus/" style="font-size: 10px;">stylus</a> <a href="/tags/tianma/" style="font-size: 10px;">tianma</a> <a href="/tags/团队/" style="font-size: 10px;">团队</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/笔记/" style="font-size: 20px;">笔记</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">http://me.emptystack.net</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Eric Wang</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="/img/avatar.png" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Eric Wang</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">I think &amp; code &amp; dream, there I am</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/wh1100717" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/yourseric" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/wh1100717" title="zhihu">zhihu</a>
+			        
+						<a class="mail" target="_blank" href="mailto:me@emptystack.net" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-localdb-share" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/03/20/localdb-share/" class="article-date">
+  	<time datetime="2015-03-20T00:00:00.000Z" itemprop="datePublished">2015-03-20</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      LocalDB分享
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/localdb/">localdb</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="为什么要做LocalDB而不是别的">为什么要做LocalDB而不是别的</h2><ul>
+<li>Canvas &amp;&amp; SVG (<a href="http://echarts.baidu.com/index.html" target="_blank" rel="external">echarts</a>)</li>
+<li>video &amp;&amp; audio &amp;&amp; preload</li>
+<li>webGL (<a href="https://github.com/pissang/qtek" target="_blank" rel="external">qtek</a>)</li>
+<li>geolocation</li>
+<li>websocket</li>
+<li>Storage &amp;&amp; indexedDB &amp;&amp; postMessage</li>
+<li>applicationCache</li>
+</ul>
+<h2 id="为什么需要LocalDB">为什么需要LocalDB</h2><p>传统意义上的浏览器是用来进行网页浏览的，但是随着HTML5及前端领域的发展，浏览器承载了更多的角色和内容。</p>
+<ul>
+<li><p>利用HTML5可以在浏览器上构建复杂的游戏，比如<a href="http://bejeweled.popcap.com/html5/0.9.12.9490/html5/Bejeweled.html" target="_blank" rel="external">Bejeweled</a>, <a href="http://chrome.angrybirds.com/" target="_blank" rel="external">Angry Birds</a>, <a href="http://www.pirateslovedaisies.com/" target="_blank" rel="external">Pirates Love Daisies</a>, 甚至还有多人联网射击游戏<a href="https://developer.cdn.mozilla.net/media/uploads/demos/a/z/azakai/3baf4ad7e600cbda06ec46efec5ec3b8/bananabread_1373485124_demo_package/index.html" target="_blank" rel="external">BananaBread</a>。现在已经出现了为数众多的<a href="http://www.zhihu.com/question/20079322" target="_blank" rel="external">游戏引擎</a>，甚至可以利用WebGL通过硬件加速来渲染<a href="http://www.chromeexperiments.com/webgl" target="_blank" rel="external">3D效果</a>。</p>
+</li>
+<li><p>利用HTML5可以在浏览器上构建功能强大的应用，比如图片处理应用<a href="http://muro.deviantart.com/" target="_blank" rel="external">deviantART muro</a>, <a href="http://aprilzero.com/" target="_blank" rel="external">个人身体健康及运动监控</a>, <a href="http://rbv.me/" target="_blank" rel="external">Nobuaki Honma的个人主页</a></p>
+</li>
+<li><p>除此之外，随着移动端设备性能的提升，越来越多基于浏览器的手机跨平台应用产生并简化了开发流程。伴随着applicationCache的广泛应用和普及，更多离线常驻浏览器应用会产生和发展。</p>
+</li>
+</ul>
+<p>HTML5提供了三种存储方式：Web Storage, indexedDB 和 applicationCache。</p>
+<ul>
+<li><p>indexedDB是基于前端的NOSQL数据库，优点是有索引，浏览器级别高性能查询支持，缺点是接口复杂，使用麻烦，兼容性目前还不理想。</p>
+</li>
+<li><p>applicationCache用于程序离线存储，主要是进行资源文件缓存。</p>
+</li>
+<li><p>webStorage提供简单的键值对存储，使数据可以在同一域的页面中共享，其中localStorage提供的存储即使浏览器关闭了也仍然会存储，真正意义上实现了浏览器数据存储的持久化。</p>
+</li>
+</ul>
+<p>我们再试想一下未来的前端业务场景可能会如何？</p>
+<ul>
+<li>基于前端用户行为自动化定制个性化网页</li>
+<li>用户行为数据在多个白名单域中共享</li>
+<li>用户数据跨终端共享</li>
+<li>用户数据实时分析及响应</li>
+<li>用户数据模块化及服务化，域和用户数据模块实现多对多存取关系。</li>
+</ul>
+<p>那么问题来了，这些离线或者富客户端应用对于数据的存储和查询的需求到底是怎样的呢？</p>
+<ul>
+<li>简单的存取接口</li>
+<li>多种数据格式支持</li>
+<li>浏览器平台兼容性保证</li>
+<li>通用性智能存储方案选择</li>
+<li>多样化数据筛选和查询</li>
+<li>跨域数据共享</li>
+<li>多域共享存取的同步问题解决</li>
+<li>数据存储安全性保障</li>
+<li>数据存储容量已满时候自动化处理方案</li>
+</ul>
+<p>那么LocalDB拥有什么呢？</p>
+<ul>
+<li>支持多种安装和加载方式，可以直接引用独立文件(无第三方依赖库)，也可以通过bower或者component安装，或者作为requirejs/seajs的模块进行模块化加载。</li>
+<li>非常非常简单的接口。</li>
+<li>根据用户的浏览器和需求自动选择最适合的存取方式，智能退化方案，保证基本存储需求的可用性。</li>
+<li>提供多种数据格式支持，甚至可以直接进行正则表达式或者函数存取操作。</li>
+<li>提供多样化数据查询、筛选、排序功能。</li>
+<li>提供域白名单功能，实现跨域数据共享。</li>
+<li>同一个域可以获得多个LocalDB数据源，实现数据源的模块化和服务化。</li>
+<li>提供数据高安全性需求，比如数据简单加密功能，通过proxy来隐藏实际存储域。</li>
+<li>提供数据存储容量已满时候自动覆盖最旧数据以及设置数据过期时间等方式来解决数据容量有限的问题。</li>
+<li>提供chrome浏览器下设置容量并请求用户确认的功能。</li>
+</ul>
+<p>正式因为LocalDB如此多的特性，使得其使用者可以完全脱离HTML5数据存储的底层，在享受HTML5带来的便利的同时，又兼顾了旧的浏览器，在不需要关注数据存储格式的选择时候，用统一的接口完成最优的数据存取操作，甚至可以将数据作为服务模块化并提供给所有白名单中的域使用，实现域与数据之间多对多的存取模式。</p>
+<h2 id="如何使用LocalDB">如何使用LocalDB</h2><p><a href="http://localdb.emptystack.net/gettingStarted/" target="_blank" rel="external">http://localdb.emptystack.net/gettingStarted/</a></p>
+<h2 id="目前的待做事项">目前的待做事项</h2><ul>
+<li>支持Promises</li>
+<li>支持域白名单功能，实现跨域共享数据</li>
+<li>存储数据简单加密功能</li>
+<li>多域同时进行localDB数据修改时，增加锁和队列的功能。</li>
+<li>支持sort排序</li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/04/02/ecmascript5-learn-note/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          ECMAScript 5 学习笔记
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/03/12/localdb-intro/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">LocalDB -- Browser Storage Framework</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="localdb-share" data-title="LocalDB分享" data-url="http://blog.emptystack.net/2015/03/20/localdb-share/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"wh1100717"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 Eric Wang
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: true
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-65053446-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>什么是Javascript中的Scope？ | wh1100717</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="几乎有所程序语言都具备的特性就是：使用变量来存储、遍历和修改值。但是我们通常没有思考过以下这些问题：
+
+变量存储在哪里？
+当程序需要的时候，变量是如何被寻找到的？
+
+实际上，在设计语言的过程中，为了解决以上的问题，需要定义很多的规则，我们将这些制定和执行这些规则的部分统一起来成为域(Scope)。
+一直以来，JavaScript被定义为动态、解释型语言，实际上他是一门编译型语言，只不过与传统的编译">
+<meta property="og:type" content="article">
+<meta property="og:title" content="什么是Javascript中的Scope？">
+<meta property="og:url" content="http://blog.emptystack.net/2015/03/12/what-is-scope/index.html">
+<meta property="og:site_name" content="wh1100717">
+<meta property="og:description" content="几乎有所程序语言都具备的特性就是：使用变量来存储、遍历和修改值。但是我们通常没有思考过以下这些问题：
+
+变量存储在哪里？
+当程序需要的时候，变量是如何被寻找到的？
+
+实际上，在设计语言的过程中，为了解决以上的问题，需要定义很多的规则，我们将这些制定和执行这些规则的部分统一起来成为域(Scope)。
+一直以来，JavaScript被定义为动态、解释型语言，实际上他是一门编译型语言，只不过与传统的编译">
+<meta property="og:updated_time" content="2015-07-12T16:45:57.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="什么是Javascript中的Scope？">
+<meta name="twitter:description" content="几乎有所程序语言都具备的特性就是：使用变量来存储、遍历和修改值。但是我们通常没有思考过以下这些问题：
+
+变量存储在哪里？
+当程序需要的时候，变量是如何被寻找到的？
+
+实际上，在设计语言的过程中，为了解决以上的问题，需要定义很多的规则，我们将这些制定和执行这些规则的部分统一起来成为域(Scope)。
+一直以来，JavaScript被定义为动态、解释型语言，实际上他是一门编译型语言，只不过与传统的编译">
+  
+  
+    <link rel="icon" href="/img/avatar.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/avatar.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Eric Wang</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">I think &amp; code &amp; dream, there I am</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/wh1100717" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/yourseric" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/wh1100717" title="zhihu">zhihu</a>
+					        
+								<a class="mail" target="_blank" href="mailto:me@emptystack.net" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/BAAS/" style="font-size: 10px;">BAAS</a> <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/ECMAScript/" style="font-size: 13.33px;">ECMAScript</a> <a href="/tags/Firebase/" style="font-size: 10px;">Firebase</a> <a href="/tags/LeanCloud/" style="font-size: 10px;">LeanCloud</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/less/" style="font-size: 10px;">less</a> <a href="/tags/livepool/" style="font-size: 10px;">livepool</a> <a href="/tags/localdb/" style="font-size: 16.67px;">localdb</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/stylus/" style="font-size: 10px;">stylus</a> <a href="/tags/tianma/" style="font-size: 10px;">tianma</a> <a href="/tags/团队/" style="font-size: 10px;">团队</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/笔记/" style="font-size: 20px;">笔记</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">http://me.emptystack.net</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Eric Wang</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="/img/avatar.png" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Eric Wang</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">I think &amp; code &amp; dream, there I am</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/wh1100717" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/yourseric" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/wh1100717" title="zhihu">zhihu</a>
+			        
+						<a class="mail" target="_blank" href="mailto:me@emptystack.net" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-what-is-scope" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/03/12/what-is-scope/" class="article-date">
+  	<time datetime="2015-03-12T00:00:00.000Z" itemprop="datePublished">2015-03-12</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      什么是Javascript中的Scope？
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scope/">scope</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>几乎有所程序语言都具备的特性就是：使用变量来存储、遍历和修改值。但是我们通常没有思考过以下这些问题：</p>
+<ul>
+<li>变量存储在哪里？</li>
+<li>当程序需要的时候，变量是如何被寻找到的？</li>
+</ul>
+<p>实际上，在设计语言的过程中，为了解决以上的问题，需要定义很多的规则，我们将这些制定和执行这些规则的部分统一起来成为域(Scope)。</p>
+<p>一直以来，JavaScript被定义为动态、解释型语言，实际上他是一门编译型语言，只不过与传统的编译型语言相比，JS的编译并不是很完整，并且编译的结果可以运行在很多不同的环境中。即使如此，与传统编译型语言相比，JS引擎仍然使用很多复杂的方式来达到许多相同的编译过程。</p>
+<p>传统编译型语言在执行程序前主要进行以下是哪个步骤：</p>
+<ol>
+<li>词法分析(Lexing)：将代码分成小片段的过程叫做词法分析。举例来说，<code>var a = 2</code>会被分成<code>var</code>, <code>a</code>, <code>=</code>, <code>2</code>。</li>
+<li>语法分析(Parsing)：将一系列的小片段转换成复杂的能表达程序语法结构的元素树。该树被称为AST(Abstract Syntax Tree)</li>
+<li>代码生成(Code-Generation)：主要是将AST转换成可以执行的代码。该步主要依赖于何种语言以及何种平台。</li>
+</ol>
+<p>实际上，JavaScript引擎与其他编译器一样，编译过程远不止如上三步。除此之外，JavaScript引擎在代码执行前只有很短的编译时间(一般在微秒级)，为了保证非常快的性能，JS引擎使用了各种技术(比如JITs，其主要进行懒编译，甚至动态重新编译等)。</p>
+<p>在程序处理的过程中，JS引擎负责整个编译过程和代码的执行。编译器负责编译过程中的所有底层的词法和语法解析，并生成可执行代码。而Scope负责收集和维护一个定义过变量的列表，并强制使用一系列严格的规则来决定被执行的代码是否可以访问这些变量。</p>
+<p>举例来说，当我们看到程序<code>var a = 2;</code>，我们认为其是一条代码语句。而实际上JS引擎看到的是两条不同的语句，一条是在编译过程中编译器需要处理的语句，而另一条是在执行过程中引擎需要处理的。</p>
+<p>编译器处理该语句的简要流程为：</p>
+<ol>
+<li>编译器询问Scope该变量是否在特定的Scope集合中已经存在。如果存在，编译器则忽略该定义，否则编译器请求Scope在集合中定义名为<code>a</code>的变量。</li>
+<li>之后编译器为引擎生成可执行代码。该代码在运行时首先询问Scope在当前的scope集合中是否存在一个叫做<code>a</code>的变量可以访问，如果不存在，引擎会到别的域集合中继续寻找(nested Scope)</li>
+</ol>
+<p>如果引擎最终找到了该变量，则会进行赋值操作，否则引擎会在执行代码时抛出一个错误。</p>
+<p>总结来说：编译器负责判断是否请求Scope在特定集合中定义该变量，而引擎负责通过Scope来寻找特定集合中定义的该变量并执行查询或赋值操作。</p>
+<p>通过该代码，我们来看一下引擎和Scope之间是如何对话的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a = <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> a;</span><br><span class="line">alert(a);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Compiler: Hey Scope, 在当前你的集合中是否存在一个叫做a的变量？<br>Scope: 等等，我查一下，没有唉~~<br>Compiler: 这样啊~ Scope兄，麻烦你帮我定义一下这个变量呗。<br>Scope: 好嘞~~</p>
+<p>Compiler: Hey Scope, 在当前你的集合中是否存在一个叫做a的变量？(比较健忘)<br>Scope: 等等，我查一下…. 你不是刚刚定义过吗？<br>Compiler: 好吧…那当我没说… 闪了~~<br>Scope: &gt;_&lt;</p>
+</blockquote>
+<p>Compiler 苦逼的开始生产可执行代码，然后交给了Engine</p>
+<blockquote>
+<p>Engine: Hey Scope, 我这里有一个变量a，你听说过吗？<br>Scope: 我知道的，Compiler刚刚定义过一个。<br>Engine: 太棒了，非常感谢，我现在把这里的a赋值为2。</p>
+<p>Engine: Hey Scope, 我这里有一个函数叫做alert，你听说过吗？<br>Scope: 听说过啊，他就是Window这个集合里面的成员。<br>Engine: 太好了，我要使用它，谢谢啦。<br>Engine: 等等，还有变量a你听说过吗？(鱼的记忆，转眼就忘记自己问过的问题了)<br>Scope: 我知道啊，你不是刚给他赋值了吗？<br>Engine: 额…好吧。</p>
+</blockquote>
+<p>那么接下来，大家可以想象一下，这里面Scope、Compiler和Engine是怎么对话的呢？</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> b = <span class="number">10</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">a</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> b = a + <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">console</span>.log(b);</span><br><span class="line">&#125;</span><br><span class="line">foo(b);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> value1 = <span class="number">0</span>, value2 = <span class="number">0</span>, value3 = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">for</span> ( <span class="keyword">var</span> i = <span class="number">1</span>; i &lt;= <span class="number">3</span>; i++) &#123;</span><br><span class="line">    <span class="keyword">var</span> i2 = i;</span><br><span class="line">    (<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">var</span> i3 = i;</span><br><span class="line">        setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">            value1 += i;</span><br><span class="line">            value2 += i2;</span><br><span class="line">            value3 += i3;</span><br><span class="line">        &#125;, <span class="number">1</span>);</span><br><span class="line">    &#125;)();</span><br><span class="line">&#125;</span><br><span class="line">setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(value1, value2, value3);</span><br><span class="line">&#125;, <span class="number">100</span>);</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/03/12/localdb-intro/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          LocalDB -- Browser Storage Framework
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/02/20/localdb-api-reference/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">localDB API Reference</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="what-is-scope" data-title="什么是Javascript中的Scope？" data-url="http://blog.emptystack.net/2015/03/12/what-is-scope/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"wh1100717"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 Eric Wang
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: true
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-65053446-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

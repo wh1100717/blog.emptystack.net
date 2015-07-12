@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Nodejs 学习笔记 | wh1100717</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="The Web World is Changing
+实时web应用的需求急剧增加
+用户体验变得越来越重要
+需求频繁，敏捷响应变化，更多的前后端沟通与协作
+富客户端应用的产生与发展
+越来越的工具和组件来帮助规范前端开发流程及提高前端开发效率
+
+What is Nodejs
+Server-side Javascript
+异步，事件驱动，非阻塞I/O
+基于 Chrome V8 Javascript 引擎">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nodejs 学习笔记">
+<meta property="og:url" content="http://blog.emptystack.net/2015/01/22/nodejs-learn-note/index.html">
+<meta property="og:site_name" content="wh1100717">
+<meta property="og:description" content="The Web World is Changing
+实时web应用的需求急剧增加
+用户体验变得越来越重要
+需求频繁，敏捷响应变化，更多的前后端沟通与协作
+富客户端应用的产生与发展
+越来越的工具和组件来帮助规范前端开发流程及提高前端开发效率
+
+What is Nodejs
+Server-side Javascript
+异步，事件驱动，非阻塞I/O
+基于 Chrome V8 Javascript 引擎">
+<meta property="og:updated_time" content="2015-07-12T16:44:28.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Nodejs 学习笔记">
+<meta name="twitter:description" content="The Web World is Changing
+实时web应用的需求急剧增加
+用户体验变得越来越重要
+需求频繁，敏捷响应变化，更多的前后端沟通与协作
+富客户端应用的产生与发展
+越来越的工具和组件来帮助规范前端开发流程及提高前端开发效率
+
+What is Nodejs
+Server-side Javascript
+异步，事件驱动，非阻塞I/O
+基于 Chrome V8 Javascript 引擎">
+  
+  
+    <link rel="icon" href="/img/avatar.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/avatar.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Eric Wang</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">I think &amp; code &amp; dream, there I am</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/wh1100717" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/yourseric" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/wh1100717" title="zhihu">zhihu</a>
+					        
+								<a class="mail" target="_blank" href="mailto:me@emptystack.net" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/BAAS/" style="font-size: 10px;">BAAS</a> <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/ECMAScript/" style="font-size: 13.33px;">ECMAScript</a> <a href="/tags/Firebase/" style="font-size: 10px;">Firebase</a> <a href="/tags/LeanCloud/" style="font-size: 10px;">LeanCloud</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/less/" style="font-size: 10px;">less</a> <a href="/tags/livepool/" style="font-size: 10px;">livepool</a> <a href="/tags/localdb/" style="font-size: 16.67px;">localdb</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/stylus/" style="font-size: 10px;">stylus</a> <a href="/tags/tianma/" style="font-size: 10px;">tianma</a> <a href="/tags/团队/" style="font-size: 10px;">团队</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/笔记/" style="font-size: 20px;">笔记</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">http://me.emptystack.net</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Eric Wang</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="/img/avatar.png" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Eric Wang</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">I think &amp; code &amp; dream, there I am</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/wh1100717" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/yourseric" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/wh1100717" title="zhihu">zhihu</a>
+			        
+						<a class="mail" target="_blank" href="mailto:me@emptystack.net" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-nodejs-learn-note" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/01/22/nodejs-learn-note/" class="article-date">
+  	<time datetime="2015-01-22T00:00:00.000Z" itemprop="datePublished">2015-01-22</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Nodejs 学习笔记
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/笔记/">笔记</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="The_Web_World_is_Changing">The Web World is Changing</h2><ul>
+<li>实时web应用的需求急剧增加</li>
+<li>用户体验变得越来越重要</li>
+<li>需求频繁，敏捷响应变化，更多的前后端沟通与协作</li>
+<li>富客户端应用的产生与发展</li>
+<li>越来越的工具和组件来帮助规范前端开发流程及提高前端开发效率</li>
+</ul>
+<h2 id="What_is_Nodejs">What is Nodejs</h2><ul>
+<li>Server-side Javascript</li>
+<li>异步，事件驱动，非阻塞I/O</li>
+<li>基于 Chrome V8 Javascript 引擎</li>
+</ul>
+<h2 id="Why_Nodejs">Why Nodejs</h2><ul>
+<li>前端熟悉的语言，学习成本低</li>
+<li>都是JS，可以前后端复用</li>
+<li>采用npm进行模块管理和复用</li>
+<li>事件驱动，非阻塞适合I/O密集型业务</li>
+<li>执行速度还可以</li>
+<li>众多基于Nodejs构建的前端开发、调试、部署工具</li>
+</ul>
+<h2 id="How_to_use_Nodejs">How to use Nodejs</h2><h3 id="如何安装">如何安装</h3><p>身处于天朝环境下，前端开发会受到很大的阻碍，其中包含以下方面：</p>
+<ul>
+<li>npm(node package manager)访问速度非常之慢</li>
+<li>bower(js package manager)访问速度依赖于github</li>
+<li>github访问速度非常不稳定，时快时慢</li>
+<li>部分资源来自于amazon s3，访问相当不稳定，而且很慢</li>
+<li>开发过程个可能涉及到node版本切换</li>
+</ul>
+<p>具体的解决方案请参考：<a href="https://cnodejs.org/topic/5338c5db7cbade005b023c98" target="_blank" rel="external">快速搭建 Node.js 开发环境以及加速 npm</a></p>
+<h3 id="阻塞和非阻塞">阻塞和非阻塞</h3><h4 id="传统的I/O阻塞式编程">传统的I/O阻塞式编程</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> urls = db.query(<span class="string">"select * from urls"</span>);  <span class="comment">//程序处于等待数据库查询的状态</span></span><br><span class="line">urls.each(<span class="function"><span class="keyword">function</span>(<span class="params">url</span>)</span>&#123;</span><br><span class="line">    <span class="keyword">var</span> page = http.get(url);   <span class="comment">//程序处于等待通过url获取页面内容的状态</span></span><br><span class="line">    save(page);                 <span class="comment">//程序处于等待保存页面内容的状态</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"hello world"</span>);</span><br></pre></td></tr></table></figure>
+<h4 id="非阻塞式编程">非阻塞式编程</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">db.query(<span class="string">"select * from urls"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">urls</span>)</span>&#123;</span><br><span class="line">    urls.each(<span class="function"><span class="keyword">function</span>(<span class="params">url</span>)</span>&#123;</span><br><span class="line">        http.get(url, <span class="function"><span class="keyword">function</span>(<span class="params">page</span>)</span>&#123;</span><br><span class="line">            save(page);</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">"hello world"</span>);</span><br></pre></td></tr></table></figure>
+<p>当程序需要进行较长事件的IO操作时，与之相关的操作通过回调函数的方式被挂起，程序并不等待，而是直接执行接下来的语句<code>console.log(&quot;hello world&quot;)</code>, 直到IO操作完成后通过事件驱动来执行对应的回调函数。</p>
+<h3 id="CommonJS">CommonJS</h3><p>Nodejs中模块 按照<a href="http://www.commonjs.org/specs/" target="_blank" rel="external">CommonJS</a>规范进行设计的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//加载全局模块http  </span></span><br><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">"http"</span>);  </span><br><span class="line">  </span><br><span class="line"><span class="comment">//加载当前目录下的duowan.js模块里面的myname  </span></span><br><span class="line"><span class="keyword">var</span> myname = <span class="built_in">require</span>(<span class="string">"./duowan"</span>).myname  </span><br><span class="line">  </span><br><span class="line"><span class="comment">//加载绝对路径/node/modules下面的common.js模块  </span></span><br><span class="line"><span class="keyword">var</span> common = <span class="built_in">require</span>(<span class="string">"/node/modules/common"</span>)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>通过require(moduleName)我们可以加载其它的模块</li>
+<li>如果模块名不含有/或者或者./就会去加载通用模块，如果带有./或者../则按照相对路径规则从当前文件所在文件夹开始寻找模块，如果以/开头则从系统根目录开始找</li>
+<li>模块引入后可以把整个模块赋予到一个变量中，也可以直接暴露模块中的某个对象或者属性或者方法。其实这点和javascript一样。</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">exports.hello = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'Hello World!'</span>);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>exports对象是当前模块的导出对象，用于导出模块公有方法和属性。别的模块通过require函数使用当前模块时得到的就是当前模块的exports对象。以下例子中导出了一个公有方法。</p>
+<p>通过module对象可以访问到当前模块的一些相关信息，但最多的用途是替换当前模块的导出对象。上述可以代码可以改写为：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">    hello: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        <span class="built_in">console</span>.log(<span class="string">'Hello World!'</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="简单的Web_Server示例">简单的Web Server示例</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//示例来自于官网</span></span><br><span class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line">http.createServer(<span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</span><br><span class="line">  res.writeHead(<span class="number">200</span>, &#123;<span class="string">'Content-Type'</span>: <span class="string">'text/plain'</span>&#125;);</span><br><span class="line">  res.end(<span class="string">'Hello World\n'</span>);</span><br><span class="line">&#125;).listen(<span class="number">1337</span>, <span class="string">'127.0.0.1'</span>);</span><br><span class="line"><span class="built_in">console</span>.log(<span class="string">'Server running at http://127.0.0.1:1337/'</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="Frameworks_on_Nodejs">Frameworks on Nodejs</h2><ul>
+<li>Express</li>
+<li>Koa</li>
+<li>Socket.io</li>
+<li>MEAN</li>
+<li>Sails</li>
+</ul>
+<h2 id="Other_JS_Web_frameworks">Other JS Web frameworks</h2><ul>
+<li>Meteor</li>
+<li>Fibjs</li>
+<li>io.js</li>
+</ul>
+<h2 id="Upcoming_Features_for_Nodejs">Upcoming Features for Nodejs</h2><ul>
+<li>ES6</li>
+<li>Generator</li>
+<li>co</li>
+<li>thunkify</li>
+<li>koa</li>
+</ul>
+<h2 id="其他参考资料">其他参考资料</h2><ul>
+<li><a href="http://blog.rednode.cn/year-2014-of-node-js/" target="_blank" rel="external">Nodejs 2014大事件</a></li>
+<li><a href="http://nodejs.org/documentation/" target="_blank" rel="external">Nodejs Documentation</a></li>
+<li><a href="https://github.com/alsotang/node-lessons" target="_blank" rel="external">Nodejs包教不包会</a></li>
+<li><a href="http://www.nodebeginner.org/index-zh-cn.html" target="_blank" rel="external">Nodejs入门</a></li>
+<li><a href="http://nqdeng.github.io/7-days-nodejs/" target="_blank" rel="external">七天学会Nodejs</a></li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/02/20/localdb-api-reference/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          localDB API Reference
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/11/04/team-tool/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">一些实用的团队工具介绍</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="nodejs-learn-note" data-title="Nodejs 学习笔记" data-url="http://blog.emptystack.net/2015/01/22/nodejs-learn-note/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"wh1100717"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 Eric Wang
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: true
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-65053446-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

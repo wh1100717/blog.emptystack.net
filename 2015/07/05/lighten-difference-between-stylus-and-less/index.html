@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Stylus和Less中颜色计算公式的差异 | wh1100717</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="在写Stylus的时候会发现其 lighten/darken 函数和Less中得到的结果是不同的，深入了解后发现其实这是一个很有趣的问题。实际上Less/Sass对于lighten/darken的只提供了数值型的函数实现，然而输入参数却要求百分比的形式(非常奇怪的设定)。而Stylus提供了数值型、百分比类型的lighten/darken函数标准。具体颜色计算算法如下：
+Stylus:12345h">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Stylus和Less中颜色计算公式的差异">
+<meta property="og:url" content="http://blog.emptystack.net/2015/07/05/lighten-difference-between-stylus-and-less/index.html">
+<meta property="og:site_name" content="wh1100717">
+<meta property="og:description" content="在写Stylus的时候会发现其 lighten/darken 函数和Less中得到的结果是不同的，深入了解后发现其实这是一个很有趣的问题。实际上Less/Sass对于lighten/darken的只提供了数值型的函数实现，然而输入参数却要求百分比的形式(非常奇怪的设定)。而Stylus提供了数值型、百分比类型的lighten/darken函数标准。具体颜色计算算法如下：
+Stylus:12345h">
+<meta property="og:updated_time" content="2015-07-12T16:35:26.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Stylus和Less中颜色计算公式的差异">
+<meta name="twitter:description" content="在写Stylus的时候会发现其 lighten/darken 函数和Less中得到的结果是不同的，深入了解后发现其实这是一个很有趣的问题。实际上Less/Sass对于lighten/darken的只提供了数值型的函数实现，然而输入参数却要求百分比的形式(非常奇怪的设定)。而Stylus提供了数值型、百分比类型的lighten/darken函数标准。具体颜色计算算法如下：
+Stylus:12345h">
+  
+  
+    <link rel="icon" href="/img/avatar.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/avatar.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Eric Wang</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">I think &amp; code &amp; dream, there I am</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/wh1100717" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/yourseric" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/wh1100717" title="zhihu">zhihu</a>
+					        
+								<a class="mail" target="_blank" href="mailto:me@emptystack.net" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/BAAS/" style="font-size: 10px;">BAAS</a> <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/ECMAScript/" style="font-size: 13.33px;">ECMAScript</a> <a href="/tags/Firebase/" style="font-size: 10px;">Firebase</a> <a href="/tags/LeanCloud/" style="font-size: 10px;">LeanCloud</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/less/" style="font-size: 10px;">less</a> <a href="/tags/livepool/" style="font-size: 10px;">livepool</a> <a href="/tags/localdb/" style="font-size: 16.67px;">localdb</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/stylus/" style="font-size: 10px;">stylus</a> <a href="/tags/tianma/" style="font-size: 10px;">tianma</a> <a href="/tags/团队/" style="font-size: 10px;">团队</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/笔记/" style="font-size: 20px;">笔记</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">http://me.emptystack.net</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Eric Wang</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="/img/avatar.png" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Eric Wang</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">I think &amp; code &amp; dream, there I am</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/wh1100717" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/yourseric" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/wh1100717" title="zhihu">zhihu</a>
+			        
+						<a class="mail" target="_blank" href="mailto:me@emptystack.net" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-lighten-difference-between-stylus-and-less" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/07/05/lighten-difference-between-stylus-and-less/" class="article-date">
+  	<time datetime="2015-07-05T00:00:00.000Z" itemprop="datePublished">2015-07-05</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Stylus和Less中颜色计算公式的差异
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/less/">less</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/stylus/">stylus</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在写Stylus的时候会发现其 <code>lighten/darken</code> 函数和Less中得到的结果是不同的，深入了解后发现其实这是一个很有趣的问题。实际上Less/Sass对于lighten/darken的只提供了数值型的函数实现，然而输入参数却要求百分比的形式(非常奇怪的设定)。而Stylus提供了数值型、百分比类型的lighten/darken函数标准。<br>具体颜色计算算法如下：</p>
+<h3 id="Stylus:">Stylus:</h3><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">hsl</span><span class="params">(<span class="number">0deg</span>, <span class="number">0%</span>, <span class="number">17%</span>)</span></span>          <span class="comment">// #2b2b2b</span></span><br><span class="line"><span class="function"><span class="title">lighten</span><span class="params">(<span class="hexcolor">#2b2b2b</span>, <span class="number">10</span>)</span></span>        <span class="comment">// #454545</span></span><br><span class="line"><span class="function"><span class="title">hsl</span><span class="params">(<span class="number">0deg</span>, <span class="number">0%</span>, <span class="number">27%</span>)</span></span>          <span class="comment">// #454545</span></span><br><span class="line"><span class="function"><span class="title">lighten</span><span class="params">(<span class="hexcolor">#2b2b2b</span>, <span class="number">10%</span>)</span></span>       <span class="comment">// #404040</span></span><br><span class="line"><span class="function"><span class="title">hsl</span><span class="params">(<span class="number">0deg</span>, <span class="number">0%</span>, <span class="number">25%</span>)</span></span>          <span class="comment">// #404040</span></span><br></pre></td></tr></table></figure>
+<p>Stylus将颜色转换为hsl进行计算。如果为数值类型计算公式为<code>lightness += amount</code>，如果为百分比类型则<code>lightness += (1 - lightness) * percent</code></p>
+<p>根据上例所示，执行<code>lighten(#2b2b2b, 10)</code>实际上是在其hsl模式下增加了lightness属性增加了10个百分点，变为27%。而执行<code>lighten(#2b2b2b, 10%)</code> 则执行了 <code>0.17 + (1 - 0.17) * 10% = 0.253</code>，四舍五入后为25%。</p>
+<h3 id="Less">Less</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hsl(0deg, 0%, 17%)          // #2b2b2b</span><br><span class="line">lighten(#2b2b2b, 10%)       // #454545</span><br><span class="line">hsl(0deg, 0%, 27%)          // $454545</span><br></pre></td></tr></table></figure>
+<p>从上面代码可以看出，Less在计算lightness时，计算公式为<code>lightness += percent * 100</code> 即与Stylus中amount类型相同。</p>
+<h3 id="结论">结论</h3><p>Less实际上只提供了数值类型输入的函数(虽然输入形式上于Stylus中百分比类型相同，但实际效果与Stylus中数值类型相同)，而Stylus提供了两种类型的输入，因此如果要将Less项目重构为Stylus类型，则Less中<code>lighten(#2b2b2b, 10%)</code> 与stylus中<code>lighten(#2b2b2b, 10)</code>等同。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/05/12/baas-develop/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">基于BAAS的跨平台实时无后端开发实践</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="lighten-difference-between-stylus-and-less" data-title="Stylus和Less中颜色计算公式的差异" data-url="http://blog.emptystack.net/2015/07/05/lighten-difference-between-stylus-and-less/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"wh1100717"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 Eric Wang
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: true
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-65053446-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
