@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>LocalDB -- Browser Storage Framework | wh1100717</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="介绍
+Github Repo: https://github.com/wh1100717/localDB
+API Reference: http://localdb.emptystack.net/
+LocalDB 为开发者提供简单、易用又强大的浏览器端数据存取接口，其被设计用来为 WEB 应用、手机 H5 应用、网页游戏引擎提供浏览器端持久化存储方案，LocalDB包含以下特性：
+
+基于 JSON">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LocalDB -- Browser Storage Framework">
+<meta property="og:url" content="http://blog.emptystack.net/2015/03/12/localdb-intro/index.html">
+<meta property="og:site_name" content="wh1100717">
+<meta property="og:description" content="介绍
+Github Repo: https://github.com/wh1100717/localDB
+API Reference: http://localdb.emptystack.net/
+LocalDB 为开发者提供简单、易用又强大的浏览器端数据存取接口，其被设计用来为 WEB 应用、手机 H5 应用、网页游戏引擎提供浏览器端持久化存储方案，LocalDB包含以下特性：
+
+基于 JSON">
+<meta property="og:image" content="http://spmjs.io/badge/localdb">
+<meta property="og:image" content="https://api.travis-ci.org/wh1100717/localDB.svg?branch=master">
+<meta property="og:image" content="https://img.shields.io/coveralls/wh1100717/localDB.svg">
+<meta property="og:image" content="http://img.shields.io/badge/license-MIT-blue.svg?style=flat">
+<meta property="og:updated_time" content="2015-07-12T10:04:34.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LocalDB -- Browser Storage Framework">
+<meta name="twitter:description" content="介绍
+Github Repo: https://github.com/wh1100717/localDB
+API Reference: http://localdb.emptystack.net/
+LocalDB 为开发者提供简单、易用又强大的浏览器端数据存取接口，其被设计用来为 WEB 应用、手机 H5 应用、网页游戏引擎提供浏览器端持久化存储方案，LocalDB包含以下特性：
+
+基于 JSON">
+  
+  
+    <link rel="icon" href="/img/avatar.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/avatar.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Eric Wang</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">I think &amp; code &amp; dream, there I am</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/wh1100717" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/yourseric" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/wh1100717" title="zhihu">zhihu</a>
+					        
+								<a class="mail" target="_blank" href="mailto:me@emptystack.net" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/localdb/" style="font-size: 10px;">localdb</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">http://me.emptystack.net</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Eric Wang</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="/img/avatar.png" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Eric Wang</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">I think &amp; code &amp; dream, there I am</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/wh1100717" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/yourseric" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/wh1100717" title="zhihu">zhihu</a>
+			        
+						<a class="mail" target="_blank" href="mailto:me@emptystack.net" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-localdb-intro" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/03/12/localdb-intro/" class="article-date">
+  	<time datetime="2015-03-12T00:00:00.000Z" itemprop="datePublished">2015-03-12</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      LocalDB -- Browser Storage Framework
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/localdb/">localdb</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="http://spmjs.io/package/localdb" target="_blank" rel="external"><img src="http://spmjs.io/badge/localdb" alt="spm package"></a> <a href="https://travis-ci.org/wh1100717/localDB" target="_blank" rel="external"><img src="https://api.travis-ci.org/wh1100717/localDB.svg?branch=master" alt="Build Status"></a> <a href="https://coveralls.io/r/wh1100717/localDB?branch=master" target="_blank" rel="external"><img src="https://img.shields.io/coveralls/wh1100717/localDB.svg" alt="Coverage Status"></a> <a href="LICENSE"><img src="http://img.shields.io/badge/license-MIT-blue.svg?style=flat" alt="MIT License"></a></p>
+<h2 id="介绍">介绍</h2><hr>
+<p>Github Repo: <a href="https://github.com/wh1100717/localDB" target="_blank" rel="external">https://github.com/wh1100717/localDB</a></p>
+<p>API Reference: <a href="http://localdb.emptystack.net/" target="_blank" rel="external">http://localdb.emptystack.net/</a></p>
+<p><strong><a href="https://github.com/wh1100717/localDB" target="_blank" rel="external">LocalDB</a></strong> 为开发者提供简单、易用又强大的浏览器端数据存取接口，其被设计用来为 WEB 应用、手机 H5 应用、网页游戏引擎提供浏览器端持久化存储方案，LocalDB包含以下特性：</p>
+<ul>
+<li>基于 JSON 文档风格的存储方式</li>
+<li>支持多种数据格式的存储，例如：函数、正则表达式</li>
+<li>支持基于文档的富查询及排序功能</li>
+<li>支持 AMD/CMD/Standalone 等多种模块加载方式</li>
+<li>支持数据存取加密功能</li>
+<li>智能存储引擎切换</li>
+<li>支持域白名单功能，实现跨域共享数据，独特的跨域数据共享解决方案</li>
+<li>独特的域数据模块化解决方案</li>
+<li>高安全性(可以通过更改proxy来隐藏数据所存储的真实域)</li>
+<li>支持 <a href="https://www.promisejs.org/" target="_blank" rel="external">Promise</a> 或 Callback 异步编程</li>
+<li>支持 <a href="http://bsonspec.org/" target="_blank" rel="external">BSON</a> objectId</li>
+</ul>
+<h2 id="整体架构">整体架构</h2><p>LocalDB采用模块化开发的方式，通过requirejs对模块进行加载和控制，目前分为如下模块：</p>
+<ul>
+<li>localdb: 项目的入口模块，负责对LocalDB提供初始化支持，并提供了常用的类方法。主要依赖core/collection，并对core/engine和core/server模块进行初始化。</li>
+<li>core/collection: 集合操作模块，对外暴露接口，包含drop/insert/update/remove/find/findOne等集合操作，主要依赖core/operation和core/engine模块，主要包含的集合操作如下：<ul>
+<li>drop:   删除集合。</li>
+<li>insert: 向集合中插入数据，支持插入的数据为对象和包含对象的数组(相当于插入多条数据)，对象中包含的数据类型可以为数字、字符串、正则表达式、对象、函数和数组。</li>
+<li>update: 更新集合中的数据，目前支持的操作有：<code>$inc</code>, <code>$set</code>, <code>$mul</code>, <code>$rename</code>, <code>$unset</code>, <code>$max</code>, <code>$min</code>。</li>
+<li>remove: 删除集合中的数据。</li>
+<li>find:   查询集合中的数据。</li>
+<li>findOne:    查询集合中的数据，但只返回第一条数据。</li>
+</ul>
+</li>
+<li>core/operation: 结合操作的数据层具体实现模块，被core/collection模块调用，主要依赖core/where和core/projection模块。</li>
+<li>core/where: 提供多种选择条件的支持，被core/operation模块调用，主要支持操作如下:<ul>
+<li>Comparison: <code>$gt</code>, <code>$gte</code>, <code>$lt</code>, <code>$lte</code>, <code>$ne</code>, <code>$in</code>, <code>$nin</code></li>
+<li>Logical:    <code>$and</code>, <code>$nor</code>, <code>$or</code>, <code>$not</code></li>
+<li>Element:    <code>$exists</code>, <code>$type</code></li>
+<li>Evaluation: <code>$mod</code>, <code>$regex</code></li>
+<li>Array:      <code>$all</code>, <code>$elemMatch</code>, <code>$size</code></li>
+</ul>
+</li>
+<li>core/projection： 提供查询数据筛选功能的支持，被core/operation模块调用。</li>
+<li>core/engine:    引擎模块，对上层暴露统一的API接口，对下层根据是否指定proxy来采取不同的策略进行数据存取服务。主要被core/collection模块调用，在localdb模块中进行初始化。</li>
+<li>core/proxy:     代理模块，用于在LocalDB指定代理域时进行域间信息交互，与目标域的core/server模块进行交互，被core/engine模块调用。</li>
+<li>core/server:    服务模块，用于在LocalDB所指定的代理与进行初始化和消息接受并调用core/Storage模块进行底层数据处理。</li>
+<li>core/storage：  底层数据存储接口，根据不同的配置和浏览器来选择适合的driver来进行数据的存取。理论上来讲对更多存储引擎的支持只需要将存储引擎进行封装并满足storage的调用接口规范即可。</li>
+<li>core/utils:     该模块主要封装和提供了项目中常用的函数。</li>
+<li>lib/bson:       该模块主要提供了ObjectId的生成和解析支持。</li>
+<li>lib/encrypt:    该模块主要提供了数据加密和解密的支持。</li>
+<li>lib/promise:    该模块主要提供了promise方式封装回调方法的支持。</li>
+<li>lib/support:    该模块主要提供对浏览器响应存储引擎支持的判断。</li>
+</ul>
+<h2 id="如何使用">如何使用</h2><hr>
+<h3 id="Installation_By_Bower">Installation By Bower</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ bower install localdb</span><br></pre></td></tr></table></figure>
+<h3 id="Installation_By_SPM">Installation By SPM</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ spm install localdb</span><br></pre></td></tr></table></figure>
+<p>通过 <a href="http://bower.io/" target="_blank" rel="external">bower</a> 安装或者直接下载独立库文件的用户，可以直接在html页面中引用该js文件：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="doctype">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"dist/0.1.0/localdb.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="stylus"></span><br><span class="line">    <span class="tag">var</span> db = new <span class="function"><span class="title">LocalDB</span><span class="params">(<span class="string">"foo"</span>)</span></span></span><br><span class="line"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/wh1100717/localDB" target="_blank" rel="external">LocalDB</a> 支持 <a href="http://requirejs.org/" target="_blank" rel="external">requirejs</a> 作为其模块加载器，具体用法如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="doctype">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"emaples/require.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="javascript"></span><br><span class="line">    <span class="built_in">require</span>([<span class="string">'dist/0.1.0/localdb'</span>],<span class="function"><span class="keyword">function</span>(<span class="params">LocalDB</span>)</span>&#123;</span><br><span class="line">        <span class="keyword">var</span> db = <span class="keyword">new</span> LocalDB(<span class="string">"foo"</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><a href="https://github.com/wh1100717/localDB" target="_blank" rel="external">LocalDB</a> 支持 <a href="http://seajs.org/docs/" target="_blank" rel="external">seajs</a> 作为其模块加载器，通过 <a href="http://spmjs.io/" target="_blank" rel="external">SPM</a> 安装或者直接下载 <a href="http://seajs.org/docs/" target="_blank" rel="external">seajs</a> 版本的库文件的用户可以利用 <a href="http://seajs.org/docs/" target="_blank" rel="external">seajs</a> 来加载 <a href="https://github.com/wh1100717/localDB" target="_blank" rel="external">localDB</a>：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="doctype">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span> <span class="attribute">src</span>=<span class="value">"exmaples/sea.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">script</span> <span class="attribute">type</span>=<span class="value">"text/javascript"</span>&gt;</span><span class="actionscript"></span><br><span class="line">    seajs.<span class="keyword">use</span>(<span class="string">'dist/0.1.0/localdb-seajs.js'</span>, <span class="function"><span class="keyword">function</span><span class="params">(LocalDB)</span></span>&#123;</span><br><span class="line">        <span class="keyword">var</span> db = <span class="keyword">new</span> LocalDB(<span class="string">"foo"</span>)</span><br><span class="line">    &#125;)</span><br><span class="line"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="Getting_Started">Getting Started</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建/获取名为`foo`的db</span></span><br><span class="line"><span class="keyword">var</span> db = <span class="keyword">new</span> LocalDB(<span class="string">"foo"</span>)</span><br><span class="line"><span class="comment">// 创建/获取该db中名为`bar`的collection</span></span><br><span class="line"><span class="keyword">var</span> collection = db.collection(<span class="string">"bar"</span>)</span><br><span class="line"><span class="comment">// 插入数据</span></span><br><span class="line">collection.insert(&#123;</span><br><span class="line">    a: <span class="number">5</span>,</span><br><span class="line">    b: <span class="string">"abc"</span>,</span><br><span class="line">    c: <span class="regexp">/hell.*ld/</span>,</span><br><span class="line">    d: &#123;e: <span class="number">4</span>, f: <span class="string">"5"</span>&#125;,</span><br><span class="line">    g: <span class="function"><span class="keyword">function</span>(<span class="params">h</span>)</span>&#123;<span class="keyword">return</span> h*<span class="number">3</span>&#125;,</span><br><span class="line">    i: [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params">err</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// 查询数据</span></span><br><span class="line">    <span class="comment">// 目前支持添加的数据格式为数字、字符串、正则表达式、对象、函数和数组。</span></span><br><span class="line">    collection.find(&#123;</span><br><span class="line">        <span class="comment">// `where`表示查询条件，相当于`select a,b from table where b == "abc"`中的`where`语句。</span></span><br><span class="line">        where: &#123;</span><br><span class="line">            a: &#123;$gt: <span class="number">3</span>, $lt: <span class="number">10</span>&#125;,</span><br><span class="line">            b: <span class="string">"abc"</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="comment">// `projection`表示根据查询的条件构造选择数据内容。</span></span><br><span class="line">        projection: &#123;</span><br><span class="line">            a:<span class="number">1</span>,</span><br><span class="line">            b:<span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params">data, err</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// 其表示更新`a`的值为5的数据，设置其`b`的值为`new_string`，设置其`i`的值为`[3,2,1]`</span></span><br><span class="line">    collection.update(&#123;</span><br><span class="line">        $set: &#123;</span><br><span class="line">            b: <span class="string">"new_string"</span>,</span><br><span class="line">            i: [<span class="number">3</span>,<span class="number">2</span>,<span class="number">1</span>]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;,&#123;</span><br><span class="line">        where: &#123;</span><br><span class="line">            a: <span class="number">5</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params">err</span>)</span>&#123;</span><br><span class="line">    <span class="comment">// 其表示删除`a`的值大于3、小于10并且不等于5的数据。</span></span><br><span class="line">    collection.remove(&#123;</span><br><span class="line">        where: &#123;</span><br><span class="line">            a: &#123;$gt: <span class="number">3</span>, $lt: <span class="number">10</span>, $ne: <span class="number">5</span>&#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="Promise及异步">Promise及异步</h2><p>在 <a href="#getting-started">Getting Started</a> 章节中可以看到所有的数据操作都是通过以下方式进行的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">firstFunc()</span><br><span class="line">    .then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        secondFunc()</span><br><span class="line">    &#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        thirdFunc()</span><br><span class="line">    &#125;).then(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        lastFunc()</span><br><span class="line">    &#125;)</span><br></pre></td></tr></table></figure>
+<p>这种编写异步代码的方式实际上就是Promise，具体使用方式请参考 <a href="https://www.promisejs.org/" target="_blank" rel="external">官网</a> 或者文档 <a href="http://www.html5rocks.com/zh/tutorials/es6/promises/" target="_blank" rel="external">JavaScript Promises: There and back again</a>。</p>
+<p>如果不想使用 Promise 也可以直接使用回调来进行如下改写：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">firstFunc(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    secondFunc(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">        thirdFunc(<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">            lastFunc();</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>LocalDB中大部分API为异步调用方式，之所以使用异步的方式，是因为底层可能会涉及到采用多种不同的存储引擎，不能保证所有的引擎都具有较快的执行速度及对应的同步接口。由于异步回调固有的缺陷，如果有底层接口需要使用异步方式时，需要一直回溯至最上层并改写为异步接口。</p>
+<p><strong>因此对于可能会涉及到异步调用的接口，全部采用异步的方式。</strong></p>
+<h2 id="跨域数据存取技术实现">跨域数据存取技术实现</h2><p><strong>JavaScript出于安全方面的考虑，不允许跨域调用其他页面的对象。</strong></p>
+<p>目前已有的跨域方式请参考 <a href="http://www.cnblogs.com/rainman/archive/2011/02/20/1959325.html" target="_blank" rel="external">JavaScript跨域总结与解决办法</a>、<a href="http://www.cnblogs.com/2050/p/3191744.html" target="_blank" rel="external">js中几种实用的跨域方法原理详解</a></p>
+<p>LocalDB通过postMessage实现跨域通信，对其进行了封装，可以通过非常简单的配置来实现跨域数据存储。</p>
+<p>假如要将www.tmall.com的数据存储在www.taobao.com的域下，则可以通过以下代码实现。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//域tmall.com下，初始化LocalDB，并指定proxy</span></span><br><span class="line"><span class="keyword">new</span> LocalDB(<span class="string">'foo'</span>,&#123;</span><br><span class="line">    proxy: <span class="string">"http://www.taobao.com/getProxy.html"</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>Proxy为 <a href="http://www.taobao.com/getProxy.html" target="_blank" rel="external">http://www.taobao.com/getProxy.html</a> 所对应的html包含如下初始化代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">LocalDB.init(&#123;</span><br><span class="line">    allow: <span class="string">"*.tmall.com"</span>,</span><br><span class="line">    deny: <span class="string">"omg.tmall.com"</span> <span class="comment">//也可以设置拒绝的域名</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="如何贡献代码">如何贡献代码</h2><ol>
+<li><a href="https://github.com/wh1100717/localDB/fork" target="_blank" rel="external">Fork LocalDB</a><ol>
+<li>将Fork后的LocalDB项目clone到本地</li>
+<li>命令行执行 <code>git branch develop-own</code> 来创建一个新分支</li>
+<li>执行 <code>git checkout develop</code> 切换到新创建的分支</li>
+<li>执行 <code>git remote add upstream https://github.com/wh1100717/localDB.git</code> 将主干库添加为远端库</li>
+<li>执行 <code>git remote update</code> 来更新主干库上的最新代码</li>
+<li>执行 <code>git fetch upstream/master</code> 拉取最新代码到本地</li>
+<li>执行 <code>git rebase upstream/master</code> 进行本地代码合并</li>
+</ol>
+</li>
+<li>项目根目录执行 <code>npm install</code> 安装项目所需要的库和工具</li>
+<li>修改源码或者测试用例</li>
+<li>执行 <code>grunt test</code> 来测试修改的内容是否能跑通所有测试用例</li>
+<li>如果测试通过，则将代码提交到remote</li>
+<li>在Github你Fork的项目中有一个pull request按钮，点击提交代码合并</li>
+</ol>
+<h2 id="TODO">TODO</h2><ul>
+<li>增加 userData driver 的封装以支持IE6/7存取数据</li>
+<li>增加 window.name 的封装以支持IE6/7下跨域存取数据</li>
+<li>增加 LocalDB 初始化时 options.expire 对”browser”的支持，数据可以在可以在同一个域的多个页面之间共享，但随着浏览器关闭而消失。</li>
+<li>增加 LocalDB 初始化时 options.expire 对”Date()”的支持，数据可以在指定日期内一直存在。</li>
+<li>sort从core/utils抽离出来形成单独的模块。</li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="localdb-intro" data-title="LocalDB -- Browser Storage Framework" data-url="http://blog.emptystack.net/2015/03/12/localdb-intro/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"wh1100717"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 Eric Wang
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
