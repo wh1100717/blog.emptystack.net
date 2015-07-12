@@ -18,7 +18,7 @@
 <meta property="og:image" content="http://blog.emptystack.net/images/livepool-1.png">
 <meta property="og:image" content="http://blog.emptystack.net/images/livepool-2.png">
 <meta property="og:image" content="http://blog.emptystack.net/images/livepool-3.png">
-<meta property="og:updated_time" content="2015-07-12T17:01:28.000Z">
+<meta property="og:updated_time" content="2015-07-12T17:13:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="利用livepool实现请求的截获及转发">
 <meta name="twitter:description" content="前端开发过程中，存在这样一种场景：后端开发人员已经部署好服务器，前端需要提交vm并进行数据连调。
@@ -218,6 +218,7 @@
 <p>连调过程中的数据请求通过ajax的方式来获取，因为是异步请求数据，目前大部分的请求不支持jsonp跨域方式调用，因此数据只能从服务器端提供。问题就在于当后端只是定义好接口，但并没有对应接口的数据实现时，前端开发只能等待。</p>
 <p>举例来说：<br>当后台部署成功以及vm实现时，前端开发需要通过<code>http://jutiyewu.alimama.com/module/page1.htm</code>访问对应的页面，而对应页面如果需要进行数据连调时，具体的ajax访问接口则是通过<code>http://jutiyewu.alimama.com/module/woshiajax</code>来完成。因为浏览器跨域限制，不能更改域，因此我们不能直接在本地构造假数据来完成数据连调测试。</p>
 <p>这使得前端的开发工作完全依赖并等待后端开发的进度。</p>
+<a id="more"></a>
 <p>通过使用livepool和tianma，可以截获请求构造假数据的方式来解决以上提到的问题，类似的替代方案可以通过fiddler来实现，但是fiddler只支持windows平台，而livepool是跨平台方案。</p>
 <h4 id="livepool">livepool</h4><p>LivePool 是一个基于 NodeJS，类似 Fiddler 支持抓包和本地替换的 Web 开发调试工具，是 Tencent AlloyTeam 在开发实践过程总结出的一套的便捷的 WorkFlow 以及调试方案。</p>
 <ul>

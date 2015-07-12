@@ -13,7 +13,7 @@
 <meta property="og:site_name" content="wh1100717">
 <meta property="og:description" content="设想一下，如果在某些场景下，后端请求可以抽象成固定模型(比如符合RESTful API接口规范)，那么数据的查询、存储、更新、删除操作便完全可以流程化和自动化，我们也不需要额外的投入人力去进行后端的开发，更不需要额外的搭建服务器来响应请求。这种把后端资源作为Service的模式称之为BAAS(Backend As A Service)。
 实际上，随着Web技术和移动端技术的发展，开发模式已经发生了">
-<meta property="og:updated_time" content="2015-07-12T16:54:34.000Z">
+<meta property="og:updated_time" content="2015-07-12T17:12:27.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于BAAS的跨平台实时无后端开发实践">
 <meta name="twitter:description" content="设想一下，如果在某些场景下，后端请求可以抽象成固定模型(比如符合RESTful API接口规范)，那么数据的查询、存储、更新、删除操作便完全可以流程化和自动化，我们也不需要额外的投入人力去进行后端的开发，更不需要额外的搭建服务器来响应请求。这种把后端资源作为Service的模式称之为BAAS(Backend As A Service)。
@@ -215,6 +215,7 @@
 <h2 id="Startup">Startup</h2><h4 id="注册">注册</h4><p>Firebase的注册非常简单，可以直接用Github账号进行授权注册。</p>
 <p>创建完账号以后，需要创建一个App应用。</p>
 <p>创建完应用后直接通过<code>https://&lt;your-firebase&gt;.firebaseio.com/</code>进入后台管理界面</p>
+<a id="more"></a>
 <h4 id="引用Firebase">引用Firebase</h4><p>如果Nodejs服务器使用Firebase的话，可以使用npm来安装firebase的依赖库。如果是前端js中使用的话，可以使用bower来安装firebase的依赖库(webpack/browserify也可以使用npm)。</p>
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="operator"><span class="keyword">install</span> firebase <span class="comment">--save</span></span><br><span class="line"><span class="keyword">or</span></span><br><span class="line">bower <span class="keyword">install</span> firebase <span class="comment">--save</span></span></span><br></pre></td></tr></table></figure>
 <p>当在页面中引用了firebase后，需要初始化一个Firebase的引用</p>

@@ -25,7 +25,7 @@ LocalDB 为开发者提供简单、易用又强大的浏览器端数据存取接
 <meta property="og:image" content="https://api.travis-ci.org/wh1100717/localDB.svg?branch=master">
 <meta property="og:image" content="https://img.shields.io/coveralls/wh1100717/localDB.svg">
 <meta property="og:image" content="http://img.shields.io/badge/license-MIT-blue.svg?style=flat">
-<meta property="og:updated_time" content="2015-07-12T16:39:09.000Z">
+<meta property="og:updated_time" content="2015-07-12T17:13:36.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="LocalDB -- Browser Storage Framework">
 <meta name="twitter:description" content="介绍
@@ -242,7 +242,8 @@ LocalDB 为开发者提供简单、易用又强大的浏览器端数据存取接
 <li>支持 <a href="https://www.promisejs.org/" target="_blank" rel="external">Promise</a> 或 Callback 异步编程</li>
 <li>支持 <a href="http://bsonspec.org/" target="_blank" rel="external">BSON</a> objectId</li>
 </ul>
-<h2 id="整体架构">整体架构</h2><p>LocalDB采用模块化开发的方式，通过requirejs对模块进行加载和控制，目前分为如下模块：</p>
+<h2 id="整体架构">整体架构</h2><a id="more"></a>
+<p>LocalDB采用模块化开发的方式，通过requirejs对模块进行加载和控制，目前分为如下模块：</p>
 <ul>
 <li>localdb: 项目的入口模块，负责对LocalDB提供初始化支持，并提供了常用的类方法。主要依赖core/collection，并对core/engine和core/server模块进行初始化。</li>
 <li>core/collection: 集合操作模块，对外暴露接口，包含drop/insert/update/remove/find/findOne等集合操作，主要依赖core/operation和core/engine模块，主要包含的集合操作如下：<ul>

@@ -21,7 +21,7 @@ IE9不支持严谨模式，但IE10是支持的
 
 为了保证js代码得到通用性的支持，可以在html中增加如下代码：
 123&amp;lt;!--[if lt IE 9]&amp;gt;&amp;lt;script src=&quot;https://cdnjs.cloudflare.co">
-<meta property="og:updated_time" content="2015-07-12T16:38:46.000Z">
+<meta property="og:updated_time" content="2015-07-12T17:12:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ECMAScript 5 学习笔记">
 <meta name="twitter:description" content="浏览器兼容性：Opera 11.60+、Internet Explorer 9+、Firefox 4+、Safari 5.1+、Chrome 13+
@@ -229,6 +229,7 @@ IE9不支持严谨模式，但IE10是支持的
 <blockquote>
 <p>es5-shim提供了ES5的部分实现，其中有一部分需要依赖底层engine，为了保证在地浏览器中js不报错，对其中该部分的API做了封装，但是并不保证一定能正确执行，需要额外引用es5-sham。简单来说，如果需要考虑浏览器兼容性的问题，则不要使用Object在ES5上进行的扩展。具体请参考如下文档 <a href="https://github.com/es-shims/es5-shim" target="_blank" rel="external">https://github.com/es-shims/es5-shim</a> 。</p>
 </blockquote>
+<a id="more"></a>
 <h2 id="Array">Array</h2><h3 id="Array-isArray(arg)">Array.isArray(arg)</h3><p>isArray 函数需要一个参数 arg，如果参数是个对象并且 class 内部属性是 “Array”, 返回布尔值 true；否则它返回 false。采用如下步骤：</p>
 <ul>
 <li>如果 Type(arg) 不是 Object, 返回 false。</li>
