@@ -18,8 +18,6 @@ subnav:
 
 # rss: /atom.xml
 
-subtitle: "I think & code & dream, there I am"
-
 # Content
 excerpt_link: more
 fancybox: true
@@ -29,10 +27,10 @@ mathjax: true
 animate: true
 
 # 是否在新窗口打开链接
-open_in_new: false
+open_in_new: true
 
 # Miscellaneous
-google_analytics: ''
+google_analytics: 'UA-65053446-1'
 favicon: /img/avatar.png
 
 #你的头像url
@@ -53,8 +51,6 @@ friends: false
 #   奥巴马的博客: http://localhost:4000/
 #   卡卡的美丽传说: http://localhost:4000/
 
-#是否开启“关于我”。
-#不开启——
+subtitle: "I think & code & dream, there I am"
+
 aboutme: http://me.emptystack.net
-#开启——
-# aboutme: 我是谁，我从哪里来，我到哪里去？我就是我，是颜色不一样的吃货…
