@@ -32,6 +32,7 @@ tags:
         /*可以用它来构建非子选择符*/
         section * a {font-size: 1.3e;}
         ```
+
 <!-- more -->
 
 *   ID 和 类选择符
