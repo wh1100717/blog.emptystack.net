@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>CoffeeScript 学习笔记 | wh1100717 Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CoffeeScript 学习笔记">
+<meta property="og:url" content="http://blog.emptystack.net/2014/04/19/coffee-learn/index.html">
+<meta property="og:site_name" content="wh1100717 Blog">
+<meta property="og:description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210">
+<meta property="og:updated_time" content="2015-07-13T08:43:13.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CoffeeScript 学习笔记">
+<meta name="twitter:description" content="12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849505152535455565758596061626364656667686970717273747576777879808182838485868788899091929394959697989910010110210">
+  
+  
+    <link rel="icon" href="/img/avatar.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/avatar.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Eric Wang</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">当你的才华还撑不起你的野心时，你就应该静下心来学习，即使明明可以拼智商，也应该和别人比努力。</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/wh1100717" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/yourseric" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/wh1100717" title="zhihu">zhihu</a>
+					        
+								<a class="mail" target="_blank" href="mailto:me@emptystack.net" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/BAAS/" style="font-size: 10px;">BAAS</a> <a href="/tags/CSS/" style="font-size: 13.33px;">CSS</a> <a href="/tags/CoffeeScript/" style="font-size: 10px;">CoffeeScript</a> <a href="/tags/Dingo/" style="font-size: 10px;">Dingo</a> <a href="/tags/ECMAScript/" style="font-size: 13.33px;">ECMAScript</a> <a href="/tags/Firebase/" style="font-size: 10px;">Firebase</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/LeanCloud/" style="font-size: 10px;">LeanCloud</a> <a href="/tags/PolySpider/" style="font-size: 10px;">PolySpider</a> <a href="/tags/Polymer/" style="font-size: 10px;">Polymer</a> <a href="/tags/Web-Components/" style="font-size: 10px;">Web Components</a> <a href="/tags/Yoeman/" style="font-size: 10px;">Yoeman</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/less/" style="font-size: 10px;">less</a> <a href="/tags/livepool/" style="font-size: 10px;">livepool</a> <a href="/tags/localdb/" style="font-size: 16.67px;">localdb</a> <a href="/tags/midway/" style="font-size: 10px;">midway</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/processing/" style="font-size: 10px;">processing</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/stylus/" style="font-size: 10px;">stylus</a> <a href="/tags/tianma/" style="font-size: 10px;">tianma</a> <a href="/tags/团队/" style="font-size: 10px;">团队</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/笔记/" style="font-size: 20px;">笔记</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">个人简历请戳<a href="http://me.emptystack.net" style="color: #258fb8;" target="_blank"> 这里</a> | 主要做的方向以Python、Nodejs、前端为主，目前兴趣点为Famo.us/TweenMax/Material Design/R/量化金融。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Eric Wang</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="/img/avatar.png" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Eric Wang</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">当你的才华还撑不起你的野心时，你就应该静下心来学习，即使明明可以拼智商，也应该和别人比努力。</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/wh1100717" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/yourseric" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/wh1100717" title="zhihu">zhihu</a>
+			        
+						<a class="mail" target="_blank" href="mailto:me@emptystack.net" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-coffee-learn" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2014/04/19/coffee-learn/" class="article-date">
+  	<time datetime="2014-04-19T00:00:00.000Z" itemprop="datePublished">2014-04-19</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      CoffeeScript 学习笔记
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CoffeeScript/">CoffeeScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/笔记/">笔记</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 赋值:</span></span><br><span class="line">number   = <span class="number">42</span></span><br><span class="line">opposite = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 函数:</span></span><br><span class="line"><span class="function"><span class="title">square</span> = <span class="params">(x)</span> -&gt;</span> x * x</span><br><span class="line"><span class="function"><span class="title">cube</span>   = <span class="params">(x)</span> -&gt;</span> square(x) * x</span><br><span class="line"><span class="function"><span class="title">fill</span> = <span class="params">(container, liquid = <span class="string">"coffee"</span>)</span> -&gt;</span> <span class="string">"Filling the <span class="subst">#&#123;container&#125;</span> with <span class="subst">#&#123;liquid&#125;</span>..."</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 数组:</span></span><br><span class="line">list = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</span><br><span class="line">song = [<span class="string">"do"</span>, <span class="string">"re"</span>, <span class="string">"mi"</span>, <span class="string">"fa"</span>, <span class="string">"so"</span>]</span><br><span class="line">singers = &#123;<span class="attribute">Jagger</span>: <span class="string">"Rock"</span>, <span class="attribute">Elvis</span>: <span class="string">"Roll"</span>&#125;</span><br><span class="line">singers_same = <span class="attribute">Jagger</span>: <span class="string">"Rock"</span>, <span class="attribute">Elvis</span>: <span class="string">"Roll"</span></span><br><span class="line">singers_same_2 = </span><br><span class="line">    <span class="attribute">Jagger</span>: <span class="string">"Rock"</span></span><br><span class="line">    <span class="attribute">Elvis</span>: <span class="string">"Roll"</span></span><br><span class="line">bitlist = [</span><br><span class="line">  <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span></span><br><span class="line">  <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span></span><br><span class="line">  <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span></span><br><span class="line">]</span><br><span class="line">kids =</span><br><span class="line">  <span class="attribute">brother</span>:</span><br><span class="line">    <span class="attribute">name</span>: <span class="string">"Max"</span></span><br><span class="line">    <span class="attribute">age</span>:  <span class="number">11</span></span><br><span class="line">  <span class="attribute">sister</span>:</span><br><span class="line">    <span class="attribute">name</span>: <span class="string">"Ida"</span></span><br><span class="line">    <span class="attribute">age</span>:  <span class="number">9</span></span><br><span class="line"><span class="built_in">console</span>.log kids.brother.name  <span class="comment">#Ida</span></span><br><span class="line"></span><br><span class="line">numbers = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]</span><br><span class="line">start   = numbers[<span class="number">0.</span>.<span class="number">2</span>]         <span class="comment">#[1，2，3]</span></span><br><span class="line">middle  = numbers[<span class="number">3.</span>..-<span class="number">2</span>]       <span class="comment">#[4,5,6,7]</span></span><br><span class="line">middle2 = numbers[<span class="number">3.</span>.-<span class="number">2</span>]        <span class="comment">#[4,5,6,7,8]</span></span><br><span class="line">end     = numbers[-<span class="number">2.</span>.]         <span class="comment">#[8,9]</span></span><br><span class="line">copy    = numbers[..]           <span class="comment">#[1,2,3,4,5,6,7,8,9]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 对象:</span></span><br><span class="line">math =</span><br><span class="line">  <span class="attribute">root</span>:   Math.sqrt</span><br><span class="line">  <span class="attribute">square</span>: square</span><br><span class="line">  <span class="attribute">cube</span>:   <span class="function"><span class="params">(x)</span> -&gt;</span> x * square x</span><br><span class="line"></span><br><span class="line"><span class="comment"># 多参数输入:</span></span><br><span class="line"><span class="function"><span class="title">race</span> = <span class="params">(winner, runners...)</span> -&gt;</span></span><br><span class="line">  <span class="built_in">console</span>.log winner, runners</span><br><span class="line"></span><br><span class="line"><span class="comment"># 条件:</span></span><br><span class="line">number = -<span class="number">42</span> <span class="keyword">if</span> opposite</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> happy <span class="keyword">and</span> knowsIt</span><br><span class="line">  clapsHands()</span><br><span class="line">  chaChaCha()</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  showIt()</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log date = <span class="keyword">if</span> friday <span class="keyword">then</span> sue <span class="keyword">else</span> jill</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log <span class="string">"I knew it!"</span> <span class="keyword">if</span> elvis? <span class="comment"># 存在性验证:</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#循环</span></span><br><span class="line"><span class="built_in">console</span>.log val, index <span class="keyword">for</span> val, index <span class="keyword">in</span> some_list</span><br><span class="line"><span class="built_in">console</span>.log val <span class="keyword">for</span> val <span class="keyword">in</span> some_list</span><br><span class="line"><span class="built_in">console</span>.log val <span class="keyword">for</span> val <span class="keyword">in</span> some_list <span class="keyword">when</span> val <span class="keyword">is</span>/<span class="keyword">isnt</span> some_value</span><br><span class="line"></span><br><span class="line">yearsOld = <span class="attribute">max</span>: <span class="number">10</span>, <span class="attribute">ida</span>: <span class="number">9</span>, <span class="attribute">tim</span>: <span class="number">11</span></span><br><span class="line">ages = <span class="keyword">for</span> child, age <span class="keyword">of</span> yearsOld</span><br><span class="line">  <span class="string">"<span class="subst">#&#123;child&#125;</span> is <span class="subst">#&#123;age&#125;</span>"</span></span><br><span class="line"><span class="built_in">console</span>.log ages</span><br><span class="line"><span class="comment">#['max is 10', 'ida is 9', 'tim is 11']</span></span><br><span class="line"><span class="built_in">console</span>.log ages2 = <span class="string">"<span class="subst">#&#123;child&#125;</span> is <span class="subst">#&#123;age&#125;</span>"</span> <span class="keyword">for</span> child, age <span class="keyword">of</span> yearsOld</span><br><span class="line"><span class="comment">#max ia 10</span></span><br><span class="line"><span class="comment">#ida is 9</span></span><br><span class="line"><span class="comment">#tim is 11</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># While | Until</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">this</span>.studyingEconomics</span><br><span class="line">  buy()  <span class="keyword">while</span> supply &gt; demand</span><br><span class="line">  sell() <span class="keyword">until</span> supply &gt; demand</span><br><span class="line"></span><br><span class="line">num = <span class="number">6</span></span><br><span class="line">lyrics = <span class="keyword">while</span> num -= <span class="number">1</span></span><br><span class="line">  <span class="string">"<span class="subst">#&#123;num&#125;</span> little monkeys, jumping on the bed.</span><br><span class="line">    One fell out and bumped his head."</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># do用来动态执行函数</span></span><br><span class="line"><span class="keyword">for</span> filename <span class="keyword">in</span> list</span><br><span class="line">  <span class="keyword">do</span> (filename) -&gt;</span><br><span class="line">    fs.readFile filename, <span class="function"><span class="params">(err, contents)</span> -&gt;</span></span><br><span class="line">      compile filename, contents.toString()</span><br><span class="line"></span><br><span class="line"><span class="comment"># return</span></span><br><span class="line"><span class="comment"># 如果在函数中没有return语句，CoffeeScript会根据不同分支自动寻找最后一个变量值并返回。</span></span><br><span class="line"><span class="function"><span class="title">grade</span> = <span class="params">(student)</span> -&gt;</span></span><br><span class="line">  <span class="keyword">if</span> student.excellentWork</span><br><span class="line">    <span class="string">"A+"</span></span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> student.okayStuff</span><br><span class="line">    <span class="keyword">if</span> student.triedHard <span class="keyword">then</span> <span class="string">"B"</span> <span class="keyword">else</span> <span class="string">"B-"</span></span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    <span class="string">"C"</span></span><br><span class="line">eldest = <span class="keyword">if</span> <span class="number">24</span> &gt; <span class="number">21</span> <span class="keyword">then</span> <span class="string">"Liz"</span> <span class="keyword">else</span> <span class="string">"Ike"</span> <span class="comment">#Liz</span></span><br><span class="line"><span class="built_in">console</span>.log six = (one = <span class="number">1</span>) + (two = <span class="number">2</span>) + (three = <span class="number">3</span>) <span class="comment">#6</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#运算符</span></span><br><span class="line">CoffeeScript        JavaScript</span><br><span class="line"><span class="keyword">is</span>                  ===</span><br><span class="line"><span class="keyword">isnt</span>                !==</span><br><span class="line"><span class="keyword">not</span>                 !</span><br><span class="line"><span class="keyword">and</span>                 &amp;&amp;</span><br><span class="line"><span class="keyword">or</span>                  ||</span><br><span class="line"><span class="literal">true</span>, <span class="literal">yes</span>, <span class="literal">on</span>       <span class="literal">true</span></span><br><span class="line"><span class="literal">false</span>, <span class="literal">no</span>, <span class="literal">off</span>      <span class="literal">false</span></span><br><span class="line">@, <span class="keyword">this</span>             <span class="keyword">this</span></span><br><span class="line"><span class="keyword">of</span>                  <span class="keyword">in</span></span><br><span class="line"><span class="keyword">in</span>                  <span class="literal">no</span> JS equivalent</span><br><span class="line">a ** b              Math.pow(a, b)</span><br><span class="line">a <span class="regexp">//</span> b              Math.floor(a / b)</span><br><span class="line">a %% b              (a % b + b) % b</span><br><span class="line">a ?= <span class="number">15</span>             <span class="keyword">if</span> (a == <span class="literal">null</span>) &#123;a = <span class="number">15</span>;&#125;</span><br><span class="line">a = b ? <span class="string">"c"</span>         a = <span class="keyword">typeof</span> b !== <span class="string">"undefined"</span> &amp;&amp; b !== <span class="literal">null</span> ? b : <span class="string">"c"</span>;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/05/12/yoeman-simple-guide/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Yoeman Simple Guide
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/03/09/css3-learn-note/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">CSS 学习笔记</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="coffee-learn" data-title="CoffeeScript 学习笔记" data-url="http://blog.emptystack.net/2014/04/19/coffee-learn/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"wh1100717"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 Eric Wang
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: true
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-65053446-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

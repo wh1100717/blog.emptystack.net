@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Web Component 组件化开发初探 | wh1100717 Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="前端组件化关于前端组件化的思考和讨论有很多，建议有时间可以阅读一下下面的内容来加深对于前端组件化的理解，这里不展开讨论。
+
+2015前端组件化框架之路
+关于前端开发中“模块”和“组件”概念的思考
+
+Welcome To The Future我认为未来的前端开发会基于两种模式进行：
+
+基于Web Component的组件开发: 随着Web Component标准的到来，使通过自定义标签扩展HTML来">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Web Component 组件化开发初探">
+<meta property="og:url" content="http://blog.emptystack.net/2015/05/20/dingo/index.html">
+<meta property="og:site_name" content="wh1100717 Blog">
+<meta property="og:description" content="前端组件化关于前端组件化的思考和讨论有很多，建议有时间可以阅读一下下面的内容来加深对于前端组件化的理解，这里不展开讨论。
+
+2015前端组件化框架之路
+关于前端开发中“模块”和“组件”概念的思考
+
+Welcome To The Future我认为未来的前端开发会基于两种模式进行：
+
+基于Web Component的组件开发: 随着Web Component标准的到来，使通过自定义标签扩展HTML来">
+<meta property="og:updated_time" content="2015-07-13T07:38:20.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Web Component 组件化开发初探">
+<meta name="twitter:description" content="前端组件化关于前端组件化的思考和讨论有很多，建议有时间可以阅读一下下面的内容来加深对于前端组件化的理解，这里不展开讨论。
+
+2015前端组件化框架之路
+关于前端开发中“模块”和“组件”概念的思考
+
+Welcome To The Future我认为未来的前端开发会基于两种模式进行：
+
+基于Web Component的组件开发: 随着Web Component标准的到来，使通过自定义标签扩展HTML来">
+  
+  
+    <link rel="icon" href="/img/avatar.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/avatar.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Eric Wang</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">当你的才华还撑不起你的野心时，你就应该静下心来学习，即使明明可以拼智商，也应该和别人比努力。</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/wh1100717" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/yourseric" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/wh1100717" title="zhihu">zhihu</a>
+					        
+								<a class="mail" target="_blank" href="mailto:me@emptystack.net" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/BAAS/" style="font-size: 10px;">BAAS</a> <a href="/tags/CSS/" style="font-size: 13.33px;">CSS</a> <a href="/tags/CoffeeScript/" style="font-size: 10px;">CoffeeScript</a> <a href="/tags/Dingo/" style="font-size: 10px;">Dingo</a> <a href="/tags/ECMAScript/" style="font-size: 13.33px;">ECMAScript</a> <a href="/tags/Firebase/" style="font-size: 10px;">Firebase</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/LeanCloud/" style="font-size: 10px;">LeanCloud</a> <a href="/tags/PolySpider/" style="font-size: 10px;">PolySpider</a> <a href="/tags/Polymer/" style="font-size: 10px;">Polymer</a> <a href="/tags/Web-Components/" style="font-size: 10px;">Web Components</a> <a href="/tags/Yoeman/" style="font-size: 10px;">Yoeman</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/less/" style="font-size: 10px;">less</a> <a href="/tags/livepool/" style="font-size: 10px;">livepool</a> <a href="/tags/localdb/" style="font-size: 16.67px;">localdb</a> <a href="/tags/midway/" style="font-size: 10px;">midway</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/processing/" style="font-size: 10px;">processing</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/stylus/" style="font-size: 10px;">stylus</a> <a href="/tags/tianma/" style="font-size: 10px;">tianma</a> <a href="/tags/团队/" style="font-size: 10px;">团队</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/笔记/" style="font-size: 20px;">笔记</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">个人简历请戳<a href="http://me.emptystack.net" style="color: #258fb8;" target="_blank"> 这里</a> | 主要做的方向以Python、Nodejs、前端为主，目前兴趣点为Famo.us/TweenMax/Material Design/R/量化金融。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Eric Wang</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="/img/avatar.png" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Eric Wang</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">当你的才华还撑不起你的野心时，你就应该静下心来学习，即使明明可以拼智商，也应该和别人比努力。</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/wh1100717" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/yourseric" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/wh1100717" title="zhihu">zhihu</a>
+			        
+						<a class="mail" target="_blank" href="mailto:me@emptystack.net" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-dingo" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/05/20/dingo/" class="article-date">
+  	<time datetime="2015-05-20T00:00:00.000Z" itemprop="datePublished">2015-05-20</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Web Component 组件化开发初探
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Dingo/">Dingo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Polymer/">Polymer</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web-Components/">Web Components</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="前端组件化">前端组件化</h3><p>关于前端组件化的思考和讨论有很多，建议有时间可以阅读一下下面的内容来加深对于前端组件化的理解，这里不展开讨论。</p>
+<ul>
+<li><a href="https://github.com/xufei/blog/issues/19" target="_blank" rel="external">2015前端组件化框架之路</a></li>
+<li><a href="https://github.com/hax/hax.github.com/issues/21" target="_blank" rel="external">关于前端开发中“模块”和“组件”概念的思考</a></li>
+</ul>
+<h3 id="Welcome_To_The_Future">Welcome To The Future</h3><p>我认为未来的前端开发会基于两种模式进行：</p>
+<ul>
+<li>基于Web Component的组件开发: 随着Web Component标准的到来，使通过自定义标签扩展HTML来进行前端组件化成为了可能。Angular 2.0依照Web Component标准进行设计，Reactjs由于使用了Virtual DOM层，也可以很容易的构建Web Component Portal，Polymer 将于今年发布v1.0版本，一些都预示着变革即将到来。<ul>
+<li>Templates，定义的标记块，不会被渲染但可以随后被激活使用。</li>
+<li>Decorators，基于CSS选择器来应用模板，从而对文档进行丰富的视觉和行为的变化。</li>
+<li>Custom Elements，让用户自定义新的标签名和新的脚本接口。</li>
+<li>Shadow DOM，封装的DOM子树，更可靠的用户界面元素组成。</li>
+<li>Imports，定义Templates、Decorators和Custom Elements如何作为资源打包加载。</li>
+</ul>
+</li>
+<li>基于Javascript的组件开发: 随着Javascript引擎对于js的解析速度越来越快，类似于Famo.us这样的公司在寻找直接通过JS来构建整个页面的可能性。DOM层扁平化、RenderTree、Physics Animation Engine、Integrated with DOM, Canvas and WebGL, Cross Platform等特性都为这种开发模式带来了生机。由于本文主要是针对Web Component，这里不详细展开。</li>
+</ul>
+<h3 id="Dingo">Dingo</h3><h4 id="Dingo是什么呢？">Dingo是什么呢？</h4><p>Dingo实际上是一个基于Web Component的代码编辑和页面预览的组件（原型和样式风格来自于Famous的代码编辑器）。</p>
+<a id="more"></a>
+<p>作者: 卜一 &amp;&amp; 仓下</p>
+<h4 id="那么在项目中想要引入Dingo需要多少代码呢？">那么在项目中想要引入Dingo需要多少代码呢？</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"http://g.tbcdn.cn/forest/dingo/0.1.0/vendor/webcomponentsjs/webcomponents.min.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"import"</span> <span class="attribute">href</span>=<span class="value">"http://g.tbcdn.cn/forest/dingo/0.1.0/forest-coder.html"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">style</span>=<span class="value">"height:600px"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">forest-coder</span>&gt;</span><span class="tag">&lt;/<span class="title">forest-coder</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>实际上只需要三行代码。</p>
+<ul>
+<li>引入<code>webcomponents.min.js</code>文件，用来使浏览器支持Web Components</li>
+<li>引入 <code>forest-coder.html</code>文件，用来支持自定义标签</li>
+<li>在body中填入<code>&lt;forest-coder&gt;&lt;/forest-coder&gt;</code>用来生成该组件</li>
+</ul>
+<h4 id="如果我们自定义一些初始化的内容怎么做呢？">如果我们自定义一些初始化的内容怎么做呢？</h4><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">forest-coder</span></span><br><span class="line">    <span class="attribute">html</span>=<span class="value">"This is HTML text"</span></span><br><span class="line">    <span class="attribute">js</span>=<span class="value">"console.log('hello world')"</span></span><br><span class="line">    <span class="attribute">css</span>=<span class="value">"* &#123;color: red;&#125;"</span></span><br><span class="line">    <span class="attribute">title</span>=<span class="value">"This is Title"</span></span><br><span class="line">    <span class="attribute">icon</span>=<span class="value">"Some custom icon URL"</span></span><br><span class="line">    <span class="attribute">style</span>=<span class="value">"2"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">forest-coder</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>我们可以直接通过<code>forest-coder</code>的属性来进行初始化。这样就可以生成一个完全属于我们个性化的组件了。</p>
+<h4 id="如果我们需要动态去更改属性值呢?">如果我们需要动态去更改属性值呢?</h4><p>我们可以通过如下coffee代码来更改自定义标签的属性值</p>
+<figure class="highlight coffee"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.addEventListener <span class="string">"polymer-ready"</span>, <span class="function">-&gt;</span></span><br><span class="line">    editor = <span class="built_in">document</span>.querySelector <span class="string">"forest-coder"</span></span><br><span class="line">    editor.setAttribute <span class="string">"css"</span>, <span class="string">"""</span><br><span class="line">    body &#123;</span><br><span class="line">        color: green</span><br><span class="line">    &#125;</span><br><span class="line">    """</span></span><br><span class="line">    editor.setAttribute <span class="string">"html"</span>, <span class="string">"""</span><br><span class="line">    &lt;p&gt;This is a paragraph.&lt;/p&gt;</span><br><span class="line">    &lt;span&gt;This is a span.&lt;/span&gt;</span><br><span class="line">    """</span></span><br></pre></td></tr></table></figure>
+<p>如果我们使用Jquery的话，直接使用属性赋值操作即可。</p>
+<figure class="highlight coffee"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">"forest-coder"</span>).attr <span class="string">"css"</span>, <span class="string">"""</span><br><span class="line">body &#123;</span><br><span class="line">    color: green</span><br><span class="line">&#125;</span><br><span class="line">"""</span></span><br></pre></td></tr></table></figure>
+<h3 id="那么该组件是怎么实现的呢？">那么该组件是怎么实现的呢？</h3><p>forest-coder.html中，自定义组件标签的结构如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"import"</span> <span class="attribute">href</span>=<span class="value">"vendor/polymer/polymer.html"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">polymer-element</span> <span class="attribute">name</span>=<span class="value">"forest-coder"</span> <span class="attribute">attributes</span>=<span class="value">"html css js icon title type"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">template</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">type</span>=<span class="value">"text/css"</span> <span class="attribute">href</span>=<span class="value">"css/dingo.css"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"container"</span>&gt;</span></span><br><span class="line">            ...DOM代码</span><br><span class="line">        <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="css"></span><br><span class="line">        ..<span class="class">.JS</span>代码</span><br><span class="line">    </span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">polymer-element</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>首先需要引用polymer.html</li>
+<li>利用<code>polymer-element</code>标签定义name为<code>forest-coder</code>的标签，并指定可配置属性为<code>html css js icon title type</code>，</li>
+<li>在<code>polymer-element</code>标签内部的<code>template</code>中引入组件需要的css代码和html代码。</li>
+<li>在<code>script</code>标签中引入具体的js代码。</li>
+</ul>
+<p>具体的js代码结构如下：</p>
+<figure class="highlight coffee"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">Polymer <span class="string">"forest-coder"</span>, &#123;</span><br><span class="line">    <span class="attribute">html</span>: <span class="string">""</span></span><br><span class="line">    <span class="attribute">css</span>: <span class="string">""</span></span><br><span class="line">    <span class="attribute">js</span>: <span class="string">""</span></span><br><span class="line">    <span class="attribute">icon</span>:<span class="string">"/img/dingologo.png"</span></span><br><span class="line">    <span class="attribute">title</span>: <span class="string">"Dingo"</span></span><br><span class="line">    <span class="attribute">layout</span>: <span class="number">1</span></span><br><span class="line">    <span class="attribute">created</span>: <span class="function">-&gt;</span></span><br><span class="line">        <span class="comment"># "An instance of the element is created."</span></span><br><span class="line"></span><br><span class="line">    <span class="attribute">ready</span>: <span class="function">-&gt;</span></span><br><span class="line">        <span class="comment"># "The &lt;polymer-element&gt; has been fully prepared (e.g. shadow DOM created, property observers setup, event listeners attached, etc)."</span></span><br><span class="line">        editor = <span class="keyword">new</span> Editor(<span class="property">@$</span>.container, &#123;</span><br><span class="line">            <span class="attribute">layout</span>: <span class="property">@layout</span></span><br><span class="line">        &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="attribute">attached</span>: <span class="function">-&gt;</span></span><br><span class="line">        <span class="comment"># "An instance of the element was inserted into the DOM."</span></span><br><span class="line"></span><br><span class="line">    <span class="attribute">domReady</span>: <span class="function">-&gt;</span></span><br><span class="line">        <span class="comment"># "Called when the element’s initial set of children are guaranteed to exist. This is an appropriate time to poke at the element’s parent or light DOM children. Another use is when you have sibling custom elements (e.g. they’re .innerHTML‘d together, at the same time). Before element A can use B’s API/properties, element B needs to be upgraded. The domReady callback ensures both elements exist."</span></span><br><span class="line"></span><br><span class="line">    <span class="attribute">detached</span>: <span class="function">-&gt;</span></span><br><span class="line">        <span class="comment"># "An instance was removed from the DOM."</span></span><br><span class="line"></span><br><span class="line">    <span class="attribute">attributeChanged</span>: <span class="function"><span class="params">(attrName, oldVal, newVal)</span> -&gt;</span></span><br><span class="line">        <span class="comment"># console.log "An attribute was added, removed, or updated. <span class="doctag">Note</span>: Changed watchers are often easier to use and can watch either ordinary properties or attribute changes matching published properties."</span></span><br><span class="line">    <span class="attribute">htmlChanged</span>: <span class="function"><span class="params">(oldVal, newVal)</span> -&gt;</span> editor.set_editor(<span class="string">"html"</span>, newVal)</span><br><span class="line">    <span class="attribute">cssChanged</span>: <span class="function"><span class="params">(oldVal, newVal)</span> -&gt;</span> editor.set_editor(<span class="string">"css"</span>, newVal)</span><br><span class="line">    <span class="attribute">jsChanged</span>: <span class="function"><span class="params">(oldVal, newVal)</span> -&gt;</span> editor.set_editor(<span class="string">"js"</span>, newVal)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>利用<code>Polymer</code>来创建对应标签的js逻辑部分。标签的创建、初始化、属性变化等都有对应的函数来监听。比如说标签包含属性<code>icon</code>，则可以使用<code>iconChange: (oldVal, newVal) -&gt; console.log(newVal)</code>对<code>icon</code>值发生变化来进行监听。</p>
+<p>一个标签的创建分为多个阶段，分别为<code>created</code>、<code>ready</code>、<code>attached</code>、<code>domReady</code>、<code>detached</code>、<code>attributeChanged</code>。具体每个阶段代表什么请查看上述代码的注释部分。</p>
+<h4 id="如何获取插件中的DOM节点？">如何获取插件中的DOM节点？</h4><p>因为Web Component使用Shadow DOM特性来对其DOM进行隐藏。使其不能直接访问其DOM节点。使用Polymer如何获取对应的节点呢？</p>
+<figure class="highlight coffee"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Polymer <span class="string">"forest-coder"</span>, &#123;</span><br><span class="line">    <span class="attribute">created</span>: <span class="function">-&gt;</span></span><br><span class="line">        <span class="comment">#通过this.$ + template中节点id的方式获取该节点</span></span><br><span class="line">        <span class="built_in">console</span>.log <span class="keyword">this</span>.$.container</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如上述代码表示在Template中有一个id为container的元素，我们可以在js代码中通过<code>this.$.container</code>来获取该元素节点。</p>
+<h4 id="是否可以使用Jquery来操作组件中的DOM呢？">是否可以使用Jquery来操作组件中的DOM呢？</h4><p>我们无法通过<code>$(&quot;#id&quot;)</code>的方式来访问组件中的DOM元素。而需要利用<code>$.this.id</code>来对获取对应的节点。因此实际上我们也是可以使用Jquery的，方法如下：</p>
+<figure class="highlight coffee"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Polymer <span class="string">"forest-coder"</span>, &#123;</span><br><span class="line">    <span class="attribute">created</span>: <span class="function">-&gt;</span></span><br><span class="line">        <span class="comment">#我们在Template中最外层设置一个id为container的容器</span></span><br><span class="line">        container = <span class="keyword">this</span>.$.container</span><br><span class="line">        <span class="comment">#将获取到的节点作为参数传递给Jquery</span></span><br><span class="line">        container = $(container)</span><br><span class="line">        <span class="comment">#我们就可以利用该container来操作组件中的元素了</span></span><br><span class="line">        <span class="built_in">console</span>.log contianer.find(<span class="string">"input#userName"</span>).val()</span><br></pre></td></tr></table></figure>
+<h3 id="双向绑定">双向绑定</h3><p>我们实际上可以在<code>template</code>中进行数据的双向绑定。及标签的属性值一旦放生变化，对应<code>template</code>中绑定了该属性值的数据也会跟着变化。</p>
+<p>如下代码中将组件的icon属性在<code>template</code>中通过<code></code>的方式进行了绑定。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"import"</span> <span class="attribute">href</span>=<span class="value">"vendor/polymer/polymer.html"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">polymer-element</span> <span class="attribute">name</span>=<span class="value">"forest-coder"</span> <span class="attribute">attributes</span>=<span class="value">"html css js icon title type"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">template</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">type</span>=<span class="value">"text/css"</span> <span class="attribute">href</span>=<span class="value">"css/dingo.css"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"container"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="title">a</span> <span class="attribute">href</span>=<span class="value">""</span> <span class="attribute">target</span>=<span class="value">"_blank"</span> <span class="attribute">class</span>=<span class="value">"item"</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="title">img</span> <span class="attribute">src</span>=<span class="value">"&#123;&#123;icon&#125;&#125;"</span> <span class="attribute">id</span>=<span class="value">"logo"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="title">a</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">template</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="css"></span><br><span class="line">        ..<span class="class">.JS</span>代码</span><br><span class="line">    </span><span class="tag">&lt;/<span class="title">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">polymer-element</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>至此，Dingo用到的一些技术细节就介绍完了，Web Component 的特性还有很多，而Polymer也还有很多的使用方式可以去探索，以下是一些不错的资源可供参考：</p>
+<ul>
+<li><a href="http://www.w3.org/html/ig/zh/wiki/Web-Components" target="_blank" rel="external">W3C Web Components</a></li>
+<li><a href="https://customelements.io/" target="_blank" rel="external">Custom Elements</a></li>
+<li><a href="https://www.polymer-project.org/0.5/" target="_blank" rel="external">Polymer v0.5</a></li>
+<li><a href="http://chuckh.github.io/road-to-polymer/" target="_blank" rel="external">Road To Polymer</a></li>
+<li><a href="https://github.com/mateusortiz/webcomponents-the-right-way" target="_blank" rel="external">Web Components the Right Way</a></li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/07/05/lighten-difference-between-stylus-and-less/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Stylus和Less中颜色计算公式的差异
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/05/12/baas-develop/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">基于BAAS的跨平台实时无后端开发实践</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="dingo" data-title="Web Component 组件化开发初探" data-url="http://blog.emptystack.net/2015/05/20/dingo/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"wh1100717"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 Eric Wang
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: true
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-65053446-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

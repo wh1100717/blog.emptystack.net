@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>CSS 学习笔记 | wh1100717 Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="1. css3新增选择器后代级别选择器：
+
+element element:选择元素内部的所有元素，div p
+element&amp;gt;element:选择父元素为元素的所有元素，div&amp;gt;p
+:only-child:匹配属于父元素中唯一的元素，p:only-child
+:nth-child(n):匹配父元素中的第2个子元素（n可以是数字、关键词，odd和even是可用于匹配下标是奇数或偶数的子">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CSS 学习笔记">
+<meta property="og:url" content="http://blog.emptystack.net/2014/03/09/css3-learn-note/index.html">
+<meta property="og:site_name" content="wh1100717 Blog">
+<meta property="og:description" content="1. css3新增选择器后代级别选择器：
+
+element element:选择元素内部的所有元素，div p
+element&amp;gt;element:选择父元素为元素的所有元素，div&amp;gt;p
+:only-child:匹配属于父元素中唯一的元素，p:only-child
+:nth-child(n):匹配父元素中的第2个子元素（n可以是数字、关键词，odd和even是可用于匹配下标是奇数或偶数的子">
+<meta property="og:updated_time" content="2015-07-13T08:43:34.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CSS 学习笔记">
+<meta name="twitter:description" content="1. css3新增选择器后代级别选择器：
+
+element element:选择元素内部的所有元素，div p
+element&amp;gt;element:选择父元素为元素的所有元素，div&amp;gt;p
+:only-child:匹配属于父元素中唯一的元素，p:only-child
+:nth-child(n):匹配父元素中的第2个子元素（n可以是数字、关键词，odd和even是可用于匹配下标是奇数或偶数的子">
+  
+  
+    <link rel="icon" href="/img/avatar.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/avatar.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Eric Wang</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">当你的才华还撑不起你的野心时，你就应该静下心来学习，即使明明可以拼智商，也应该和别人比努力。</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/wh1100717" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/yourseric" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/wh1100717" title="zhihu">zhihu</a>
+					        
+								<a class="mail" target="_blank" href="mailto:me@emptystack.net" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/BAAS/" style="font-size: 10px;">BAAS</a> <a href="/tags/CSS/" style="font-size: 13.33px;">CSS</a> <a href="/tags/CoffeeScript/" style="font-size: 10px;">CoffeeScript</a> <a href="/tags/Dingo/" style="font-size: 10px;">Dingo</a> <a href="/tags/ECMAScript/" style="font-size: 13.33px;">ECMAScript</a> <a href="/tags/Firebase/" style="font-size: 10px;">Firebase</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/LeanCloud/" style="font-size: 10px;">LeanCloud</a> <a href="/tags/PolySpider/" style="font-size: 10px;">PolySpider</a> <a href="/tags/Polymer/" style="font-size: 10px;">Polymer</a> <a href="/tags/Web-Components/" style="font-size: 10px;">Web Components</a> <a href="/tags/Yoeman/" style="font-size: 10px;">Yoeman</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/less/" style="font-size: 10px;">less</a> <a href="/tags/livepool/" style="font-size: 10px;">livepool</a> <a href="/tags/localdb/" style="font-size: 16.67px;">localdb</a> <a href="/tags/midway/" style="font-size: 10px;">midway</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/processing/" style="font-size: 10px;">processing</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/stylus/" style="font-size: 10px;">stylus</a> <a href="/tags/tianma/" style="font-size: 10px;">tianma</a> <a href="/tags/团队/" style="font-size: 10px;">团队</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/笔记/" style="font-size: 20px;">笔记</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">个人简历请戳<a href="http://me.emptystack.net" style="color: #258fb8;" target="_blank"> 这里</a> | 主要做的方向以Python、Nodejs、前端为主，目前兴趣点为Famo.us/TweenMax/Material Design/R/量化金融。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Eric Wang</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="/img/avatar.png" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Eric Wang</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">当你的才华还撑不起你的野心时，你就应该静下心来学习，即使明明可以拼智商，也应该和别人比努力。</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/wh1100717" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/yourseric" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/wh1100717" title="zhihu">zhihu</a>
+			        
+						<a class="mail" target="_blank" href="mailto:me@emptystack.net" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-css3-learn-note" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2014/03/09/css3-learn-note/" class="article-date">
+  	<time datetime="2014-03-09T00:00:00.000Z" itemprop="datePublished">2014-03-09</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      CSS 学习笔记
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/笔记/">笔记</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1-_css3新增选择器">1. css3新增选择器</h3><p>后代级别选择器：</p>
+<ul>
+<li>element element:选择<div>元素内部的所有<p>元素，div p</p></div></li>
+<li>element&gt;element:选择父元素为<div>元素的所有<p>元素，div&gt;p</p></div></li>
+<li>:only-child:匹配属于父元素中唯一的<p>元素，p:only-child</p></li>
+<li>:nth-child(n):匹配父元素中的第2个<p>子元素（n可以是数字、关键词，odd和even是可用于匹配下标是奇数或偶数的子元素的关键词），p:nth-child(2)</p></li>
+<li>:nth-last-child(n):匹配父元素中的倒数第2个<p>子元素，p:nth-last-child(2)</p></li>
+<li>:first-child:选择属于父元素的第一个子元素的每个<p>元素，p:first-child</p></li>
+<li>:last-child:选择属于父元素的最后一个子元素的每个<p>元素，p:last-child</p></li>
+<li>:root:选择文档的根元素，:root</li>
+<li>:empty:选择没有子元素的每个<p>元素（包括文本节点），p:empty</p></li>
+</ul>
+<p>辈级别选择器：</p>
+<ul>
+<li>element+element:选择紧接在<div>元素之后的所有<p>元素，div+p</p></div></li>
+<li>element1~element2:选择前面有<p>元素的每个<ul>元素，<p>~<ul></ul></p></ul></p></li>
+<li>:first-of-type:匹配同级兄弟元素中的第一个<p>元素，p:first-of-type</p></li>
+<li>:last-of-type:匹配同级兄弟元素中的最后一个<p>元素，p:last-of-type</p></li>
+<li>:only-of-type:匹配属于同类型中只有唯一兄弟元素的<p>，p:only-of-type</p></li>
+<li>:nth-of-type(n):匹配同类型中的第n个同级兄弟元素<p>（n可以是数字、关键词，odd和even是可用于匹配下标是奇数或偶数的子元素的关键词）,p:nth-of-type</p></li>
+<li>:nth-last-of-type(n):匹配同类型中的倒数第n个同级兄弟元素<p>，nth-last-of-type(n)</p></li>
+</ul>
+<a id="more"></a>
+<p>伪类选择器：</p>
+<ul>
+<li>:link:选择所有未被访问的链接，a:link</li>
+<li>:visited:选择所有已被访问的链接，a:visited</li>
+<li>:active:选择活动链接，a:active</li>
+<li>:hover:选择鼠标指针位于其上的连接，a:hover</li>
+<li>:focus:选择获得焦点的input元素，input:focus</li>
+<li>:first-letter:选择每个<p>元素的首字母，p:first-letter</p></li>
+<li>:first-line:选择每个<p>元素的首行，p:first-line</p></li>
+<li>:before:在每个<p>元素的内容之前插入内容，p:before</p></li>
+<li>:after:在每个<p>元素的内容之后插入内容，p:after</p></li>
+<li>:target:选择当前活动的#news元素，#news:target</li>
+<li>:root:选择文档的根元素，:root</li>
+</ul>
+<p>属性选择器：</p>
+<ul>
+<li>[attribute]:选择带有target属性的所有元素，[target]</li>
+<li>[attribute=value]:选择target=”_blank”的所有元素，[target=_blank]</li>
+<li>[attribute~=value]:选择title属性包含单词flower的所有元素，[title~=flower]</li>
+<li>[attribute|=value]:选择lang属性值以en开头的所有元素，[lang|=en]</li>
+<li>[attribute^=value]:选择其src属性以”http”开头的每个<a>元素，a[src^=”http”]</a></li>
+<li>[attribute$=value]:选择其src属性以”.pdf”结尾的每个<a>元素，a[src$=”.pdf”]</a></li>
+<li>[attribute<em>=value]:选择其src属性中包含”abc”子串的每个<a>元素，a[src</a></em>=”abc”]</li>
+</ul>
+<p>UI伪类选择器：</p>
+<ul>
+<li>:enabled:选择每个启用的<input>元素，input:enabled</li>
+<li>:disabled:选择每个禁用的<input>元素，input:disabled</li>
+<li>:checked:选择每个被选中的<input>元素，input:checked</li>
+<li>:not(selector):选择非<p>元素的每个元素，:not(p)</p></li>
+<li>::selection:选择被用户选取的元素部分，::selection</li>
+</ul>
+<h3 id="2-_响应式布局">2. 响应式布局</h3><p>响应式布局是现在很流行的一个设计理念。一个网站能够兼容多个终端，而不是为每个终端做一个特定的版本。</p>
+<p>利用CSS3-Media Query实现响应式布局：</p>
+<p>1.在link中使用@media:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">type</span>=<span class="value">"text/css"</span> <span class="attribute">media</span>=<span class="value">"screen and (max-width:600px)"</span> <span class="attribute">href</span>=<span class="value">"link.css"</span>/&gt;</span></span><br></pre></td></tr></table></figure>
+<p>2.在样式表中内嵌@media:</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="at_rule">@<span class="keyword">media</span> screen and (max-width:<span class="number">600px</span>)</span>&#123;</span><br><span class="line">    <span class="tag">selector</span><span class="rules">&#123;</span><br><span class="line">        <span class="rule"><span class="attribute">attribute</span>:<span class="value">value</span></span>;</span><br><span class="line">    &#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>媒体类型：</p>
+<ul>
+<li>all:默认，适用于所有设备</li>
+<li>aural:语音合成器</li>
+<li>braille:盲文反馈装置</li>
+<li>handheld:手持设备</li>
+<li>projection:投影仪</li>
+<li>print:打印预览模式，打印页</li>
+<li>screen:计算机屏幕</li>
+<li>tty:电传打字机以及类似的使用等宽字符网格的媒介</li>
+<li>tv:电视类型设备</li>
+</ul>
+<p>可能的操作符：</p>
+<ul>
+<li>and:逻辑与，连接设备名与选择条件</li>
+<li>not:排除某种设备</li>
+<li>only:限定某种设备类型</li>
+<li>,:设备列表</li>
+</ul>
+<p>属性值：</p>
+<ul>
+<li>width:定义输出设备中的页面可见区域宽度（单位一般为px）</li>
+<li>heigth:定义输出设备中的页面可见区域高度（单位一般为px）</li>
+<li>device-width:定义输出设备的屏幕可见宽度（单位一般为px）</li>
+<li>device-heigth:定义输出设备的屏幕可见高度（单位一般为px）</li>
+<li>orientation:定义height是否大于或等于width，portrait代表是，landscape代表否，即设备手持方向，portrait为横向，landscape为竖向</li>
+<li>aspect-ratio:定义width与height的比率，即浏览器的长宽比</li>
+<li>device-aspect-ratio:定义device-width与device-heigth的比率，即设备屏幕的长宽比</li>
+<li>color:定义每一组输出设备的彩色原件个数，如果不是彩色设备，则值等于0</li>
+<li>color-index:定义在输出设备的彩色查询表中的条目数，如果没有使用彩色设备，则值等于0</li>
+<li>monochrome:定义在一个单色框架缓冲区中每像素包含的单色原件个数，如果不是单色设备，则值等于0</li>
+<li>resolution:定义设别的分辨率，如96dpi，300dpi，118dpcm</li>
+<li>scan:定义电视类设备的扫描工序，progressive逐行扫描，interlace隔行扫描</li>
+<li>grid:用泪查询输出设备是否使用栅格或点阵，只有1和0才是有效值，1代表是，0代表否</li>
+</ul>
+<h3 id="3-_css3边框">3. css3边框</h3><p>border-radius属性：边框圆角</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">box_round&#123; </span><br><span class="line">-moz-border-radius:30px; </span><br><span class="line">-webkit-border-radius:30px; </span><br><span class="line">-o-border-radius:30px; </span><br><span class="line">border-radius:30px; </span><br><span class="line">&#125; </span><br><span class="line">//按此顺序设置每个radius的四个值。如果省略bottom-left，则与top-right相同。如果省略bottom-right，则与top-left相同。如果省略top-right，则与top-left相同。</span><br><span class="line">//length:定义圆角的半径</span><br><span class="line">//%:以百分比定义圆角的形状</span><br></pre></td></tr></table></figure>
+<p>box-shadow属性：边框阴影</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">.box_shadow&#123; </span><br><span class="line">-moz-box-shadow:3px 3px 4px #ffffff; </span><br><span class="line">-webkit-box-shadow:3px 3px 4px #ffffff; </span><br><span class="line">box-shadow:3px 3px 4px #ffffff;</span><br><span class="line">&#125; </span><br><span class="line">//含义分别为：x轴偏移值、y轴偏移值、阴影的模糊度以及阴影颜色</span><br></pre></td></tr></table></figure>
+<p>border-image属性：使用图片作为边框</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">div&#123; </span><br><span class="line">-webkit-border-image:url(border.png) 30 30 round; </span><br><span class="line">-o-border-image:url(border.png) 30 30 round; </span><br><span class="line">border-image:url(border.png) 30 30 round; &#125; </span><br><span class="line">//border-image-source:用在边框的图片的路径</span><br><span class="line">//border-image-slice:图片边框向内偏移</span><br><span class="line">//border-image-width:图片边框的宽度</span><br><span class="line">//border-image-outset:边框图片区域超出边框的量</span><br><span class="line">//border-image-repeat:图片边框是否平铺(repeat)、铺满(round)或拉伸(stretch)</span><br></pre></td></tr></table></figure>
+<h3 id="4-_css3背景">4. css3背景</h3><p>background-clip属性：规定背景的绘制区域</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">background-clip:border-box|padding-box|content-box; </span><br><span class="line">//border-box:背景被裁剪到边框盒</span><br><span class="line">//padding-box:背景被剪裁到内边距框</span><br><span class="line">//content-box:背景被剪裁到内容框</span><br></pre></td></tr></table></figure>
+<p>background-origin属性：规定背景图片的定位区域</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">background-origin:padding-box|border-box|content-box; </span><br><span class="line">//padding-box:背景图像相对于内边框来定位</span><br><span class="line">//border-box:背景图像相对于边框盒来定位</span><br><span class="line">//content-box:背景图像相对于内容框来定位</span><br></pre></td></tr></table></figure>
+<p>background-size属性：规定背景图片的尺寸</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">background-size:length|percentage|cover|contain; </span><br><span class="line">//length:设置背景图像的高度和宽度</span><br><span class="line">//percentage:以父元素的百分比来设置背景图像的高度和宽度</span><br><span class="line">//cover:把背景图像扩展至足够大，以使背景图像完全覆盖背景区域//contain:把图像扩展至最大尺寸，以使其宽度和高度完全适应内容区域</span><br></pre></td></tr></table></figure>
+<h3 id="5-_css3文本">5. css3文本</h3><p>text-overflow属性：规定当文本溢出包含元素时发生的事情</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">test-overflow:clip|ellipsis|string; </span><br><span class="line">//clip:修剪文本</span><br><span class="line">//ellipsis:显示省略符号来代表被修改的文本</span><br><span class="line">//string:使用给定的字符串来代表被修剪的文本</span><br></pre></td></tr></table></figure>
+<p>text-shadow属性：向文本添加阴影(同border-shadow)</p>
+<p>word-break属性：规定非中日韩文本的换行规定</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">word-break:normal|break-all|keep-all; </span><br><span class="line">//normal:使用浏览器默认的换行规则</span><br><span class="line">//break-all:允许在单词内换行</span><br><span class="line">//keep-all:只能在半角空格或连字符处换行</span><br></pre></td></tr></table></figure>
+<p>word-wrap属性：允许对长的不可分割的单词进行分割并换到下一行</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">word-wrap:normal|break-word; </span><br><span class="line">//normal:只在允许的断字点换行</span><br><span class="line">//break-word:在长单词或URL地址内部进行换行</span><br></pre></td></tr></table></figure>
+<h3 id="6-_css3颜色和透明度">6. css3颜色和透明度</h3><p>在css3中对颜色进行了很多扩展，我们不仅可以使用在css2中单rgb模式，16进制模式以及关键字模式，同时还支持rgba模式，hsl模式和hsla模式以及我们可以使用css3实现渐变色</p>
+<p>rgba模式：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">background-color:(192,192,192,0.5); </span><br><span class="line">//a参数代表透明度，取值在0-1之间，不可为负值</span><br></pre></td></tr></table></figure>
+<p>hsl模式和hsla模式：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">background-color:hsl(120,65%,75%); </span><br><span class="line">background-color:hsla(120,65%,75%,0.3); </span><br><span class="line">//hsl是代表色调，饱和度，亮度三个通道的颜色</span><br></pre></td></tr></table></figure>
+<p>透明度：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">opacity:0.5; </span><br><span class="line">//用来定义元素的透明度，取值范围0-1</span><br></pre></td></tr></table></figure>
+<p>webkit核心的浏览器渐变：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-webkit-gradient(linear,start_point,end_point,color-stop); //第四参数：设置渐变的位置及颜色(位置的取值从0-1),可设置多组径向渐变： </span><br><span class="line">-webkit-gradient(radial,x1 y1,r1,x2 y2,r2,color-stop);</span><br></pre></td></tr></table></figure>
+<p>moz核心的浏览器渐变：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-moz-linear-gradient(10 10 90deg,rgb(25,0,0) 14%,rgb(0,0,255) 100%); </span><br><span class="line">//第一个参数：设置渐变起始位置及角度</span><br><span class="line">//其余参数：设置渐变的颜色和位置</span><br></pre></td></tr></table></figure>
+<h3 id="7-_css3用户界面">7. css3用户界面</h3><p>css3多列：</p>
+<ul>
+<li>column-count:规定元素应该被分隔的列数</li>
+<li>column-gap:规定列之间的间隔</li>
+<li>column-rule:设置所有column-rule-*属性的简易属性</li>
+<li>column-width:规定列的宽度</li>
+</ul>
+<p>rasize属性：规定是否可由用户调整元素尺寸的大小</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">rasize:none|both|horizontal|vertical; </span><br><span class="line">//none:用户无法调整元素的尺寸</span><br><span class="line">//both:用户可调整元素的高度和宽度</span><br><span class="line">//horizontal:用户可调整元素的宽度</span><br><span class="line">//vertical:用户可调整元素的高度</span><br></pre></td></tr></table></figure>
+<p>box-sizing属性：允许用户以特定的方式定义匹配某个区域的特定元素</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">box-sizing:content-box|border-box|inherit; </span><br><span class="line">//content-box:宽度和高度分别应用到元素的内容框，在高度和宽度之外绘制元素的内边距和边框</span><br><span class="line">//border-box:为元素设定的宽度和高度决定了元素的边框盒</span><br><span class="line">//inherit:规定应从父元素继承box-sizing属性的值</span><br></pre></td></tr></table></figure>
+<p>outline属性：是给元素周围绘制轮廓外边框</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="rule"><span class="attribute">outline</span>:<span class="value">[outline-color]||[outline-style]||[outline-width]||[outline-offset]|inherit </span><br><span class="line">//outline-color:指定轮廓边框的颜色</span><br><span class="line">//outline-style:指定轮廓边框的轮廓</span><br><span class="line">//outline-width:指定轮廓边框的宽度</span><br><span class="line">//outline-offset:指定轮廓边框偏移位置的数值</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="8-_2D转换">8. 2D转换</h3><p>transform属性：向元素应用2D或3D转换</p>
+<ul>
+<li>translate(x,y)|translateX(n)|translateY(n):沿X，Y轴移动元素</li>
+<li>scale(x,y)|scaleX(n)|scaleY(n):改变元素的高度，宽度</li>
+<li>rotate(angle):在参数中规定旋转角度</li>
+<li>skew(x-angle,y-angle)|skewX(angle)|skewY(angle):沿X，Y轴倾斜元素</li>
+</ul>
+<p>transform-origin属性：允许改变被转换元素的位置</p>
+<h3 id="9-_3D转换">9. 3D转换</h3><p>transform属性：</p>
+<ul>
+<li>translate3d(x,y,z)|translateX(n)|translateY(n)|translateZ(n):移动</li>
+<li>scale3d(x,y,z)|scaleX(n)|scaleY(n)|scaleY(n):缩放</li>
+<li>rotate3d(x,y,z,angle)|rotateX(angle)|rotateY(angle)|rotateZ(angle):旋转</li>
+</ul>
+<p>transform-style属性：规定被嵌套元素如何在3D空间中显示</p>
+<ul>
+<li>flat：子元素将不保留其3D位置</li>
+<li>preserve-3d:子元素将保留其3D位置</li>
+</ul>
+<p>perspective属性：规定3D元素的透视效果<br>perspective-origin属性：规定3D元素的底部位置<br>backface-visibility属性：定义元素在不面对屏幕时是否可见</p>
+<ul>
+<li>visible:背面可见</li>
+<li>hidden:背面不可见</li>
+</ul>
+<h3 id="10-_css3过渡与倒影">10. css3过渡与倒影</h3><p>过渡：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">transition:property duration timing-function delay; </span><br><span class="line">//property:规定应用过渡的css属性的名称 </span><br><span class="line">//duration:定义过渡效果花费的时间 </span><br><span class="line">//timing-function:规定过渡效果的时间曲线 </span><br><span class="line">//delay:规定过渡效果何时开始</span><br></pre></td></tr></table></figure>
+<p>倒影：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="rule"><span class="attribute">box-reflect</span>:<span class="value">none|direction offset?mask-box-image</span></span>;</span><br></pre></td></tr></table></figure>
+<h3 id="11-_动画">11. 动画</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">@keyframes animationname&#123;keyframes-selector&#123;css-style;&#125;&#125; </span><br><span class="line">//animationname:定义动画名称</span><br><span class="line">//keyframes-selector:动画时长的百分比，0-100%，from(与0%相同)，同(与100%相同)</span><br><span class="line">//css-style:一个或多个合法的css样式属性</span><br></pre></td></tr></table></figure>
+<p>animate 属性</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">animation:name duration timing-function delay iteration-count direction; </span><br><span class="line">//name:规定@keyframes动画的名称 </span><br><span class="line">//iteration-count:规定动画被播放的次数 </span><br><span class="line">//direction:规定动画是否在下一周期逆向播放</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/04/19/coffee-learn/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          CoffeeScript 学习笔记
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/02/02/javascript-learn-note/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Javascript 学习笔记</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="css3-learn-note" data-title="CSS 学习笔记" data-url="http://blog.emptystack.net/2014/03/09/css3-learn-note/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"wh1100717"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 Eric Wang
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: true
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-65053446-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

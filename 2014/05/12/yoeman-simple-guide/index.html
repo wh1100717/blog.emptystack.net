@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Yoeman Simple Guide | wh1100717 Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="IntroYoeman是一个帮助开发者快速构建一个完整前端项目的工具。俗话说万事开头难，Yoeman可以帮助开发者把开头的事情都做好，让开发者专注于业务逻辑的实现，而非项目本身的搭建过程。
+Yoeman里面实际上细分成了三个模块
+
+yo: Yeoman的项目框架搭建工具
+bower: 包管理工具
+grunt: 构建工具
+
+这三个模块相互独立，由不同的社区进行开发和维护，他们协同工作，使得构建一个完">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Yoeman Simple Guide">
+<meta property="og:url" content="http://blog.emptystack.net/2014/05/12/yoeman-simple-guide/index.html">
+<meta property="og:site_name" content="wh1100717 Blog">
+<meta property="og:description" content="IntroYoeman是一个帮助开发者快速构建一个完整前端项目的工具。俗话说万事开头难，Yoeman可以帮助开发者把开头的事情都做好，让开发者专注于业务逻辑的实现，而非项目本身的搭建过程。
+Yoeman里面实际上细分成了三个模块
+
+yo: Yeoman的项目框架搭建工具
+bower: 包管理工具
+grunt: 构建工具
+
+这三个模块相互独立，由不同的社区进行开发和维护，他们协同工作，使得构建一个完">
+<meta property="og:updated_time" content="2015-07-13T08:46:29.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Yoeman Simple Guide">
+<meta name="twitter:description" content="IntroYoeman是一个帮助开发者快速构建一个完整前端项目的工具。俗话说万事开头难，Yoeman可以帮助开发者把开头的事情都做好，让开发者专注于业务逻辑的实现，而非项目本身的搭建过程。
+Yoeman里面实际上细分成了三个模块
+
+yo: Yeoman的项目框架搭建工具
+bower: 包管理工具
+grunt: 构建工具
+
+这三个模块相互独立，由不同的社区进行开发和维护，他们协同工作，使得构建一个完">
+  
+  
+    <link rel="icon" href="/img/avatar.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/img/avatar.png" class="js-avatar">
+			
+		</a>
+
+		<hgroup>
+		  <h1 class="header-author"><a href="/">Eric Wang</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">当你的才华还撑不起你的野心时，你就应该静下心来学习，即使明明可以拼智商，也应该和别人比努力。</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/wh1100717" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/yourseric" title="weibo">weibo</a>
+					        
+								<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/wh1100717" title="zhihu">zhihu</a>
+					        
+								<a class="mail" target="_blank" href="mailto:me@emptystack.net" title="mail">mail</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/BAAS/" style="font-size: 10px;">BAAS</a> <a href="/tags/CSS/" style="font-size: 13.33px;">CSS</a> <a href="/tags/CoffeeScript/" style="font-size: 10px;">CoffeeScript</a> <a href="/tags/Dingo/" style="font-size: 10px;">Dingo</a> <a href="/tags/ECMAScript/" style="font-size: 13.33px;">ECMAScript</a> <a href="/tags/Firebase/" style="font-size: 10px;">Firebase</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/LeanCloud/" style="font-size: 10px;">LeanCloud</a> <a href="/tags/PolySpider/" style="font-size: 10px;">PolySpider</a> <a href="/tags/Polymer/" style="font-size: 10px;">Polymer</a> <a href="/tags/Web-Components/" style="font-size: 10px;">Web Components</a> <a href="/tags/Yoeman/" style="font-size: 10px;">Yoeman</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/less/" style="font-size: 10px;">less</a> <a href="/tags/livepool/" style="font-size: 10px;">livepool</a> <a href="/tags/localdb/" style="font-size: 16.67px;">localdb</a> <a href="/tags/midway/" style="font-size: 10px;">midway</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/processing/" style="font-size: 10px;">processing</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/stylus/" style="font-size: 10px;">stylus</a> <a href="/tags/tianma/" style="font-size: 10px;">tianma</a> <a href="/tags/团队/" style="font-size: 10px;">团队</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/笔记/" style="font-size: 20px;">笔记</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">个人简历请戳<a href="http://me.emptystack.net" style="color: #258fb8;" target="_blank"> 这里</a> | 主要做的方向以Python、Nodejs、前端为主，目前兴趣点为Famo.us/TweenMax/Material Design/R/量化金融。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">Eric Wang</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img lazy-src="/img/avatar.png" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">Eric Wang</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">当你的才华还撑不起你的野心时，你就应该静下心来学习，即使明明可以拼智商，也应该和别人比努力。</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/wh1100717" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/yourseric" title="weibo">weibo</a>
+			        
+						<a class="zhihu" target="_blank" href="http://www.zhihu.com/people/wh1100717" title="zhihu">zhihu</a>
+			        
+						<a class="mail" target="_blank" href="mailto:me@emptystack.net" title="mail">mail</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+      <div class="body-wrap"><article id="post-yoeman-simple-guide" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2014/05/12/yoeman-simple-guide/" class="article-date">
+  	<time datetime="2014-05-12T00:00:00.000Z" itemprop="datePublished">2014-05-12</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Yoeman Simple Guide
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Yoeman/">Yoeman</a></li></ul>
+	</div>
+
+        
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Intro">Intro</h2><p>Yoeman是一个帮助开发者快速构建一个完整前端项目的工具。俗话说万事开头难，Yoeman可以帮助开发者把开头的事情都做好，让开发者专注于业务逻辑的实现，而非项目本身的搭建过程。</p>
+<p>Yoeman里面实际上细分成了三个模块</p>
+<ul>
+<li><code>yo</code>: Yeoman的项目框架搭建工具</li>
+<li><code>bower</code>: 包管理工具</li>
+<li><code>grunt</code>: 构建工具</li>
+</ul>
+<p>这三个模块相互独立，由不同的社区进行开发和维护，他们协同工作，使得构建一个完整项目变得简单而又自动化。</p>
+<h2 id="Installation">Installation</h2><p>需要通过<code>npm</code>来安装该工具，而<code>npm</code>是<code>Node.js</code>的包管理工具。安装好<code>Node.js</code>后回自动集成<code>npm</code>。<code>Node.js</code>的安装非常简单，直接查看<a href="http://nodejs.org/" target="_blank" rel="external">官网</a>进行安装。</p>
+<a id="more"></a>
+<h3 id="1-_安装yo工具">1. 安装<code>yo</code>工具</h3><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm <span class="keyword">install</span> -g yo</span><br></pre></td></tr></table></figure>
+<p>利用<code>1.2.10+</code>版本的<code>npm</code>安装<code>yo</code>的时候会自动安装<code>grunt</code>和<code>bower</code></p>
+<h3 id="2-_因为不同的前端项目会用到不同的框架和库，因此需要安装针对性的前端框架生成器，以下举例两个前端框架作为参考">2. 因为不同的前端项目会用到不同的框架和库，因此需要安装针对性的前端框架生成器，以下举例两个前端框架作为参考</h3><figure class="highlight cmake"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#该框架会生成默认前端框架，基于HTML5，包含jQuery, Modernizr, and Bootstrap，可以在安装的时候选择包含哪些内容</span></span><br><span class="line">npm <span class="keyword">install</span> -g generator-webapp</span><br><span class="line"></span><br><span class="line"><span class="comment">#该框架会生成基于angularJS的前端框架项目</span></span><br><span class="line">npm <span class="keyword">install</span> -g generator-angular</span><br></pre></td></tr></table></figure>
+<h3 id="3-_构建项目">3. 构建项目</h3><figure class="highlight vbnet"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">yo angular</span><br><span class="line"><span class="preprocessor">#会提示是否使用Saas，如果不需要，选择`n`即可</span></span><br><span class="line">[?] Would you <span class="keyword">like</span> <span class="keyword">to</span> use Sass (<span class="keyword">with</span> Compass)? (Y/n) n</span><br><span class="line"><span class="preprocessor">#会提示是否包含Bootstrap框架，一般都是需要用到的，选择y即可</span></span><br><span class="line">[?] Would you <span class="keyword">like</span> <span class="keyword">to</span> include Bootstrap? (Y/n) y</span><br><span class="line"><span class="preprocessor">#这里会让选择哪些独立angular模块需要包含进项目，根据需求进行选择</span></span><br><span class="line">[?] Which modules would you <span class="keyword">like</span> <span class="keyword">to</span> include? (Press &lt;space&gt; <span class="keyword">to</span> <span class="keyword">select</span>)</span><br><span class="line">❯⬢ angular-resource.js</span><br><span class="line"> ⬢ angular-cookies.js</span><br><span class="line"> ⬢ angular-sanitize.js</span><br><span class="line"> ⬢ angular-route.js</span><br></pre></td></tr></table></figure>
+<p>选择完回车就开始进行项目构建。</p>
+<p>注：由于国内蛋疼的防火墙，安装会出现不稳定的状态，有时候甚至会失败，可以利用goAgent来进行安装加速(npm用代理同理)。也可以通过更改npm为国内源来提升项目搭建速度和稳定性，具体google之。</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#需要开启goAgent</span></span><br><span class="line"><span class="title">yo</span> angular --proxy http:<span class="number">127.0.0.1:8087</span></span><br></pre></td></tr></table></figure>
+<p>构建完的项目包含以下几个核心内容<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">.</span><br><span class="line">├── Gruntfile.js            <span class="comment">#grunt核心脚本</span></span><br><span class="line">├── app/                    <span class="comment">#项目主目录</span></span><br><span class="line">│   ├── bower_components/   <span class="comment">#项目用到的库目录，由bower进行维护</span></span><br><span class="line">│   ├── fonts/              <span class="comment">#存放项目中用到的字体</span></span><br><span class="line">│   ├── images/             <span class="comment">#存放项目中用到的图片</span></span><br><span class="line">│   ├── index.html          <span class="comment">#项目主页文件</span></span><br><span class="line">│   ├── scripts/            <span class="comment">#存放js文件</span></span><br><span class="line">│   ├── styles/             <span class="comment">#存放css文件</span></span><br><span class="line">│   └── views/              <span class="comment">#存放view层模板</span></span><br><span class="line">├── bower.json              <span class="comment">#bower配置文件</span></span><br><span class="line">├── karma<span class="operator">-e</span>2e.conf.js       <span class="comment">#karma配置文件，用于测试</span></span><br><span class="line">├── karma.conf.js           <span class="comment">#karma配置文件，用于测试</span></span><br><span class="line">├── node_modules/           <span class="comment">#grunt, bower等工具存放的位置</span></span><br><span class="line">├── package.json            <span class="comment">#npm配置文件</span></span><br><span class="line">└── <span class="built_in">test</span>                    <span class="comment">#存放测试文件及配置</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="4-_启动项目">4. 启动项目</h3><figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grunt <span class="keyword">server</span></span><br></pre></td></tr></table></figure>
+<p>然后直接在浏览器输入localhost:9001即可浏览项目，9001是默认端口，可以在Gruntfile.js中进行修改，如果想修改成80端口，Linux/Mac系统中需要用管理员身份来启动项目，即</p>
+<figure class="highlight axapta"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo grunt <span class="keyword">server</span></span><br></pre></td></tr></table></figure>
+<h3 id="5-_自动化测试">5. 自动化测试</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grunt <span class="built_in">test</span></span><br></pre></td></tr></table></figure>
+<h3 id="6-_Bower介绍">6. Bower介绍</h3><p>Bower是最好的web项目包管理工具，可以轻松管理项目中用到的第三方库，以安装和更新jquery-ui为例说明bower的</p>
+<figure class="highlight vala"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor"># 列出项目中已经安装的库及对应版本以及最新版本</span></span><br><span class="line">bower list</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 搜索Jquery-ui</span></span><br><span class="line">bower search jquery-ui</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 安装jquery-ui, bower会自动安装jquery-ui到bower_components下</span></span><br><span class="line"><span class="preprocessor"># 并在index.html中引用该库文件 </span></span><br><span class="line">bower install jquery-ui</span><br><span class="line"></span><br><span class="line"><span class="preprocessor"># 更新Jquery-ui</span></span><br><span class="line">bower update jquery-ui</span><br></pre></td></tr></table></figure>
+<h3 id="7-_发布到Github上">7. 发布到Github上</h3><p>我们可以将yoeman创建的项目发布到github上</p>
+<p>简单的流程如下：</p>
+<ul>
+<li>在Github上创建一个项目</li>
+<li>clone到本地来</li>
+<li>复制yoeman创建的项目的文件到clone的项目中</li>
+<li>在.gitignore中添加<blockquote>
+<p>node_modules</p>
+</blockquote>
+</li>
+<li>commit并push</li>
+</ul>
+<p>因为node_modules是项目工具，bower_components是项目依赖库，总共 大约100MB左右，这个是不需要上传的。</p>
+<p>但是再次clone下来的项目需要执行</p>
+<ul>
+<li><code>npm install</code>来安装项目所需的工具</li>
+<li><code>bower install</code>来安装项目所需的依赖库</li>
+<li>然后再执行<code>sudo grunt server</code>来启动项目</li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2014/07/25/tianma-mork/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          利用天马构造假数据
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2014/04/19/coffee-learn/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">CoffeeScript 学习笔记</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到：</span>
+		<a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+		<a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="yoeman-simple-guide" data-title="Yoeman Simple Guide" data-url="http://blog.emptystack.net/2014/05/12/yoeman-simple-guide/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"wh1100717"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2015 Eric Wang
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: true
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+
+
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-65053446-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

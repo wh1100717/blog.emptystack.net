@@ -105,7 +105,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/BAAS/" style="font-size: 10px;">BAAS</a> <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/ECMAScript/" style="font-size: 13.33px;">ECMAScript</a> <a href="/tags/Firebase/" style="font-size: 10px;">Firebase</a> <a href="/tags/LeanCloud/" style="font-size: 10px;">LeanCloud</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/less/" style="font-size: 10px;">less</a> <a href="/tags/livepool/" style="font-size: 10px;">livepool</a> <a href="/tags/localdb/" style="font-size: 16.67px;">localdb</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/stylus/" style="font-size: 10px;">stylus</a> <a href="/tags/tianma/" style="font-size: 10px;">tianma</a> <a href="/tags/团队/" style="font-size: 10px;">团队</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/笔记/" style="font-size: 20px;">笔记</a>
+						<a href="/tags/BAAS/" style="font-size: 10px;">BAAS</a> <a href="/tags/CSS/" style="font-size: 13.33px;">CSS</a> <a href="/tags/CoffeeScript/" style="font-size: 10px;">CoffeeScript</a> <a href="/tags/Dingo/" style="font-size: 10px;">Dingo</a> <a href="/tags/ECMAScript/" style="font-size: 13.33px;">ECMAScript</a> <a href="/tags/Firebase/" style="font-size: 10px;">Firebase</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/LeanCloud/" style="font-size: 10px;">LeanCloud</a> <a href="/tags/PolySpider/" style="font-size: 10px;">PolySpider</a> <a href="/tags/Polymer/" style="font-size: 10px;">Polymer</a> <a href="/tags/Web-Components/" style="font-size: 10px;">Web Components</a> <a href="/tags/Yoeman/" style="font-size: 10px;">Yoeman</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/less/" style="font-size: 10px;">less</a> <a href="/tags/livepool/" style="font-size: 10px;">livepool</a> <a href="/tags/localdb/" style="font-size: 16.67px;">localdb</a> <a href="/tags/midway/" style="font-size: 10px;">midway</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/processing/" style="font-size: 10px;">processing</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/stylus/" style="font-size: 10px;">stylus</a> <a href="/tags/tianma/" style="font-size: 10px;">tianma</a> <a href="/tags/团队/" style="font-size: 10px;">团队</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/笔记/" style="font-size: 20px;">笔记</a>
 					</div>
 				</section>
 				
@@ -214,6 +214,81 @@
       
         <p class="article-more-link">
           <a  href="/2015/07/05/lighten-difference-between-stylus-and-less/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-dingo" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/05/20/dingo/" class="article-date">
+  	<time datetime="2015-05-20T00:00:00.000Z" itemprop="datePublished">2015-05-20</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/05/20/dingo/">Web Component 组件化开发初探</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="前端组件化">前端组件化</h3><p>关于前端组件化的思考和讨论有很多，建议有时间可以阅读一下下面的内容来加深对于前端组件化的理解，这里不展开讨论。</p>
+<ul>
+<li><a href="https://github.com/xufei/blog/issues/19">2015前端组件化框架之路</a></li>
+<li><a href="https://github.com/hax/hax.github.com/issues/21">关于前端开发中“模块”和“组件”概念的思考</a></li>
+</ul>
+<h3 id="Welcome_To_The_Future">Welcome To The Future</h3><p>我认为未来的前端开发会基于两种模式进行：</p>
+<ul>
+<li>基于Web Component的组件开发: 随着Web Component标准的到来，使通过自定义标签扩展HTML来进行前端组件化成为了可能。Angular 2.0依照Web Component标准进行设计，Reactjs由于使用了Virtual DOM层，也可以很容易的构建Web Component Portal，Polymer 将于今年发布v1.0版本，一些都预示着变革即将到来。<ul>
+<li>Templates，定义的标记块，不会被渲染但可以随后被激活使用。</li>
+<li>Decorators，基于CSS选择器来应用模板，从而对文档进行丰富的视觉和行为的变化。</li>
+<li>Custom Elements，让用户自定义新的标签名和新的脚本接口。</li>
+<li>Shadow DOM，封装的DOM子树，更可靠的用户界面元素组成。</li>
+<li>Imports，定义Templates、Decorators和Custom Elements如何作为资源打包加载。</li>
+</ul>
+</li>
+<li>基于Javascript的组件开发: 随着Javascript引擎对于js的解析速度越来越快，类似于Famo.us这样的公司在寻找直接通过JS来构建整个页面的可能性。DOM层扁平化、RenderTree、Physics Animation Engine、Integrated with DOM, Canvas and WebGL, Cross Platform等特性都为这种开发模式带来了生机。由于本文主要是针对Web Component，这里不详细展开。</li>
+</ul>
+<h3 id="Dingo">Dingo</h3><h4 id="Dingo是什么呢？">Dingo是什么呢？</h4><p>Dingo实际上是一个基于Web Component的代码编辑和页面预览的组件（原型和样式风格来自于Famous的代码编辑器）。</p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Dingo/">Dingo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Polymer/">Polymer</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Web-Components/">Web Components</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2015/05/20/dingo/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -444,6 +519,182 @@
 
 
   
+    <article id="post-nodejs-learn-note" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/03/27/nodejs-learn-note/" class="article-date">
+  	<time datetime="2015-03-27T00:00:00.000Z" itemprop="datePublished">2015-03-27</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/03/27/nodejs-learn-note/">Nodejs 学习笔记</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="The_Web_World_is_Changing">The Web World is Changing</h2><ul>
+<li>实时web应用的需求急剧增加</li>
+<li>用户体验变得越来越重要</li>
+<li>需求频繁，敏捷响应变化，更多的前后端沟通与协作</li>
+<li>富客户端应用的产生与发展</li>
+<li>越来越的工具和组件来帮助规范前端开发流程及提高前端开发效率</li>
+</ul>
+<h2 id="What_is_Nodejs">What is Nodejs</h2><ul>
+<li>Server-side Javascript</li>
+<li>异步，事件驱动，非阻塞I/O</li>
+<li>基于 Chrome V8 Javascript 引擎</li>
+</ul>
+<h2 id="Why_Nodejs">Why Nodejs</h2><ul>
+<li>前端熟悉的语言，学习成本低</li>
+<li>都是JS，可以前后端复用</li>
+<li>采用npm进行模块管理和复用</li>
+<li>事件驱动，非阻塞适合I/O密集型业务</li>
+<li>执行速度还可以</li>
+<li>众多基于Nodejs构建的前端开发、调试、部署工具</li>
+</ul>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/笔记/">笔记</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2015/03/27/nodejs-learn-note/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-install-midway-on-windows" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/03/23/install-midway-on-windows/" class="article-date">
+  	<time datetime="2015-03-23T00:00:00.000Z" itemprop="datePublished">2015-03-23</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/03/23/install-midway-on-windows/">windows下安装和运行midway</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="前言">前言</h3><p>虽然推荐在Mac下进行基于Node的项目开发工作(很多的node模块对windows的支持并不是很友好)，但不可避免的还是存在一些小伙伴需要在Windows的开发环境下进行工作，因此还是需要解决Windows下遇到的各种问题，本文主要是安装指南以及问题和解决方案的汇总，未来也会长期维护和更新。</p>
+<h3 id="依赖环境搭建">依赖环境搭建</h3><ol>
+<li>安装Nodejs(&gt;0.11.7)</li>
+<li>安装Python(2.7.x, 目前不支持3.x.x)<pre><code>*   如果出现<span class="string">`command not found`</span>错误，则需要手动添加系统变量
+    *   在系统变量 <span class="string">`PATH`</span> 中添加 <span class="string">`C:\Python27\`
+    *   创建 `</span><span class="constant">PYTHONPATH</span><span class="string">` 中添加 `</span><span class="constant">C</span><span class="symbol">:</span>\<span class="constant">Python27</span>\<span class="string">`
+*   如果安装了多个版本的Python, 需要通过以下命令指定npm使用的python版本: `</span><span class="variable">$ </span>npm config set python <span class="constant">C</span><span class="symbol">:/Python27<span class="string">`</span></span>
+</code></pre></li>
+<li>安装Visual Studio C++ 2010/2012/2013<ol>
+<li>对于一些64位的node和原生模块，也需要安装<a href="http://www.microsoft.com/en-us/download/details.aspx?id=8279" target="_blank" rel="external">Windows 7 64-bit SDK</a></li>
+<li>如果安装失败，试着卸载之前可能安装过的 C++ 2010 x84&amp;x86 Redistributable</li>
+<li>如果64位 compilers 安装过程中失败，可能还需要安装 <a href="http://www.microsoft.com/en-us/download/details.aspx?id=4422" target="_blank" rel="external">compiler update for the Windows SDK 7.1</a></li>
+<li>安装前最好先清理一下硬盘空间，Visual Studio 2012大概需要5G空间，Visual Studio 2013大概需要8G空间。</li>
+<li>安装Visual Studio一定要耐心…周围5米内不要放置任何尖锐物品</li>
+<li>Express版本也可以，不要安装for web版，Visual Studio 2013社区版目前来看也可以。</li>
+<li>由于Visual Studio是收费软件，如果不想付费的话就选择试用，主要是用到了里面的一些编译器工具，所以即使软件过期，应该也不影响环境的搭建。(试用期还没过，仅是理论上的猜测)</li>
+</ol>
+</li>
+<li>设置msvs_version<ol>
+<li>设置安装的visual studio的版本，如果安装的是2012，则执行以下命令: <code>$ npm config set msvs_version 2012 --global</code></li>
+</ol>
+</li>
+<li>安装tnpm: <code>$ npm install -g tnpm --registry=http://registry.npm.alibaba-inc.com</code></li>
+</ol>
+<h3 id="Midway安装">Midway安装</h3><ul>
+<li>安装midway <code>$ tnpm install @ali/midway-toolkit@latest -g</code></li>
+<li>如果出现安装错误，请查看是否完成了上述所有依赖环境的搭建<ul>
+<li>出现 <code>python command not found</code>， 请检查依赖环境中<code>2</code>是否安装成功</li>
+<li>出现 <code>error MSB8007</code>，请检查依赖环境中<code>3.1</code>和<code>3.3</code>是否安装成功</li>
+<li>出现 <code>error MSB3411</code>，请检查依赖环境中<code>3</code>是否安装成功</li>
+<li>出现 <code>error MSB4019</code>，请检查64位环境下SDK是否安装及compiler是否更新。</li>
+<li>出现 <code>Cannot read property &#39;emit&#39; of null</code> 的错误，目前还木有解决，不过不影响midway的使用(有可能是Visual Studio 2013社区版导致的)</li>
+</ul>
+</li>
+</ul>
+<h3 id="Midway项目初始化">Midway项目初始化</h3><ul>
+<li>执行 <code>$ midway init my_app</code> 进行项目初始化</li>
+<li><code>$ cd my_app</code> 进入项目目录</li>
+<li><code>$ tnpm install</code> 安装项目依赖库</li>
+<li><code>$ tnpm start</code> 启动项目<ul>
+<li>项目默认监听端口为6001, 启动项目后可以通过<code>http://localhost:6001/</code>查看</li>
+<li>项目默认为开发环境(local)，如果启动的时候发现是生产环境(production)，可以通过以下命令来指定环境：<code>$ NODE_ENV=local tnpm start</code></li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/midway/">midway</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-localdb-share" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -512,6 +763,71 @@
       
         <p class="article-more-link">
           <a  href="/2015/03/20/localdb-share/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-what-is-scope" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/03/18/what-is-scope/" class="article-date">
+  	<time datetime="2015-03-18T00:00:00.000Z" itemprop="datePublished">2015-03-18</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/03/18/what-is-scope/">什么是Javascript中的Scope？</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>几乎有所程序语言都具备的特性就是：使用变量来存储、遍历和修改值。但是我们通常没有思考过以下这些问题：</p>
+<ul>
+<li>变量存储在哪里？</li>
+<li>当程序需要的时候，变量是如何被寻找到的？</li>
+</ul>
+<p>实际上，在设计语言的过程中，为了解决以上的问题，需要定义很多的规则，我们将这些制定和执行这些规则的部分统一起来成为域(Scope)。</p>
+<p>一直以来，JavaScript被定义为动态、解释型语言，实际上他是一门编译型语言，只不过与传统的编译型语言相比，JS的编译并不是很完整，并且编译的结果可以运行在很多不同的环境中。即使如此，与传统编译型语言相比，JS引擎仍然使用很多复杂的方式来达到许多相同的编译过程。</p>
+<p>传统编译型语言在执行程序前主要进行以下是哪个步骤：</p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scope/">scope</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2015/03/18/what-is-scope/#more">more >></a>
         </p>
       
       <div class="clearfix"></div>
@@ -604,276 +920,9 @@
 
 
   
-    <article id="post-what-is-scope" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/03/12/what-is-scope/" class="article-date">
-  	<time datetime="2015-03-12T00:00:00.000Z" itemprop="datePublished">2015-03-12</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/03/12/what-is-scope/">什么是Javascript中的Scope？</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>几乎有所程序语言都具备的特性就是：使用变量来存储、遍历和修改值。但是我们通常没有思考过以下这些问题：</p>
-<ul>
-<li>变量存储在哪里？</li>
-<li>当程序需要的时候，变量是如何被寻找到的？</li>
-</ul>
-<p>实际上，在设计语言的过程中，为了解决以上的问题，需要定义很多的规则，我们将这些制定和执行这些规则的部分统一起来成为域(Scope)。</p>
-<p>一直以来，JavaScript被定义为动态、解释型语言，实际上他是一门编译型语言，只不过与传统的编译型语言相比，JS的编译并不是很完整，并且编译的结果可以运行在很多不同的环境中。即使如此，与传统编译型语言相比，JS引擎仍然使用很多复杂的方式来达到许多相同的编译过程。</p>
-<p>传统编译型语言在执行程序前主要进行以下是哪个步骤：</p>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/javascript/">javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/scope/">scope</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2015/03/12/what-is-scope/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-localdb-api-reference" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/02/20/localdb-api-reference/" class="article-date">
-  	<time datetime="2015-02-20T00:00:00.000Z" itemprop="datePublished">2015-02-20</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/02/20/localdb-api-reference/">localDB API Reference</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <figure class="highlight coffee"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### 查看浏览器对localDB的支持情况</span><br><span class="line">    @return(OBJECT): 返回一个对象，对象中包含浏览器对localStorage、sessionStorage、indexedDB的支持情况</span><br><span class="line">###</span></span><br><span class="line">result = LocalDB.support()  <span class="comment">#result: &#123;localStorage: true, sessionStorage, true, indexedDB: false&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### 创建/获取 名为dbName的db: new LocalDB(dbName, options)</span><br><span class="line"> *  @para dbName(STRING): db名</span><br><span class="line"> *  @para options(OBJECT): 可选配置项</span><br><span class="line">    *   engine: 选用的存储引擎，可选localStorage/sessionStorage, (indexedDB待实现)</span><br><span class="line">    *   size(INT): 数据库最大容量，单位是MB(<span class="doctag"><span class="keyword">TODO</span></span>)</span><br><span class="line">    *   allow(ARRAY): 支持域白名单(待讨论)</span><br><span class="line"> *  @return(OBJECT LocalDB): 返回LocalDB构造的对象，包含了具体db的所有操作。</span><br><span class="line"> *  Note: 如果该db已经存在，options配置内容失效，只是获取该db，具体更改db配置的方案需要讨论(<span class="doctag"><span class="keyword">TODO</span></span>)</span><br><span class="line">###</span></span><br><span class="line">db = <span class="keyword">new</span> LocalDB(<span class="string">'foo'</span>, &#123;</span><br><span class="line">    <span class="attribute">engine</span>: localStorage</span><br><span class="line">    <span class="attribute">size</span>: <span class="number">500</span></span><br><span class="line">    <span class="attribute">allow</span>: [<span class="string">'baidu.com'</span>, <span class="string">'pt.aliexpress.com'</span>,<span class="string">'www.qq.com'</span>]</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取该db的options配置信息</span></span><br><span class="line">options = db.options()</span><br><span class="line"></span><br><span class="line"><span class="comment">### 获取该db的所有collection</span><br><span class="line">    @return(ARRAY): 返回包含该db所有collection名的数组</span><br><span class="line">###</span></span><br><span class="line">collections = db.collections()  <span class="comment"># ['bar1','bar2','bar3']</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### 创建/获取 名为collectionName的collection: db.collection(collectionName, options)</span><br><span class="line"> *  @para collectionName(STRING): collection名</span><br><span class="line"> *  @para options(OBJECT): 可选配置项(预留)</span><br><span class="line"> *  @return(OBJECT Collection): 返回Collection构造的对象，包含了具体collection的所有操作。</span><br><span class="line"> *  Note: 如果该collection已经存在，options配置的内容失效，只是获取该collection，具体更改collection配置的方案需要讨论(<span class="doctag"><span class="keyword">TODO</span></span>)</span><br><span class="line">###</span></span><br><span class="line">collection = db.collection(<span class="string">'bar'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">### 删除db/collection</span><br><span class="line"> *  删除数据库： db.drop()</span><br><span class="line"> *  删除collection: db.drop('bar')</span><br><span class="line"> *  @para collectionName(STRING): 需要删除的collection名</span><br><span class="line"> *  @return(BOOL): 返回是否删除成功</span><br><span class="line">###</span></span><br><span class="line">db.drop(<span class="string">'bar'</span>) <span class="comment"># true / false</span></span><br><span class="line">db.drop()      <span class="comment"># true / false</span></span><br></pre></td></tr></table></figure>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/localdb/">localdb</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2015/02/20/localdb-api-reference/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-nodejs-learn-note" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/01/22/nodejs-learn-note/" class="article-date">
-  	<time datetime="2015-01-22T00:00:00.000Z" itemprop="datePublished">2015-01-22</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/01/22/nodejs-learn-note/">Nodejs 学习笔记</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="The_Web_World_is_Changing">The Web World is Changing</h2><ul>
-<li>实时web应用的需求急剧增加</li>
-<li>用户体验变得越来越重要</li>
-<li>需求频繁，敏捷响应变化，更多的前后端沟通与协作</li>
-<li>富客户端应用的产生与发展</li>
-<li>越来越的工具和组件来帮助规范前端开发流程及提高前端开发效率</li>
-</ul>
-<h2 id="What_is_Nodejs">What is Nodejs</h2><ul>
-<li>Server-side Javascript</li>
-<li>异步，事件驱动，非阻塞I/O</li>
-<li>基于 Chrome V8 Javascript 引擎</li>
-</ul>
-<h2 id="Why_Nodejs">Why Nodejs</h2><ul>
-<li>前端熟悉的语言，学习成本低</li>
-<li>都是JS，可以前后端复用</li>
-<li>采用npm进行模块管理和复用</li>
-<li>事件驱动，非阻塞适合I/O密集型业务</li>
-<li>执行速度还可以</li>
-<li>众多基于Nodejs构建的前端开发、调试、部署工具</li>
-</ul>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/笔记/">笔记</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2015/01/22/nodejs-learn-note/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-team-tool" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2014/11/04/team-tool/" class="article-date">
-  	<time datetime="2014-11-04T00:00:00.000Z" itemprop="datePublished">2014-11-04</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/11/04/team-tool/">一些实用的团队工具介绍</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="@文档撰写">@文档撰写</h1><hr>
-<h2 id="Markdown介绍">Markdown介绍</h2><p>Markdown 是一种方便记忆、书写的纯文本标记语言，用户可以使用这些标记符号以最小的输入代价生成极富表现力的文档：譬如您正在阅读的这份文档。它使用简单的符号标记不同的标题，分割不同的段落，<strong>粗体</strong> 或者 <em>斜体</em> 某些文字，更棒的是，它还可以</p>
-<ul>
-<li>书写一个 像 $E=mc^2$ 这样的 <strong>LaTeX公式</strong></li>
-</ul>
-<p>$$f(x_1,x_x,\ldots,x_n) = x_1^2 + x_2^2 + \cdots + x_n^2 $$</p>
-<ul>
-<li>高亮一段 <strong>代码</strong></li>
-</ul>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="decorator">@requires_authorization</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SomeClass</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># A comment</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'hello world'</span></span><br></pre></td></tr></table></figure>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/团队/">团队</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/工具/">工具</a></li></ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a  href="/2014/11/04/team-tool/#more">more >></a>
-        </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 </div>

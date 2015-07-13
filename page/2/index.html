@@ -105,7 +105,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/BAAS/" style="font-size: 10px;">BAAS</a> <a href="/tags/CSS/" style="font-size: 10px;">CSS</a> <a href="/tags/ECMAScript/" style="font-size: 13.33px;">ECMAScript</a> <a href="/tags/Firebase/" style="font-size: 10px;">Firebase</a> <a href="/tags/LeanCloud/" style="font-size: 10px;">LeanCloud</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/less/" style="font-size: 10px;">less</a> <a href="/tags/livepool/" style="font-size: 10px;">livepool</a> <a href="/tags/localdb/" style="font-size: 16.67px;">localdb</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/stylus/" style="font-size: 10px;">stylus</a> <a href="/tags/tianma/" style="font-size: 10px;">tianma</a> <a href="/tags/团队/" style="font-size: 10px;">团队</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/笔记/" style="font-size: 20px;">笔记</a>
+						<a href="/tags/BAAS/" style="font-size: 10px;">BAAS</a> <a href="/tags/CSS/" style="font-size: 13.33px;">CSS</a> <a href="/tags/CoffeeScript/" style="font-size: 10px;">CoffeeScript</a> <a href="/tags/Dingo/" style="font-size: 10px;">Dingo</a> <a href="/tags/ECMAScript/" style="font-size: 13.33px;">ECMAScript</a> <a href="/tags/Firebase/" style="font-size: 10px;">Firebase</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/LeanCloud/" style="font-size: 10px;">LeanCloud</a> <a href="/tags/PolySpider/" style="font-size: 10px;">PolySpider</a> <a href="/tags/Polymer/" style="font-size: 10px;">Polymer</a> <a href="/tags/Web-Components/" style="font-size: 10px;">Web Components</a> <a href="/tags/Yoeman/" style="font-size: 10px;">Yoeman</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/less/" style="font-size: 10px;">less</a> <a href="/tags/livepool/" style="font-size: 10px;">livepool</a> <a href="/tags/localdb/" style="font-size: 16.67px;">localdb</a> <a href="/tags/midway/" style="font-size: 10px;">midway</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/processing/" style="font-size: 10px;">processing</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/stylus/" style="font-size: 10px;">stylus</a> <a href="/tags/tianma/" style="font-size: 10px;">tianma</a> <a href="/tags/团队/" style="font-size: 10px;">团队</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/笔记/" style="font-size: 20px;">笔记</a>
 					</div>
 				</section>
 				
@@ -168,6 +168,210 @@
 	</div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-difference-between-p5-and-processing" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/02/24/difference-between-p5-and-processing/" class="article-date">
+  	<time datetime="2015-02-24T00:00:00.000Z" itemprop="datePublished">2015-02-24</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/02/24/difference-between-p5-and-processing/">p5.js和Processing的不同之处</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li>实际上创建sketch画板可能会有不同种的实现，而在Processing中通过<code>size()</code>函数来创建，而在p5.js为了保持使用其他元素来创建画板的可能性，使用<code>createCanvas()</code>来替代<code>size()</code>函数，并作为默认的画板。</li>
+<li><code>frameRate(num)</code> 设置了frame rate, 该函数用于改变和控制每秒显示的帧数。而在p5.js中移除了<code>frameRate</code>变量，如果想获取当前帧数，可以调用<code>frameRate()</code>函数来获得。</li>
+<li>Javascript并不总是进行同步加载，以下方案来解决这个问题：<ul>
+<li>所有的方法都有一个可选的回调函数作为传参，</li>
+<li>除此之外，也可以在<code>setup()</code>函数之前使用<code>preload()</code>函数来提前加载代码。</li>
+</ul>
+</li>
+<li><code>mousePressed</code>被<code>mouseIsPressed</code>变量代替</li>
+<li>额外增加了一些touch相关的鼠标时间，类似的映射关系如下：<ul>
+<li>mouseX ~ touchX</li>
+<li>mouseY ~ touchY</li>
+<li>mousePressed() ~ touchStarted()</li>
+<li>mouseDragged() ~ touchMoved()</li>
+<li>mouseReleased() ~ touchEnded()</li>
+<li><code>touches[]</code>数组包含了一系列包含与手指一一对应的x和y位置属性的对象。</li>
+</ul>
+</li>
+<li><code>push/popMatrix()</code> 和 <code>push/popStyle()</code>方法被<code>push()</code>和<code>pop()</code>取代。</li>
+<li>默认情况下，所有的变量会在全局作用域下。如果想使用被称之为”instance mode”的方式来创建p5画板，请参考<a href="http://p5js.org/learn/examples/Instance_Mode_Instantiation.php">instance mode example</a> 和 <a href="https://github.com/lmccart/itp-creative-js/wiki/Week-5#global-and-instance-mode">global vs instance mode tutorial</a>.</li>
+<li>p5.js并没有实现Processing中的所有特性(正在努力实现中….)，目前3D, PShape和PFont相关的内容还没有实现。可以参考<a href="http://p5js.org/reference/">reference</a>来查看最新文档中哪些特性被实现。</li>
+</ul>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/processing/">processing</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2015/02/24/difference-between-p5-and-processing/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-localdb-api-reference" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/02/20/localdb-api-reference/" class="article-date">
+  	<time datetime="2015-02-20T00:00:00.000Z" itemprop="datePublished">2015-02-20</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/02/20/localdb-api-reference/">localDB API Reference</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight coffee"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">### 查看浏览器对localDB的支持情况</span><br><span class="line">    @return(OBJECT): 返回一个对象，对象中包含浏览器对localStorage、sessionStorage、indexedDB的支持情况</span><br><span class="line">###</span></span><br><span class="line">result = LocalDB.support()  <span class="comment">#result: &#123;localStorage: true, sessionStorage, true, indexedDB: false&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### 创建/获取 名为dbName的db: new LocalDB(dbName, options)</span><br><span class="line"> *  @para dbName(STRING): db名</span><br><span class="line"> *  @para options(OBJECT): 可选配置项</span><br><span class="line">    *   engine: 选用的存储引擎，可选localStorage/sessionStorage, (indexedDB待实现)</span><br><span class="line">    *   size(INT): 数据库最大容量，单位是MB(<span class="doctag"><span class="keyword">TODO</span></span>)</span><br><span class="line">    *   allow(ARRAY): 支持域白名单(待讨论)</span><br><span class="line"> *  @return(OBJECT LocalDB): 返回LocalDB构造的对象，包含了具体db的所有操作。</span><br><span class="line"> *  Note: 如果该db已经存在，options配置内容失效，只是获取该db，具体更改db配置的方案需要讨论(<span class="doctag"><span class="keyword">TODO</span></span>)</span><br><span class="line">###</span></span><br><span class="line">db = <span class="keyword">new</span> LocalDB(<span class="string">'foo'</span>, &#123;</span><br><span class="line">    <span class="attribute">engine</span>: localStorage</span><br><span class="line">    <span class="attribute">size</span>: <span class="number">500</span></span><br><span class="line">    <span class="attribute">allow</span>: [<span class="string">'baidu.com'</span>, <span class="string">'pt.aliexpress.com'</span>,<span class="string">'www.qq.com'</span>]</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 获取该db的options配置信息</span></span><br><span class="line">options = db.options()</span><br><span class="line"></span><br><span class="line"><span class="comment">### 获取该db的所有collection</span><br><span class="line">    @return(ARRAY): 返回包含该db所有collection名的数组</span><br><span class="line">###</span></span><br><span class="line">collections = db.collections()  <span class="comment"># ['bar1','bar2','bar3']</span></span><br><span class="line"></span><br><span class="line"><span class="comment">### 创建/获取 名为collectionName的collection: db.collection(collectionName, options)</span><br><span class="line"> *  @para collectionName(STRING): collection名</span><br><span class="line"> *  @para options(OBJECT): 可选配置项(预留)</span><br><span class="line"> *  @return(OBJECT Collection): 返回Collection构造的对象，包含了具体collection的所有操作。</span><br><span class="line"> *  Note: 如果该collection已经存在，options配置的内容失效，只是获取该collection，具体更改collection配置的方案需要讨论(<span class="doctag"><span class="keyword">TODO</span></span>)</span><br><span class="line">###</span></span><br><span class="line">collection = db.collection(<span class="string">'bar'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">### 删除db/collection</span><br><span class="line"> *  删除数据库： db.drop()</span><br><span class="line"> *  删除collection: db.drop('bar')</span><br><span class="line"> *  @para collectionName(STRING): 需要删除的collection名</span><br><span class="line"> *  @return(BOOL): 返回是否删除成功</span><br><span class="line">###</span></span><br><span class="line">db.drop(<span class="string">'bar'</span>) <span class="comment"># true / false</span></span><br><span class="line">db.drop()      <span class="comment"># true / false</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/localdb/">localdb</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2015/02/20/localdb-api-reference/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-team-tool" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2014/11/04/team-tool/" class="article-date">
+  	<time datetime="2014-11-04T00:00:00.000Z" itemprop="datePublished">2014-11-04</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/11/04/team-tool/">一些实用的团队工具介绍</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="@文档撰写">@文档撰写</h1><hr>
+<h2 id="Markdown介绍">Markdown介绍</h2><p>Markdown 是一种方便记忆、书写的纯文本标记语言，用户可以使用这些标记符号以最小的输入代价生成极富表现力的文档：譬如您正在阅读的这份文档。它使用简单的符号标记不同的标题，分割不同的段落，<strong>粗体</strong> 或者 <em>斜体</em> 某些文字，更棒的是，它还可以</p>
+<ul>
+<li>书写一个 像 $E=mc^2$ 这样的 <strong>LaTeX公式</strong></li>
+</ul>
+<p>$$f(x_1,x_x,\ldots,x_n) = x_1^2 + x_2^2 + \cdots + x_n^2 $$</p>
+<ul>
+<li>高亮一段 <strong>代码</strong></li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="decorator">@requires_authorization</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">SomeClass</span>:</span></span><br><span class="line">    <span class="keyword">pass</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">'__main__'</span>:</span><br><span class="line">    <span class="comment"># A comment</span></span><br><span class="line">    <span class="keyword">print</span> <span class="string">'hello world'</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/团队/">团队</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/工具/">工具</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2014/11/04/team-tool/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
   
     <article id="post-css-learning-note" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -364,9 +568,274 @@
 
 
   
+    <article id="post-yoeman-simple-guide" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2014/05/12/yoeman-simple-guide/" class="article-date">
+  	<time datetime="2014-05-12T00:00:00.000Z" itemprop="datePublished">2014-05-12</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/05/12/yoeman-simple-guide/">Yoeman Simple Guide</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Intro">Intro</h2><p>Yoeman是一个帮助开发者快速构建一个完整前端项目的工具。俗话说万事开头难，Yoeman可以帮助开发者把开头的事情都做好，让开发者专注于业务逻辑的实现，而非项目本身的搭建过程。</p>
+<p>Yoeman里面实际上细分成了三个模块</p>
+<ul>
+<li><code>yo</code>: Yeoman的项目框架搭建工具</li>
+<li><code>bower</code>: 包管理工具</li>
+<li><code>grunt</code>: 构建工具</li>
+</ul>
+<p>这三个模块相互独立，由不同的社区进行开发和维护，他们协同工作，使得构建一个完整项目变得简单而又自动化。</p>
+<h2 id="Installation">Installation</h2><p>需要通过<code>npm</code>来安装该工具，而<code>npm</code>是<code>Node.js</code>的包管理工具。安装好<code>Node.js</code>后回自动集成<code>npm</code>。<code>Node.js</code>的安装非常简单，直接查看<a href="http://nodejs.org/">官网</a>进行安装。</p>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Yoeman/">Yoeman</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2014/05/12/yoeman-simple-guide/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-coffee-learn" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2014/04/19/coffee-learn/" class="article-date">
+  	<time datetime="2014-04-19T00:00:00.000Z" itemprop="datePublished">2014-04-19</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/04/19/coffee-learn/">CoffeeScript 学习笔记</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 赋值:</span></span><br><span class="line">number   = <span class="number">42</span></span><br><span class="line">opposite = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 函数:</span></span><br><span class="line"><span class="function"><span class="title">square</span> = <span class="params">(x)</span> -&gt;</span> x * x</span><br><span class="line"><span class="function"><span class="title">cube</span>   = <span class="params">(x)</span> -&gt;</span> square(x) * x</span><br><span class="line"><span class="function"><span class="title">fill</span> = <span class="params">(container, liquid = <span class="string">"coffee"</span>)</span> -&gt;</span> <span class="string">"Filling the <span class="subst">#&#123;container&#125;</span> with <span class="subst">#&#123;liquid&#125;</span>..."</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 数组:</span></span><br><span class="line">list = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</span><br><span class="line">song = [<span class="string">"do"</span>, <span class="string">"re"</span>, <span class="string">"mi"</span>, <span class="string">"fa"</span>, <span class="string">"so"</span>]</span><br><span class="line">singers = &#123;<span class="attribute">Jagger</span>: <span class="string">"Rock"</span>, <span class="attribute">Elvis</span>: <span class="string">"Roll"</span>&#125;</span><br><span class="line">singers_same = <span class="attribute">Jagger</span>: <span class="string">"Rock"</span>, <span class="attribute">Elvis</span>: <span class="string">"Roll"</span></span><br><span class="line">singers_same_2 = </span><br><span class="line">    <span class="attribute">Jagger</span>: <span class="string">"Rock"</span></span><br><span class="line">    <span class="attribute">Elvis</span>: <span class="string">"Roll"</span></span><br><span class="line">bitlist = [</span><br><span class="line">  <span class="number">1</span>, <span class="number">0</span>, <span class="number">1</span></span><br><span class="line">  <span class="number">0</span>, <span class="number">0</span>, <span class="number">1</span></span><br><span class="line">  <span class="number">1</span>, <span class="number">1</span>, <span class="number">0</span></span><br><span class="line">]</span><br><span class="line">kids =</span><br><span class="line">  <span class="attribute">brother</span>:</span><br><span class="line">    <span class="attribute">name</span>: <span class="string">"Max"</span></span><br><span class="line">    <span class="attribute">age</span>:  <span class="number">11</span></span><br><span class="line">  <span class="attribute">sister</span>:</span><br><span class="line">    <span class="attribute">name</span>: <span class="string">"Ida"</span></span><br><span class="line">    <span class="attribute">age</span>:  <span class="number">9</span></span><br><span class="line"><span class="built_in">console</span>.log kids.brother.name  <span class="comment">#Ida</span></span><br><span class="line"></span><br><span class="line">numbers = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>, <span class="number">8</span>, <span class="number">9</span>]</span><br><span class="line">start   = numbers[<span class="number">0.</span>.<span class="number">2</span>]         <span class="comment">#[1，2，3]</span></span><br><span class="line">middle  = numbers[<span class="number">3.</span>..-<span class="number">2</span>]       <span class="comment">#[4,5,6,7]</span></span><br><span class="line">middle2 = numbers[<span class="number">3.</span>.-<span class="number">2</span>]        <span class="comment">#[4,5,6,7,8]</span></span><br><span class="line">end     = numbers[-<span class="number">2.</span>.]         <span class="comment">#[8,9]</span></span><br><span class="line">copy    = numbers[..]           <span class="comment">#[1,2,3,4,5,6,7,8,9]</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 对象:</span></span><br><span class="line">math =</span><br><span class="line">  <span class="attribute">root</span>:   Math.sqrt</span><br><span class="line">  <span class="attribute">square</span>: square</span><br><span class="line">  <span class="attribute">cube</span>:   <span class="function"><span class="params">(x)</span> -&gt;</span> x * square x</span><br><span class="line"></span><br><span class="line"><span class="comment"># 多参数输入:</span></span><br><span class="line"><span class="function"><span class="title">race</span> = <span class="params">(winner, runners...)</span> -&gt;</span></span><br><span class="line">  <span class="built_in">console</span>.log winner, runners</span><br><span class="line"></span><br><span class="line"><span class="comment"># 条件:</span></span><br><span class="line">number = -<span class="number">42</span> <span class="keyword">if</span> opposite</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> happy <span class="keyword">and</span> knowsIt</span><br><span class="line">  clapsHands()</span><br><span class="line">  chaChaCha()</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  showIt()</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log date = <span class="keyword">if</span> friday <span class="keyword">then</span> sue <span class="keyword">else</span> jill</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log <span class="string">"I knew it!"</span> <span class="keyword">if</span> elvis? <span class="comment"># 存在性验证:</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#循环</span></span><br><span class="line"><span class="built_in">console</span>.log val, index <span class="keyword">for</span> val, index <span class="keyword">in</span> some_list</span><br><span class="line"><span class="built_in">console</span>.log val <span class="keyword">for</span> val <span class="keyword">in</span> some_list</span><br><span class="line"><span class="built_in">console</span>.log val <span class="keyword">for</span> val <span class="keyword">in</span> some_list <span class="keyword">when</span> val <span class="keyword">is</span>/<span class="keyword">isnt</span> some_value</span><br><span class="line"></span><br><span class="line">yearsOld = <span class="attribute">max</span>: <span class="number">10</span>, <span class="attribute">ida</span>: <span class="number">9</span>, <span class="attribute">tim</span>: <span class="number">11</span></span><br><span class="line">ages = <span class="keyword">for</span> child, age <span class="keyword">of</span> yearsOld</span><br><span class="line">  <span class="string">"<span class="subst">#&#123;child&#125;</span> is <span class="subst">#&#123;age&#125;</span>"</span></span><br><span class="line"><span class="built_in">console</span>.log ages</span><br><span class="line"><span class="comment">#['max is 10', 'ida is 9', 'tim is 11']</span></span><br><span class="line"><span class="built_in">console</span>.log ages2 = <span class="string">"<span class="subst">#&#123;child&#125;</span> is <span class="subst">#&#123;age&#125;</span>"</span> <span class="keyword">for</span> child, age <span class="keyword">of</span> yearsOld</span><br><span class="line"><span class="comment">#max ia 10</span></span><br><span class="line"><span class="comment">#ida is 9</span></span><br><span class="line"><span class="comment">#tim is 11</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># While | Until</span></span><br><span class="line"><span class="keyword">if</span> <span class="keyword">this</span>.studyingEconomics</span><br><span class="line">  buy()  <span class="keyword">while</span> supply &gt; demand</span><br><span class="line">  sell() <span class="keyword">until</span> supply &gt; demand</span><br><span class="line"></span><br><span class="line">num = <span class="number">6</span></span><br><span class="line">lyrics = <span class="keyword">while</span> num -= <span class="number">1</span></span><br><span class="line">  <span class="string">"<span class="subst">#&#123;num&#125;</span> little monkeys, jumping on the bed.</span><br><span class="line">    One fell out and bumped his head."</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># do用来动态执行函数</span></span><br><span class="line"><span class="keyword">for</span> filename <span class="keyword">in</span> list</span><br><span class="line">  <span class="keyword">do</span> (filename) -&gt;</span><br><span class="line">    fs.readFile filename, <span class="function"><span class="params">(err, contents)</span> -&gt;</span></span><br><span class="line">      compile filename, contents.toString()</span><br><span class="line"></span><br><span class="line"><span class="comment"># return</span></span><br><span class="line"><span class="comment"># 如果在函数中没有return语句，CoffeeScript会根据不同分支自动寻找最后一个变量值并返回。</span></span><br><span class="line"><span class="function"><span class="title">grade</span> = <span class="params">(student)</span> -&gt;</span></span><br><span class="line">  <span class="keyword">if</span> student.excellentWork</span><br><span class="line">    <span class="string">"A+"</span></span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> student.okayStuff</span><br><span class="line">    <span class="keyword">if</span> student.triedHard <span class="keyword">then</span> <span class="string">"B"</span> <span class="keyword">else</span> <span class="string">"B-"</span></span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    <span class="string">"C"</span></span><br><span class="line">eldest = <span class="keyword">if</span> <span class="number">24</span> &gt; <span class="number">21</span> <span class="keyword">then</span> <span class="string">"Liz"</span> <span class="keyword">else</span> <span class="string">"Ike"</span> <span class="comment">#Liz</span></span><br><span class="line"><span class="built_in">console</span>.log six = (one = <span class="number">1</span>) + (two = <span class="number">2</span>) + (three = <span class="number">3</span>) <span class="comment">#6</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#运算符</span></span><br><span class="line">CoffeeScript        JavaScript</span><br><span class="line"><span class="keyword">is</span>                  ===</span><br><span class="line"><span class="keyword">isnt</span>                !==</span><br><span class="line"><span class="keyword">not</span>                 !</span><br><span class="line"><span class="keyword">and</span>                 &amp;&amp;</span><br><span class="line"><span class="keyword">or</span>                  ||</span><br><span class="line"><span class="literal">true</span>, <span class="literal">yes</span>, <span class="literal">on</span>       <span class="literal">true</span></span><br><span class="line"><span class="literal">false</span>, <span class="literal">no</span>, <span class="literal">off</span>      <span class="literal">false</span></span><br><span class="line">@, <span class="keyword">this</span>             <span class="keyword">this</span></span><br><span class="line"><span class="keyword">of</span>                  <span class="keyword">in</span></span><br><span class="line"><span class="keyword">in</span>                  <span class="literal">no</span> JS equivalent</span><br><span class="line">a ** b              Math.pow(a, b)</span><br><span class="line">a <span class="regexp">//</span> b              Math.floor(a / b)</span><br><span class="line">a %% b              (a % b + b) % b</span><br><span class="line">a ?= <span class="number">15</span>             <span class="keyword">if</span> (a == <span class="literal">null</span>) &#123;a = <span class="number">15</span>;&#125;</span><br><span class="line">a = b ? <span class="string">"c"</span>         a = <span class="keyword">typeof</span> b !== <span class="string">"undefined"</span> &amp;&amp; b !== <span class="literal">null</span> ? b : <span class="string">"c"</span>;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CoffeeScript/">CoffeeScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/笔记/">笔记</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-css3-learn-note" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2014/03/09/css3-learn-note/" class="article-date">
+  	<time datetime="2014-03-09T00:00:00.000Z" itemprop="datePublished">2014-03-09</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/03/09/css3-learn-note/">CSS 学习笔记</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1-_css3新增选择器">1. css3新增选择器</h3><p>后代级别选择器：</p>
+<ul>
+<li>element element:选择<div>元素内部的所有<p>元素，div p</li>
+<li>element&gt;element:选择父元素为<div>元素的所有<p>元素，div&gt;p</li>
+<li>:only-child:匹配属于父元素中唯一的<p>元素，p:only-child</li>
+<li>:nth-child(n):匹配父元素中的第2个<p>子元素（n可以是数字、关键词，odd和even是可用于匹配下标是奇数或偶数的子元素的关键词），p:nth-child(2)</li>
+<li>:nth-last-child(n):匹配父元素中的倒数第2个<p>子元素，p:nth-last-child(2)</li>
+<li>:first-child:选择属于父元素的第一个子元素的每个<p>元素，p:first-child</li>
+<li>:last-child:选择属于父元素的最后一个子元素的每个<p>元素，p:last-child</li>
+<li>:root:选择文档的根元素，:root</li>
+<li>:empty:选择没有子元素的每个<p>元素（包括文本节点），p:empty</li>
+</ul>
+<p>辈级别选择器：</p>
+<ul>
+<li>element+element:选择紧接在<div>元素之后的所有<p>元素，div+p</li>
+<li>element1~element2:选择前面有<p>元素的每个<ul>元素，<p>~<ul></li>
+<li>:first-of-type:匹配同级兄弟元素中的第一个<p>元素，p:first-of-type</li>
+<li>:last-of-type:匹配同级兄弟元素中的最后一个<p>元素，p:last-of-type</li>
+<li>:only-of-type:匹配属于同类型中只有唯一兄弟元素的<p>，p:only-of-type</li>
+<li>:nth-of-type(n):匹配同类型中的第n个同级兄弟元素<p>（n可以是数字、关键词，odd和even是可用于匹配下标是奇数或偶数的子元素的关键词）,p:nth-of-type</li>
+<li>:nth-last-of-type(n):匹配同类型中的倒数第n个同级兄弟元素<p>，nth-last-of-type(n)</li>
+</ul>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/笔记/">笔记</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2014/03/09/css3-learn-note/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
+    <article id="post-javascript-learn-note" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2014/02/02/javascript-learn-note/" class="article-date">
+  	<time datetime="2014-02-02T00:00:00.000Z" itemprop="datePublished">2014-02-02</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/02/02/javascript-learn-note/">Javascript 学习笔记</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="创建Object实例">创建Object实例</h2><ol>
+<li>使用new操作符后跟Object构造函数</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> persion = <span class="keyword">new</span> <span class="built_in">Object</span>()</span><br><span class="line">persion.name = <span class="string">"Eric"</span></span><br><span class="line">persion.age = <span class="number">27</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li><strong>对象字面量</strong>表示法</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> persion = &#123;</span><br><span class="line">    name : <span class="string">"Eric"</span>,</span><br><span class="line">    age: <span class="number">27</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Javascript/">Javascript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/笔记/">笔记</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a  href="/2014/02/02/javascript-learn-note/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
     </nav>
   
 </div>
