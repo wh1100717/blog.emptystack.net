@@ -29,7 +29,7 @@ Stylus将颜色转换为hsl进行计算。如果为数值类型计算公式为`l
 
 ###Less
 
-```less
+```stylus
 hsl(0deg, 0%, 17%)          // #2b2b2b
 lighten(#2b2b2b, 10%)       // #454545
 hsl(0deg, 0%, 27%)          // $454545
