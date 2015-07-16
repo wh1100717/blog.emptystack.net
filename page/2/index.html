@@ -105,7 +105,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/BAAS/" style="font-size: 10px;">BAAS</a> <a href="/tags/CSS/" style="font-size: 13.33px;">CSS</a> <a href="/tags/Codeforces/" style="font-size: 16.67px;">Codeforces</a> <a href="/tags/CoffeeScript/" style="font-size: 10px;">CoffeeScript</a> <a href="/tags/Dingo/" style="font-size: 10px;">Dingo</a> <a href="/tags/ECMAScript/" style="font-size: 13.33px;">ECMAScript</a> <a href="/tags/Firebase/" style="font-size: 10px;">Firebase</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/LeanCloud/" style="font-size: 10px;">LeanCloud</a> <a href="/tags/PolySpider/" style="font-size: 10px;">PolySpider</a> <a href="/tags/Polymer/" style="font-size: 10px;">Polymer</a> <a href="/tags/Web-Components/" style="font-size: 10px;">Web Components</a> <a href="/tags/Yoeman/" style="font-size: 10px;">Yoeman</a> <a href="/tags/javascript/" style="font-size: 10px;">javascript</a> <a href="/tags/less/" style="font-size: 10px;">less</a> <a href="/tags/livepool/" style="font-size: 10px;">livepool</a> <a href="/tags/localdb/" style="font-size: 16.67px;">localdb</a> <a href="/tags/midway/" style="font-size: 10px;">midway</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/processing/" style="font-size: 10px;">processing</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/stylus/" style="font-size: 10px;">stylus</a> <a href="/tags/tianma/" style="font-size: 10px;">tianma</a> <a href="/tags/团队/" style="font-size: 10px;">团队</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/笔记/" style="font-size: 20px;">笔记</a> <a href="/tags/算法/" style="font-size: 10px;">算法</a>
+						<a href="/tags/BAAS/" style="font-size: 10px;">BAAS</a> <a href="/tags/BaiduMap/" style="font-size: 10px;">BaiduMap</a> <a href="/tags/CSS/" style="font-size: 13.33px;">CSS</a> <a href="/tags/Codeforces/" style="font-size: 16.67px;">Codeforces</a> <a href="/tags/CoffeeScript/" style="font-size: 10px;">CoffeeScript</a> <a href="/tags/Dingo/" style="font-size: 10px;">Dingo</a> <a href="/tags/ECMAScript/" style="font-size: 13.33px;">ECMAScript</a> <a href="/tags/Firebase/" style="font-size: 10px;">Firebase</a> <a href="/tags/Javascript/" style="font-size: 10px;">Javascript</a> <a href="/tags/LeanCloud/" style="font-size: 10px;">LeanCloud</a> <a href="/tags/PolySpider/" style="font-size: 10px;">PolySpider</a> <a href="/tags/Polymer/" style="font-size: 10px;">Polymer</a> <a href="/tags/Web-Components/" style="font-size: 10px;">Web Components</a> <a href="/tags/Yoeman/" style="font-size: 10px;">Yoeman</a> <a href="/tags/coffee/" style="font-size: 10px;">coffee</a> <a href="/tags/javascript/" style="font-size: 13.33px;">javascript</a> <a href="/tags/less/" style="font-size: 10px;">less</a> <a href="/tags/livepool/" style="font-size: 10px;">livepool</a> <a href="/tags/localdb/" style="font-size: 16.67px;">localdb</a> <a href="/tags/midway/" style="font-size: 10px;">midway</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/processing/" style="font-size: 10px;">processing</a> <a href="/tags/python/" style="font-size: 13.33px;">python</a> <a href="/tags/scope/" style="font-size: 10px;">scope</a> <a href="/tags/stylus/" style="font-size: 10px;">stylus</a> <a href="/tags/tianma/" style="font-size: 10px;">tianma</a> <a href="/tags/团队/" style="font-size: 10px;">团队</a> <a href="/tags/工具/" style="font-size: 10px;">工具</a> <a href="/tags/笔记/" style="font-size: 20px;">笔记</a> <a href="/tags/算法/" style="font-size: 13.33px;">算法</a>
 					</div>
 				</section>
 				
@@ -568,6 +568,66 @@
 
 
   
+    <article id="post-baidu-map-converter" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2014/06/09/baidu-map-converter/" class="article-date">
+  	<time datetime="2014-06-09T00:00:00.000Z" itemprop="datePublished">2014-06-09</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/06/09/baidu-map-converter/">转换百度地图页面中ajax获取的坐标为实际坐标</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>直接查看百度地图地区查询获取的地区坐标格式如下：</p>
+<figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml"><span class="comment">&lt;!-- http://api.map.baidu.com/?qt=s&amp;c=131&amp;wd=%E6%95%85%E5%AE%AB&amp;rn=10&amp;ie=utf-8&amp;oue=1&amp;res=api&amp;callback=BMap._rd._cbk95582 --&gt;</span></span><br><span class="line"></span><br><span class="line">"point": </span><span class="expression">&#123;</span><br><span class="line">    <span class="string">"x"</span>: 12958151<span class="variable">.</span>62,</span><br><span class="line">    <span class="string">"y"</span>: 4826636<span class="variable">.</span>87</span><br><span class="line">&#125;</span><span class="xml"></span></span><br></pre></td></tr></table></figure>
+<p>而实际上百度最终显示的坐标为格式为：<code>116.402915,39.927494</code></p>
+<p>具体的转换代码如下：</p>
+<figure class="highlight coffee"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">ConvertPoint</span> = <span class="params">(lng, lat)</span> -&gt;</span></span><br><span class="line">    <span class="property">@lng</span> = lng</span><br><span class="line">    <span class="property">@lat</span> = lat</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line"></span><br><span class="line">ConvertPoint.prototype = &#123;</span><br><span class="line">    <span class="attribute">EARTHRADIUS</span>: <span class="number">6370996.81</span></span><br><span class="line">    <span class="attribute">MCBAND</span>: [<span class="number">12890594.86</span>, <span class="number">8362377.87</span>, <span class="number">5591021</span>, <span class="number">3481989.83</span>, <span class="number">1678043.12</span>, <span class="number">0</span>]</span><br><span class="line">    <span class="attribute">LLBAND</span>: [<span class="number">75</span>, <span class="number">60</span>, <span class="number">45</span>, <span class="number">30</span>, <span class="number">15</span>, <span class="number">0</span>]</span><br><span class="line">    <span class="attribute">MC2LL</span>: [[<span class="number">1.410526172116255e-8</span>, <span class="number">0.00000898305509648872</span>, -<span class="number">1.9939833816331</span>, <span class="number">200.9824383106796</span>, -<span class="number">187.2403703815547</span>, <span class="number">91.6087516669843</span>, -<span class="number">23.38765649603339</span>, <span class="number">2.57121317296198</span>, -<span class="number">0.03801003308653</span>, <span class="number">17337981.2</span>], [ - <span class="number">7.435856389565537e-9</span>, <span class="number">0.000008983055097726239</span>, -<span class="number">0.78625201886289</span>, <span class="number">96.32687599759846</span>, -<span class="number">1.85204757529826</span>, -<span class="number">59.36935905485877</span>, <span class="number">47.40033549296737</span>, -<span class="number">16.50741931063887</span>, <span class="number">2.28786674699375</span>, <span class="number">10260144.86</span>], [ - <span class="number">3.030883460898826e-8</span>, <span class="number">0.00000898305509983578</span>, <span class="number">0.30071316287616</span>, <span class="number">59.74293618442277</span>, <span class="number">7.357984074871</span>, -<span class="number">25.38371002664745</span>, <span class="number">13.45380521110908</span>, -<span class="number">3.29883767235584</span>, <span class="number">0.32710905363475</span>, <span class="number">6856817.37</span>], [ - <span class="number">1.981981304930552e-8</span>, <span class="number">0.000008983055099779535</span>, <span class="number">0.03278182852591</span>, <span class="number">40.31678527705744</span>, <span class="number">0.65659298677277</span>, -<span class="number">4.44255534477492</span>, <span class="number">0.85341911805263</span>, <span class="number">0.12923347998204</span>, -<span class="number">0.04625736007561</span>, <span class="number">4482777.06</span>], [<span class="number">3.09191371068437e-9</span>, <span class="number">0.000008983055096812155</span>, <span class="number">0.00006995724062</span>, <span class="number">23.10934304144901</span>, -<span class="number">0.00023663490511</span>, -<span class="number">0.6321817810242</span>, -<span class="number">0.00663494467273</span>, <span class="number">0.03430082397953</span>, -<span class="number">0.00466043876332</span>, <span class="number">2555164.4</span>], [<span class="number">2.890871144776878e-9</span>, <span class="number">0.000008983055095805407</span>, -<span class="number">3.068298e-8</span>, <span class="number">7.47137025468032</span>, -<span class="number">0.00000353937994</span>, -<span class="number">0.02145144861037</span>, -<span class="number">0.00001234426596</span>, <span class="number">0.00010322952773</span>, -<span class="number">0.00000323890364</span>, <span class="number">826088.5</span>]]</span><br><span class="line">    <span class="attribute">LL2MC</span>: [[ - <span class="number">0.0015702102444</span>, <span class="number">111320.7020616939</span>, <span class="number">1704480524535203</span>, -<span class="number">10338987376042340</span>, <span class="number">26112667856603880</span>, -<span class="number">35149669176653700</span>, <span class="number">26595700718403920</span>, -<span class="number">10725012454188240</span>, <span class="number">1800819912950474</span>, <span class="number">82.5</span>], [<span class="number">0.0008277824516172526</span>, <span class="number">111320.7020463578</span>, <span class="number">647795574.6671607</span>, -<span class="number">4082003173.641316</span>, <span class="number">10774905663.51142</span>, -<span class="number">15171875531.51559</span>, <span class="number">12053065338.62167</span>, -<span class="number">5124939663.577472</span>, <span class="number">913311935.9512032</span>, <span class="number">67.5</span>], [<span class="number">0.00337398766765</span>, <span class="number">111320.7020202162</span>, <span class="number">4481351.045890365</span>, -<span class="number">23393751.19931662</span>, <span class="number">79682215.47186455</span>, -<span class="number">115964993.2797253</span>, <span class="number">97236711.15602145</span>, -<span class="number">43661946.33752821</span>, <span class="number">8477230.501135234</span>, <span class="number">52.5</span>], [<span class="number">0.00220636496208</span>, <span class="number">111320.7020209128</span>, <span class="number">51751.86112841131</span>, <span class="number">3796837.749470245</span>, <span class="number">992013.7397791013</span>, -<span class="number">1221952.21711287</span>, <span class="number">1340652.697009075</span>, -<span class="number">620943.6990984312</span>, <span class="number">144416.9293806241</span>, <span class="number">37.5</span>], [ - <span class="number">0.0003441963504368392</span>, <span class="number">111320.7020576856</span>, <span class="number">278.2353980772752</span>, <span class="number">2485758.690035394</span>, <span class="number">6070.750963243378</span>, <span class="number">54821.18345352118</span>, <span class="number">9540.606633304236</span>, -<span class="number">2710.55326746645</span>, <span class="number">1405.483844121726</span>, <span class="number">22.5</span>], [ - <span class="number">0.0003218135878613132</span>, <span class="number">111320.7020701615</span>, <span class="number">0.00369383431289</span>, <span class="number">823725.6402795718</span>, <span class="number">0.46104986909093</span>, <span class="number">2351.343141331292</span>, <span class="number">1.58060784298199</span>, <span class="number">8.77738589078284</span>, <span class="number">0.37238884252424</span>, <span class="number">7.45</span>]]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">ConvertPoint.prototype.convertMC2LL = <span class="function">-&gt;</span></span><br><span class="line">    lat = Math.abs(<span class="property">@lat</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">0.</span>..<span class="property">@MCBAND</span>.length] <span class="keyword">when</span> lat &gt;= <span class="property">@MCBAND</span>[i]</span><br><span class="line">        cF = <span class="property">@MC2LL</span>[i]</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    point = <span class="keyword">this</span>.convertor(cF)</span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="attribute">lng</span>:point.lng.toFixed(<span class="number">6</span>), <span class="attribute">lat</span>:point.lat.toFixed(<span class="number">6</span>)&#125;</span><br><span class="line"></span><br><span class="line">ConvertPoint.prototype.convertLL2MC = <span class="function">-&gt;</span></span><br><span class="line">    lng = <span class="property">@getLoop</span>(<span class="property">@lng</span>, -<span class="number">180</span>, <span class="number">180</span>)</span><br><span class="line">    lat = <span class="property">@getRange</span>(<span class="property">@lat</span>, -<span class="number">74</span>, <span class="number">74</span>)</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> [<span class="number">0.</span>..<span class="property">@LLBAND</span>.length] <span class="keyword">when</span> lat &gt;= <span class="property">@LLBAND</span>[i]</span><br><span class="line">        cF = <span class="property">@LL2MC</span>[i]</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> cF</span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> [length - <span class="number">1.</span>.<span class="number">0</span>] <span class="keyword">when</span> lat &lt;= -<span class="property">@LLBAND</span>[i]</span><br><span class="line">            cF = <span class="property">@LL2MC</span>[i]</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">    point = <span class="keyword">this</span>.convertor(cF)</span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="attribute">lng</span>:point.lng.toFixed(<span class="number">2</span>), <span class="attribute">lat</span>:point.lat.toFixed(<span class="number">2</span>)&#125;</span><br><span class="line"></span><br><span class="line">ConvertPoint.prototype.convertor = <span class="function"><span class="params">(cF)</span> -&gt;</span></span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">if</span> <span class="keyword">not</span> cF</span><br><span class="line">    lng = cF[<span class="number">0</span>] + cF[<span class="number">1</span>] * Math.abs(<span class="property">@lng</span>)</span><br><span class="line">    cC = Math.abs(<span class="property">@lat</span>) / cF[<span class="number">9</span>]</span><br><span class="line">    lat = cF[<span class="number">2</span>] + cF[<span class="number">3</span>] * cC + cF[<span class="number">4</span>] * cC * cC + cF[<span class="number">5</span>] * cC * cC * cC + cF[<span class="number">6</span>] * cC * cC * cC * cC + cF[<span class="number">7</span>] * cC * cC * cC * cC * cC + cF[<span class="number">8</span>] * cC * cC * cC * cC * cC * cC</span><br><span class="line">    lng *= <span class="keyword">if</span> <span class="keyword">this</span>.lng &lt; <span class="number">0</span> <span class="keyword">then</span> -<span class="number">1</span> <span class="keyword">else</span> <span class="number">1</span></span><br><span class="line">    lat *= <span class="keyword">if</span> <span class="keyword">this</span>.lat &lt;<span class="number">0</span> <span class="keyword">then</span> -<span class="number">1</span> <span class="keyword">else</span> <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="attribute">lng</span>:lng, <span class="attribute">lat</span>:lat&#125;</span><br><span class="line"></span><br><span class="line">ConvertPoint.prototype.getRange = <span class="function"><span class="params">(a, b, c)</span> -&gt;</span> Math.min c, Math.max(a, b)</span><br><span class="line"></span><br><span class="line">ConvertPoint.prototype.getLoop = <span class="function"><span class="params">(a, b, c)</span> -&gt;</span></span><br><span class="line">    a -= c - b <span class="keyword">while</span> a &gt; c</span><br><span class="line">    a += c - b <span class="keyword">while</span> a &lt; b</span><br><span class="line">    <span class="keyword">return</span> a</span><br><span class="line"></span><br><span class="line">root = exports ? <span class="built_in">window</span></span><br><span class="line">root.ConvertPoint = ConvertPoint</span><br></pre></td></tr></table></figure>
+<p>项目地址为：<a href="https://github.com/wh1100717/BaiduMapPointConverter" target="_blank" rel="external">https://github.com/wh1100717/BaiduMapPointConverter</a></p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BaiduMap/">BaiduMap</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/coffee/">coffee</a></li></ul>
+	</div>
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+  
     <article id="post-yoeman-simple-guide" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -753,66 +813,6 @@
         <p class="article-more-link">
           <a  href="/2014/03/09/css3-learn-note/#more">more >></a>
         </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-  
-    <article id="post-libai-drink" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2014/03/04/libai-drink/" class="article-date">
-  	<time datetime="2014-03-04T00:00:00.000Z" itemprop="datePublished">2014-03-04</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/03/04/libai-drink/">李白喝酒问题的算法</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>原题地址：<a href="http://segmentfault.com/q/1010000000443863/a-1020000000444266" target="_blank" rel="external">http://segmentfault.com/q/1010000000443863/a-1020000000444266</a></p>
-<p>SegmentFault遇到的李白喝酒问题的算法问题。</p>
-<blockquote>
-<p>题目：李白街上走，提壶去买酒，遇店加一倍，见花喝一斗”，途中，遇见5次店，见了10此花，壶中原有2斗酒，最后刚好喝完酒，要求最后遇见的是花，求可能的情况有多少种？</p>
-</blockquote>
-<p>题解：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">w</span><span class="params">(f,d,h)</span>:</span> <span class="keyword">return</span> (<span class="number">1</span> <span class="keyword">if</span> f==h <span class="keyword">else</span> <span class="number">0</span>) <span class="keyword">if</span> d==<span class="number">0</span> <span class="keyword">else</span> (<span class="number">0</span> <span class="keyword">if</span> f*h==<span class="number">0</span> <span class="keyword">or</span> f&gt;h <span class="keyword">else</span> w(f*<span class="number">2</span>, d-<span class="number">1</span>, h)+w(f-<span class="number">1</span>, d, h-<span class="number">1</span>))</span><br></pre></td></tr></table></figure>
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/算法/">算法</a></li></ul>
-	</div>
-
-      
-
       
       <div class="clearfix"></div>
     </div>
