@@ -25,6 +25,8 @@ tags:
 *   `vim /usr/bin/yum`
 *   change the first line code `#!/usr/bin/python` to `#!/usr/bin/python2.6.6`
 
+<!-- more -->
+
 ###setuptools and pip installation
     # Download the installation file using wget:
     wget --no-check-certificate https://pypi.python.org/packages/source/s/setuptools/setuptools-1.4.2.tar.gz
